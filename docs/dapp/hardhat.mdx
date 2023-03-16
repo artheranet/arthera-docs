@@ -1,0 +1,31 @@
+---
+sidebar_position: 3
+title: "Configure HardHat"
+description: Learn how to configure HardHat for Arthera
+---
+
+[**Hardhat**](https://hardhat.org/) is a popular development framework for Solidity smart contracts.
+To work with a local Arthera node or with the Arthera TestNet, HardHat needs to know how to connect to the respective network.
+Add the following snippet in the `networks` section of the `hardhat.config.js` file. (if the `networks` section does
+not exist, you can add it)
+
+```json
+...
+networks: {
+  ...
+  arthera-local: {
+    url: 'http://localhost:18545',
+    chainId: 10244,
+    accounts: [
+      "163f5f0f9a621d72fedd85ffca3d08d131ab4e812181e0d30ffd1c885d20aac7"
+    ]
+  },
+  arthera-testnet: {
+    url: 'https://rpc-test.arthera.net',
+    chainId: 10243,
+    accounts: []
+  }
+}
+```
+
+Now you can run your HardHat scripts with `npx hardhat run scripts/<YOUR_SCRIPT> --network arthera-testnet`
