@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Arthera Resources',
-  tagline: 'Next-gen L1 blockchain',
+  tagline: 'Building the next decentralized economy',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -77,12 +77,6 @@ const config = {
           },
           {
             type: "doc",
-            docId: "user/intro",
-            position: "left",
-            label: "For Users",
-          },
-          {
-            type: "doc",
             docId: "dapp/intro",
             position: "left",
             label: "For Developers",
@@ -110,7 +104,7 @@ const config = {
       },
       announcementBar: {
         id: "support_us",
-        content: `Arthera is currently running a TestNet only`,
+        content: `Arthera is currently running in TestNet`,
         backgroundColor: "rgb(8 53 117)",
         textColor: "white",
         isCloseable: true,

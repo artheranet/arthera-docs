@@ -17,8 +17,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/dapps/intro">
-              Intro for Developers
+            to="/intro/">
+              What is Arthera ?
           </Link>
         </div>
       </div>
