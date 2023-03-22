@@ -3,26 +3,113 @@ sidebar_position: 2
 title: Subscriptions
 description: Learn about Arthera subscriptions
 ---
+import {Alert} from "@mui/material";
+
 Subscription business models are based on the idea of selling a product or service to receive monthly or yearly recurring subscription revenue.
 They focus on customer retention over customer acquisition. In essence, subscription business models focus on the way revenue is made so that
 a single customer pays multiple payments for prolonged access to a service instead of a large upfront one-time price.
 
-The economy is trending toward more subscriptions instead of ownership for cars, software, entertainment, and shopping.
-This increases the lifetime value (LTV) of the customer.
+The economy is trending toward more subscriptions instead of ownership for cars, software, entertainment, and shopping, increasing the lifetime value (LTV) of the customer.
 
-Software as a Service (SaaS) is a software licensing and delivery model in which software is licensed on a subscription basis.
-SaaS apps are typically accessed by users of a web browser (a thin client) and it quickly became the preferred business model for all tech startups.
+Subscriptions are the enabler for the Software as a Service (SaaS) licensing and delivery model, where a piece of software is licensed on a subscription basis.
+SaaS apps are typically accessed by users of a web browser (a thin client) or mobile app, and quickly became the preferred business model for all tech startups.
 
-The current Web 3.0 environment make subscriptions difficult to implement without relying on a central authority,
-because smart contracts don't have the ability to schedule execution in an automated way. This is intentional and by design.
+**In Arthera, subscriptions are built into the core protocol** and they determine how gas is being spent by an account (EOA or Contract).
 
-## The Arthera model
-Arthera is implementing several changes to the gas fee system. Arthera users can have their gas fees waived by having an active subscription or using a DApp that has an active subscription.
-These subscriptions are built into the core protocol. To fully comprehend how they function, we must first define two types of users:
+## Subscription Plans
+Subscriptions are always based on a Subscription Plan that defines the terms and conditions of the subscription:
+- if it's an EOA or a Contract plan
+- the subscription period in days
+- the number of gas units included
+- the price in USD
+- a hourly/daily cap of gas that can be consumed
 
-- **Subscribers** These users pay in advance at regular intervals (monthly, quarterly, yearly, etc.) and use the blockchain without any fees within the bounds of their subscription plan. There are two types of subscribers:
-    - _DApps_ These users can waive gas fees for their customers, providing them with flexible, recurring revenue models that do not rely on cryptocurrency
-    - _End-Users_ These users do not wish to be concerned with owning cryptocurrency or paying gas fees.
-- **Pay-as-You-Go** These users and DApps function in the conventional way, using cryptocurrency to pay for gas fees for each transaction. In Arthera, Pay-as-You-Go gas fees are also allocated to DApps, incentivizing the entire ecosystem, not just validators.
+Each Subscription Plan has a unique identifier in the network. The initial plans will be proposed by Arthera and will change
+over time using governance.
+
+The hourly/daily cap was introduced as a rate-limit to prevent gas hogging. When the cap is reached, the subscriber needs to wait
+for the cap to reset in order to use the subscription again. If the cap is maxed out, the account will work in a Pay-as-You-Go mode,
+paying gas fees for each transaction, similar to traditional blockchains.
 
 
+## Subscriptions
+An account in Arthera can have a _single_ subscription. The subscription can be cancelled, renewed, upgraded, downgraded, traded and rented.
+It has the following attributes:
+- an owner (EOA or Contract account)
+- the current subscription plan
+- the balance, initially set to number of gas units in the active plan
+- when the subscription started
+- when the subscription will end
+
+Subscriptions are optional and an account that doesn't have an active subscription will work in Pay-as-You-Go mode,
+paying gas fees for each transaction, similar to traditional blockchains.
+
+Upon purchase, the subscription becomes immediately _active_ and will stay that way as long as:
+- its balance is positive
+- its end date is after the current block time
+
+If any of the above two conditions are not met anymore, the subscription becomes _inactive_. An inactive subscription
+can be renewed anytime, topping up its balance and end date.
+
+If an account cancels or transfers the subscription to another account, the account will no longer have a subscription.
+
+Arthera has two types of accounts: Externally Owned Accounts (EOAs) and Contract Accounts (DApps).
+Subscriptions work differently for each type.
+
+### EOA Subscriptions
+Externally Owned Account (EOA) subscriptions are also called _User subscriptions_ because users own EOAs.
+An EOA is an account controlled by anyone that holds the private keys for the account.
+It has the following distinctive features:
+- it doesn't cost anything to create
+- it can initiate transactions
+- transactions between EOAs only be AA/Token/NFT transfers
+- gas fees are always paid by EOA that originated the transaction
+- is made up of a cryptographic pair of keys: public and private keys that control account activities
+
+If an EOA has an active subscription, gas fees will be deducted from the subscription balance.
+If the subscription becomes inactive, the EOA will work in Pay-as-You-Go mode.
+
+<Alert severity='warning'>
+    When sending transactions from an EOA to a Contract account that has an <i>inactive subscription</i>, the EOA will be
+    charged in Pay-as-You-Go mode, even if the EOA has an active subscription.<br/><br/>
+    The EOA's subscription only works with Contract accounts that have <i>no subscription (never purchased a subscription)</i>.<br/><br/>
+    This is intentional because EOA subscriptions should not supersede a DApp subscription. Once a DApp get a subscription, it's the DApp's
+    responsibility to manage the experience for their users.
+</Alert>
+
+EOA subscriptions were designed for Arthera end-users that don't want to worry about gas fees and want to have a predictable monthly cost.
+EOA subscriptions are priced in USD and their price can be changed only through governance.
+
+For the time being, the starting point is the **1$ EOA monthly subscription** which gives an EOA enough gas fees to:
+- make 30 AA transfers
+- makr 30 ERC20 token transfers
+- make 30 ERC721 token transfer
+- make 30 ERC1155 token transfers
+
+That's a pretty good deal for 1$/month.
+
+### Contract subscriptions
+A Contract account is a smart contract deployed to the network that is controlled by code. It has the following distinctive features:
+- creating (deploying) a contract has a cost because you're using network storage
+- running contract code has a cost because you're using network CPU and memory
+- can only send transactions in response to receiving a transaction
+- transactions from an EOA to a contract account can trigger code which can execute many actions, such as transferring tokens or even creating a new contract.
+- gas fees are paid either by the EOA that originated the transaction or by the contract itself if it has an active subscription
+- doesn't have private keys. Instead, it is controlled by the logic of the smart contract code
+
+Contract subscriptions work differently than EOA subscriptions. A Contract subscription is meant to waive gas fees for EOAs that send transactions to the contract account.
+This has major implications, because the cost of transactions is moved from the EOA to the contract.
+
+As long as the contract has an active subscription, EOAs that transact with the contract don't pay anything.
+In layman terms, this means that an EOA can work with a DApp without owning AA, opening up an entire range of use-cases for DApps and end-users.
+
+A DApp can choose to charge its users in a different way, using any payment method: fiat money, cards or give access to its services for free.
+Contract subscriptions can also be packed in bundles by resellers, offering access to a range of services using competitive pricing.
+
+DApp subscription plans work in tiers of discounts, with gas prices being cheaper for larger amounts of units purchased.
+
+## Caps
+Certain subscription plans might impose hourly or daily usage caps to prevent malicious behavior. Caps are set in number of gas units allowed to be consumed
+in a time frame and work like a rate-limiter. When the cap is reached for a subscription, the subscriber will be switched to Pay-as-You-Go until the cap is reset.
+
+Cap windows are measured using block times, to be consistent across the network.
