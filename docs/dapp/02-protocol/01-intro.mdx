@@ -1,0 +1,35 @@
+---
+title: "Arthera Protocol"
+---
+
+Introduction to the Arthera protocol, its implementation details, and the relationship to Ethereum.
+
+## What is the Arthera Protocol?
+Arthera's blockchain is a DAG-based blockchain that is fully EVM-compatible. Its implementation started from go-ethereum,
+the Go implementation of the Ethereum protocol, but with a different consensus engine and operating model,
+aimed at high transaction volumes, fast confirmation times and low gas fees.
+
+The protocol is designed to go live in two stages:
+- **Stage 1**: the Beacon chain based on a leaderless, scalable, asynchronous BFT that uses DAG streams.
+The purpose of the Beacon chain is to kickstart the ecosystem.
+- **Stage 2**: the Final chain that will use a proprietary DAG-based mempool and zero-message consensus.
+When Stage 2 will go live, Arthera will be able to scale with no limits due to changes in the node's architecture and
+EVM parallelization features, achieving record TPS numbers and fast block finality.
+
+The protocol
+In addition to the blockchain node, some core components of the protocol are implemented in smart contract level
+and even off-chain (e.g. price oracles or phone number verification via SMS).
+
+
+## Proof of Stake for Stage 1
+Arthera's proof-of-stake consensus is the set of processes that determine which nodes become validators and how
+incentives are distributed to secure the network.
+
+AA coins will have multiple uses in the Arthera ecosystem, one of these being the right to stake and delegate them to
+validators. When staking or delegating AA coins a user’s weight will be determined not only by the number of AA coins held,
+but also by the gas spend within a 30-day period.
+
+Validator nodes are responsible for generating and validating blocks. In return they will receive block rewards
+and a percentage of transaction fees and subscription fees. Based on their performance and reputation, validator nodes
+are assigned a score. They are incentivized to act in accordance with the network because they are subject to
+penalization (slashing) if they behave maliciously.
