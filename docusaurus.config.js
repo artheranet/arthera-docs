@@ -9,6 +9,7 @@ const config = {
   title: 'Arthera Resources',
   tagline: 'Building the next decentralized economy',
   favicon: 'img/favicon.ico',
+  noIndex: true,
 
   // Set the production url of your site here
   url: 'https://docs.arthera.net',
