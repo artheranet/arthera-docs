@@ -1,0 +1,68 @@
+---
+title: "Proof of Stake"
+---
+
+Arthera's proof-of-stake consensus is the set of processes that determine which nodes become validators and how
+incentives are distributed to secure the network.
+
+Validator nodes are responsible for generating and validating blocks. In return they will receive block rewards
+and a percentage of transaction fees and subscription fees. Based on their performance and reputation, validator nodes
+are assigned a score. They are incentivized to act in accordance with the network because they are subject to
+penalization (slashing) if they behave maliciously.
+
+## Staking and Delegation
+Users will be able delegate a portion of their tokens to validating nodes. Validators will not be able to spend
+delegated tokens, which will remain secured in the user’s own address. Validators will receive a fixed proportion
+of the validator fees attributable to delegators.  They will therefore compete based on their performance and not on fees.
+Higher performing node, with more reliable uptimes, will earn higher returns. Delegators will be incentivised to choose
+nodes that have a high validator score, i.e. are reliable and high performing.
+
+
+## Validator Rewards
+A validator's reward is weighted by 2 independent numbers:
+- `transactions reward weight`: share of transaction fees the validator will receive at the end of epoch.
+- `base reward weight`: share of base reward (newly minted coins) the validator will receive at the end of epoch.
+
+Reward weights are calculated at the end of each epoch using the formulas below:
+- `transactions reward weight = originated fee * uptime`
+- `base reward weight = stake * (uptime ^ 2)`
+
+where:
+- `stake` is the sum of delegations to validator (including validator's self-delegation)
+- `uptime` is the total number of nanoseconds the validator was online in the epoch. It's also called the validation score.
+- `originated fee` is the total fees of transactions that the validator originated in the epoch ("originated" means "included into event"). It's also called origination score.
+
+A list of properties which may be concluded from formulas:
+- `originated fee` may be roughly estimated as `stake share * uptime * network fee per nanosecond`.
+If we substitute estimation into transactions reward weight formula, then we'll get
+`(stake share * uptime * network fee per nanosecond) * uptime`.
+- `uptime` influences the reward in a non-linear way. If a validator has 50% uptime in epoch, he'll
+receive approx. 4 times smaller rewards in that epoch.
+- `stake` influences base reward linearly, and influences transactions reward weight linearly on average.
+
+## Rewards distribution
+Validator rewards are split in three parts:
+- `base rewards`, calculated as `epoch duration in second * base reward per second`, are inflationary rewards given
+by the protocol to hones validators, proportional to their `base reward weight`
+- `transaction rewards` are rewards from transaction fees. The protocol burns 30% of transaction fees.
+70% of burnt fees plus 70% of the remaining total transaction fees are distributed to validators according
+to their `transactions reward weight`
+- `subscription rewards` are rewards from subscription fees. All subscription fees in an epoch are distributed
+to validators according to their `transactions reward weight`
+
+Delegators receive rewards according to their stake and will pay a 15% commission to the validator for their rewards.
+
+### Downtime
+Downtime is calculated as a difference time of `last block-time of last block where validator had at least 1 event`.
+Downtime has 2 numbers: `number of missed blocks` and `time of missed blocks`. If validator missed not more than 50 blocks,
+then downtime should be interpreted as 0, because it may be possible that validator has a right to emit events slower
+than other validators.
+Uptime in an epoch is calculated differently. It's reset to 0 every epoch, and during processing of i'th block,
+uptime is incremented by `block[i].time-block[i - min(number of missed blocks, 50)].time`.
+
+According to the formulas above, missing of no more than 50 blocks in a raw doesn't affect uptime.
+
+If validator has downtime >= 72 hours (but not less than 1000 blocks), then he's permanently pruned from
+validators list. In this case, validator and delegators have to withdraw their stake via the Staking contract using
+the withdrawal procedure.
+

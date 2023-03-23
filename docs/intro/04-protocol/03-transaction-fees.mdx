@@ -1,14 +1,8 @@
 ---
-sidebar_position: 3
-title: Pay-as-You-Go
-description: Learn about the Pay-as-You-Go model
+title: Transaction Fees
 ---
-
-The Pay-as-You-Go mode is the standard operating mode of Arthera for accounts that don't have an active subscription or for which
-their subscription reached its cap.
-
-Every transaction will incur gas costs for the sender, which means the sender needs to have a positive balance of AA in his wallet,
-otherwise the transaction will be reverted.
+Each transaction on Artera requires a transaction fee paid to the network in order to prevent spam attacks.
+The fee is paid in Arhtera's native token AA.
 
 ## Gas Price
 Arthera follows the traditional model where gas price is adjusted based on network congestion.
@@ -33,8 +27,6 @@ To mitigate gas price volatility, Arthera has a custom version of EIP-1559 that 
 a maximum allowable Gas consumption of 10 Million gas units/second at moments of high network congestion.
 As a consequence, users no longer need to overbid on gas prices when submitting a transaction.
 
-## Gas fee rebates
-Every contract account on Arthera can opt-in for gas-fee rebates by registering their address and a fee receiver account
-in a special system contract.
-
-The registered fee receiver **will get 10% of the gas fees** spent by EOAs that send transactions to the registered contract account.
+## Rewards distribution
+30% of transaction fees are burned. The remaining 70% of transaction fees are distributed between validators
+proportional to their transactions reward weight.

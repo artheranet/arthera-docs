@@ -16,20 +16,17 @@ The purpose of the Beacon chain is to kickstart the ecosystem.
 When Stage 2 will go live, Arthera will be able to scale with no limits due to changes in the node's architecture and
 EVM parallelization features, achieving record TPS numbers and fast block finality.
 
-The protocol
 In addition to the blockchain node, some core components of the protocol are implemented in smart contract level
 and even off-chain (e.g. price oracles or phone number verification via SMS).
 
 
-## Proof of Stake for Stage 1
-Arthera's proof-of-stake consensus is the set of processes that determine which nodes become validators and how
-incentives are distributed to secure the network.
+### Epochs
+The protocol is organized in Epochs comprised of a number of (finalized) blocks. Each epoch is sealed when one of
+the below conditions is satisfied:
 
-AA coins will have multiple uses in the Arthera ecosystem, one of these being the right to stake and delegate them to
-validators. When staking or delegating AA coins a user’s weight will be determined not only by the number of AA coins held,
-but also by the gas spend within a 30-day period.
+- a maximum threshold of gas power was spent
+- the epoch's duration is finished
+- at least one dishonest validator is confirmed in the current block
+- on-request
 
-Validator nodes are responsible for generating and validating blocks. In return they will receive block rewards
-and a percentage of transaction fees and subscription fees. Based on their performance and reputation, validator nodes
-are assigned a score. They are incentivized to act in accordance with the network because they are subject to
-penalization (slashing) if they behave maliciously.
+The lowest possible epoch number is 1.
