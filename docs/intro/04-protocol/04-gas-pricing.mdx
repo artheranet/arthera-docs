@@ -1,0 +1,25 @@
+---
+title: Gas Pricing
+---
+Arthera follows the traditional model where gas price is adjusted based on network congestion.
+Gas price is represented in Gwei, where 1 Gwei = 0.000000001 AA.
+
+Different types of transactions have different gas limits depending on their complexity;
+a simple AA transfer, for example, costs less in Gas than executing a complicated smart contract transaction.
+
+While the amount of Gas required for a transaction, remains constant, the Gas price is dynamic and is adjusted automatically
+according to network congestion.
+
+To understand how prices fluctuate, consider that:
+- there is a base fee for transactions which is the minimum for every transaction
+- the average gas spent per second over periods of time is monitored by the protocol. When network traffic increases,
+the system increases the base fee to reflect the new demand.
+
+Every EVM blockchain needs to throttle Gas supply by increasing gas prices. Consider that a new node that has to
+sync with the entire chain. If the chain grows at maximum speed, syncing will never complete since the chain will
+grow faster than a node can sync. Raising prices normalizes network traffic by lowering demand.
+
+To mitigate gas price volatility, Arthera uses a custom gas market based on EIP-1559 that includes a fee balancer and
+a maximum allowable Gas consumption of 10 Million gas units/second at moments of high network congestion.
+As a consequence, users no longer need to overbid on gas prices when submitting a transaction.
+

@@ -17,7 +17,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/intro/">
+            to="/intro/intro">
               What is Arthera ?
           </Link>
         </div>

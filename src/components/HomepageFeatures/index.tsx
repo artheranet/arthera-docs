@@ -12,28 +12,6 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
     {
-        title: 'What is Arthera ?',
-        link: '/intro',
-        Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-        description: (
-            <>
-                Arthera is not just a super-fast blockchain, it's a new concept of decentralized economy designed to
-                bring blockchain technology closer to users and businesses across the world.
-            </>
-        ),
-    },
-    {
-        title: 'Are you a typical user ?',
-        link: '/user/intro',
-        Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-        description: (
-            <>
-                Learn how to perform basic tasks in the Arthera Network like sending coins and tokens, purchasing a
-                subscription and interact with DApps.
-            </>
-        ),
-    },
-    {
         title: 'Are you a developer ?',
         link: '/dapp/intro',
         Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
@@ -48,7 +26,7 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({title, link, Svg, description}: FeatureItem) {
     return (
-        <div className={clsx('col col--4')}>
+        <div className={clsx('col col--12')}>
             <div className="text--center">
                 <Link href={link}>
                     <Svg className={styles.featureSvg} role="img"/>
