@@ -66,3 +66,17 @@ If validator has downtime >= 72 hours (but not less than 1000 blocks), then he's
 validators list. In this case, validator and delegators have to withdraw their stake via the Staking contract using
 the withdrawal procedure.
 
+
+## Locking stake
+Validators and delegators can choose to lock their stake for a longer duration to get higher rewards.
+The reward for a _non-locked stake_ is set at `baseRate = 30%` from the full reward for a _locked stake_.
+
+The lockup duration proportionally increases the rate of rewards, according to the formula below.
+Assuming `fullReward` is the maximum reward for a _locked stake_, the formula is:
+
+`reward = fullReward * (baseRate + (1 - baseRate) * lockupDuration / Staking.maxLockupDuration())`
+
+A delegator can choose to unlock a locked stake prematurely, before the lockup period expires. In this case, a penalty
+will be applied using the formula:
+
+`(base rate = 30%) / 2 + lockup rate` of rewards received for epochs during the lockup period

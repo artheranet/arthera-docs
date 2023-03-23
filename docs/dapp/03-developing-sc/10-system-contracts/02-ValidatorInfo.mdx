@@ -1,0 +1,50 @@
+---
+title: ValidatorInfo
+---
+import {Alert} from "@mui/material";
+
+Arthera has a number of system contracts that perform various protocol-level tasks. The choice to decouple some
+functionality form the main blockchain node to system contract is related to upgradeability.
+All System Contracts are upgradeble through a governance process, so if a vote is cast through governance
+to change the price of subscription plans or staking rewards, a new version of the respective contracts will be deployed
+without having validators upgrade their software or restart their node.
+
+<Alert severity='info'>
+    Available on all Arthera networks at address: <strong>0x000000000000000000000000000000000000Aa05</strong>
+</Alert>
+<br/>
+
+This contract is responsible for keeping a mapping between validator addresses and a validator JSON info file with
+additional information about the validator. The JSON file needs to be publicly available at an URl and has the
+following format:
+
+```json
+{
+  "name": "demo validator",
+  "logoUrl": "https://imgur.net/validator_logo.png",
+  "website": "https://validator.website",
+  "contact": "contact@validator.website"
+}
+```
+
+You can use the [Arthera's public validator registry](https://github.com/artheranet/validator-registry) to publish
+your JSON file in Arthera's validator registry repository.
+
+
+### getInfo()
+**Returns** `string` - the URL of the JSON file for the provided validator.
+
+**Method parameters:**
+- `uint256 validatorID` the id of the validator
+
+
+### setInfo()
+Sets the JSON info file URL for the sender. The sender needs to be a registered validator, otherwise the transaction
+will be reverted with an error.
+
+**Method parameters:**
+- `msg.sender` - the validator's registered address
+- `string configUrl` the URL of the JSON info file
+
+**Emits**
+- `event InfoUpdated(uint256 validatorID)`
