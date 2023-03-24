@@ -59,15 +59,30 @@ Create a new subscription for an EOA account. The account must not have a previo
 
 ### newContractSubscription()
 Create a new subscription for an Contract account. The account must not have a previously created subscription.
-A Contract subscription must have an EOA owner that can manage the subscription and the contract must comply
-with the following interface:
+A Contract subscription must have an EOA owner that can manage the subscription and must inherit
+from `@arthera/subscription/ISubscriptionOwner` and `@openzeppelin/contracts/utils/introspection/ERC165.sol` and
+add the following imports and methods to its code:
 
 ```solidity
-interface ISubscriptionOwner {
-    // returns an EOA account that owns the contract subscription
-    function getSubscriptionOwner() external view returns (address);
+import "@arthera/subscription/ISubscriptionOwner.sol";
+import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+
+/// ... contract code ....
+
+function getSubscriptionOwner() external view returns (address) {
+    return address_of_subscription_owner;
 }
+
+function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC165)
+    returns (bool)
+    {
+        return interfaceId == type(ISubscriptionOwner).interfaceId || super.supportsInterface(interfaceId);
+    }
 ```
+
 
 **Method parameters:**
 - `msg.sender` subscription owner
@@ -135,7 +150,7 @@ Terminates a subscription immediately and burns the NFT. No refunds are made.
 **Method parameters:**
 - `address subscriber` the subscriber to query
 
-### getSubscription()
+### getSubscriptionData()
 **Returns** `Subscription` - subscription data
 
 ```solidity
@@ -158,7 +173,7 @@ struct Subscription {
 **Method parameters:**
 - `address subscriber` the subscriber to query
 
-### getSubscriptionId()
+### getSubscriptionTokenId()
 **Returns** `uint256` - gets the ERC721 token id of the subscription or 2^256-1 if none
 
 **Method parameters:**
