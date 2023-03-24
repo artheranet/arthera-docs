@@ -14,3 +14,152 @@ without having validators upgrade their software or restart their node.
 </Alert>
 <br/>
 
+This contract is responsible for keeping track of subscription plans and subscriptions. A subscription is an ERC721
+transferable NFT. Each time an account subscribes to a plan, 1 subscription NFT is minted to the subscriber account.
+If a user terminates his subscription, the NFT is burned.
+
+### createPlan()
+Creates a new subscription plan with an optional usage cap.
+
+**Method parameters:**
+- `uint256 duration` duration in days
+- `uint256 units` number of gas units
+- `uint256 usdPrice` price in USD cents
+- `CapFrequency capFrequency` the type of cap: 0=None, 1=Hourly, 2=Daily
+- `uint256 capUnits` number of gas units allowed in the cap window
+- `bool dapp` if the plan is for DApps
+
+**Emits**
+- `event PlanCreated(uint256 planId, uint256 duration, uint256 units, uint256 price, CapFrequency capFrequency, uint256 capUnits, bool dapp)`
+
+### updatePlan()
+Updates a plan with new data. It does not update existing active subscriptions, which will keep running based on the old plan values.
+The updated values will be taken into account when a subscription is created or renewed.
+
+**Method parameters:**
+- `uint256 planId` id of the plan
+- `uint256 duration` duration in days
+- `uint256 units` number of gas units
+- `uint256 usdPrice` price in USD cents
+- `CapFrequency capFrequency` the type of cap: 0=None, 1=Hourly, 2=Daily
+- `uint256 capUnits` number of gas units allowed in the cap window
+
+**Emits**
+- `event PlanUpdated(uint256 planId, uint256 duration, uint256 units, uint256 price, CapFrequency capFrequency, uint256 capUnits)`
+
+### newEOASubscription()
+Create a new subscription for an EOA account. The account must not have a previously created subscription.
+
+**Method parameters:**
+- `msg.sender` subscription owner (must be an EOA account)
+- `uint256 planId` id of the plan to subscribe to
+
+**Emits**
+- `event NewSubscription(uint256 id, uint256 planId, uint256 startTime, uint256 endTime, uint256 balance)`
+
+### newContractSubscription()
+Create a new subscription for an Contract account. The account must not have a previously created subscription.
+A Contract subscription must have an EOA owner that can manage the subscription and the contract must comply
+with the following interface:
+
+```solidity
+interface ISubscriptionOwner {
+    // returns an EOA account that owns the contract subscription
+    function getSubscriptionOwner() external view returns (address);
+}
+```
+
+**Method parameters:**
+- `msg.sender` subscription owner
+- `address _contract` address of the contract account
+- `uint256 planId` id of the plan to subscribe to
+
+**Emits**
+- `event NewSubscription(uint256 id, uint256 planId, uint256 startTime, uint256 endTime, uint256 balance)`
+
+### renewSubscription()
+Renews a subscription and resets all caps. The subscription's balance will be topped up with the number of units in the plan,
+and the end date will be extended with the plan's duration, starting from the current block's timestamp.
+
+**Method parameters:**
+- `msg.sender` subscription owner
+
+**Emits**
+- `event RenewSubscription(uint256 id, uint256 planId, uint256 startTime, uint256 endTime, uint256 balance)`
+
+### terminateSubscription()
+Terminates a subscription immediately and burns the NFT. No refunds are made.
+
+**Method parameters:**
+- `msg.sender` subscription owner
+
+**Emits**
+- `event TerminateSubscription(uint256 id)`
+
+### getCapRemaining()
+**Returns** `uint256` - gas units available in the current cap window
+
+**Method parameters:**
+- `address subscriber` the subscriber to query
+
+### getCapWindow()
+**Returns** `uint256` - the end time of the current cap window in unix epoch seconds
+
+**Method parameters:**
+- `address subscriber` the subscriber to query
+
+### getBalance()
+**Returns** `uint256` - gas units left in the subscription
+
+**Method parameters:**
+- `address subscriber` the subscriber to query
+
+### getStartTime()
+**Returns** `uint256` - start date of the subscription in unix epoch seconds
+
+**Method parameters:**
+- `address subscriber` the subscriber to query
+
+### getEndTime()
+**Returns** `uint256` - start date of the subscription in unix epoch seconds
+
+**Method parameters:**
+- `address subscriber` the subscriber to query
+
+### hasActiveSubscription()
+**Returns** `uint256` - if the subscriber has an active subscription
+
+### hasSubscription()
+**Returns** `uint256` - if the subscriber has a subscription (active or inactive)
+
+**Method parameters:**
+- `address subscriber` the subscriber to query
+
+### getSubscription()
+**Returns** `Subscription` - subscription data
+
+```solidity
+struct Subscription {
+    uint256 id;
+    uint256 planId;
+    // remaining gas unit balance
+    uint256 balance;
+    // when the subscription was started
+    uint256 startTime;
+    // when the subscription will end
+    uint256 endTime;
+    // when the subscription was last used (debit/credit)
+    uint256 lastCapReset;
+    // accumulate usage for the plan's capFrequency
+    uint256 periodUsage;
+}
+```
+
+**Method parameters:**
+- `address subscriber` the subscriber to query
+
+### getSubscriptionId()
+**Returns** `uint256` - gets the ERC721 token id of the subscription or 2^256-1 if none
+
+**Method parameters:**
+- `address subscriber` the subscriber to query

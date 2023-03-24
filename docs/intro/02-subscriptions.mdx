@@ -40,6 +40,9 @@ It has the following attributes:
 - when the subscription started
 - when the subscription will end
 
+**Subscriptions are also ERC721-compatible tokens (NFTs)** and they can be transferred between accounts, as long as the account does not have more
+than **one** subscription.
+
 Subscriptions are optional and an account that doesn't have an active subscription will work in Pay-as-You-Go mode,
 paying gas fees for each transaction, similar to traditional blockchains.
 
@@ -75,6 +78,7 @@ If the subscription becomes inactive, the EOA will work in Pay-as-You-Go mode.
     This is intentional because EOA subscriptions should not supersede a DApp subscription. Once a DApp get a subscription, it's the DApp's
     responsibility to manage the experience for their users.
 </Alert>
+<br/>
 
 EOA subscriptions were designed for Arthera end-users that don't want to worry about gas fees and want to have a predictable monthly cost.
 EOA subscriptions are priced in USD and their price can be changed only through governance.
