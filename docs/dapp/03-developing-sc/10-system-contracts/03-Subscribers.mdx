@@ -111,6 +111,33 @@ Terminates a subscription immediately and burns the NFT. No refunds are made.
 **Emits**
 - `event TerminateSubscription(uint256 id)`
 
+### whitelistAccount()
+Whitelists the provided account to consume from the contract account subscription.
+
+**Method parameters:**
+- `msg.sender` subscription owner
+- `address account` subscription owner
+
+**Emits**
+- `event WhitelistContractAccountSubscriber(uint256 id, address account)`
+
+### blacklistAccount()
+Blacklists the provided account to prevent consuming from the contract account subscription.
+
+**Method parameters:**
+- `msg.sender` subscription owner
+- `address account` subscription owner
+
+**Emits**
+- `event BlacklistContractAccountSubscriber(uint256 id, address account)`
+
+### isWhitelisted()
+**Returns** `bool` - if the account is whitelisted for the provided contract account
+
+**Method parameters:**
+- `address subscriber` the contract account
+- `address account` the account to query
+
 ### getCapRemaining()
 **Returns** `uint256` - gas units available in the current cap window
 
