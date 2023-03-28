@@ -100,10 +100,11 @@ A Contract account is a smart contract deployed to the network that is controlle
 - gas fees are paid either by the EOA that originated the transaction or by the contract itself if it has an active subscription
 - doesn't have private keys. Instead, it is controlled by the logic of the smart contract code
 
-Contract subscriptions work differently than EOA subscriptions. A Contract subscription is meant to waive gas fees for EOAs that send transactions to the contract account.
+Contract subscriptions work differently than EOA subscriptions. A Contract subscription is meant to waive gas fees for EOAs that send transactions to the contract account
+if the EOA is whitelisted to use the contract's subscription.
 This has major implications, because the cost of transactions is moved from the EOA to the contract.
 
-As long as the contract has an active subscription, EOAs that transact with the contract don't pay anything.
+As long as the contract has an active subscription, and an EOA is whitelisted to use the contract's subscription, the EOA that transacts with the contract doesn't pay anything.
 In layman terms, this means that an EOA can work with a DApp without owning AA, opening up an entire range of use-cases for DApps and end-users.
 
 A DApp can choose to charge its users in a different way, using any payment method: fiat money, cards or give access to its services for free.

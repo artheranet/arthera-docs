@@ -1,3 +1,61 @@
 ---
 title: Subscriptions
 ---
+A Contract (DApp) subscription is meant to waive gas fees for EOAs that send transactions to the contract account
+if the EOA is whitelisted to use the contract's subscription.
+
+A DApp can choose to charge its users in a different way, using any payment method: fiat money, cards or give access to its services for free.
+Contract subscriptions can also be packed in bundles by resellers, offering access to a range of services using competitive pricing.
+
+DApp subscription plans work in tiers of discounts, with gas prices being cheaper for larger amounts of units purchased.
+
+To enable a contract to have a subscription, it must have an EOA owner that can manage the contract's subscription.
+The contract itself and must inherit from `@arthera/subscription/ISubscriptionOwner`
+and `@openzeppelin/contracts/utils/introspection/ERC165.sol` and add the following imports and methods to its code:
+
+```solidity
+import "@arthera/subscription/ISubscriptionOwner.sol";
+import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+
+/// ... contract code ....
+
+function getSubscriptionOwner() external view returns (address) {
+    // the owner of the subscription must be an EOA
+    return address_of_subscription_owner;
+}
+
+function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC165)
+    returns (bool)
+    {
+        return interfaceId == type(ISubscriptionOwner).interfaceId || super.supportsInterface(interfaceId);
+    }
+```
+
+The `ISubscriptionOwner` interface allows Arthera to determine the owner of the subscription, which must be an EOA account.
+Once the contract gets a subscription, the owner will receive an ERC721 NFT that uniquely identifies the acquired subscription.
+
+## Whitelisting accounts
+After the contract gets a subscription, its users will still pay normal gas fees (Pay-as-You-Go mode) to work with the contract.
+
+To allow users to consume from the contract's subscription, the owner of the contract must whitelist the respective user accounts
+using the [whitelistAccount()](/dapp/developing-sc/system-contracts/Subscribers#whitelistaccount) method available in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
+
+To disallow a whitelisted user from using the contract's subscription, the owner of the contract must use the [blacklistAccount()](/dapp/developing-sc/system-contracts/Subscribers#blacklistaccount)
+method available in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
+
+Querying if an account is whitelisted/blacklisted can be done by invoking the [isWhitelisted()](/dapp/developing-sc/system-contracts/Subscribers#iswhitelisted) method available
+in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
+
+## Charging DApp customers
+The developer of the DApp can charge its users using any payment method: fiat money, cards or give access to its services for free.
+For example, a DApp might accept credit card payments through a merchant and a subscription management platform like
+[Chargebee](https://www.chargebee.com/), [Recurly](https://recurly.com/) or the open-source [KillBill](https://killbill.io) to
+handle automatic monthly payments. This drastically reduces frauds and eliminates scams.
+
+The DApp can create its own revenue stream using for example the Software-as-a-Service model, without worrying about its users having to pay
+for gas fees or owning cryptocurrencies. The DApp only needs to track its Arthera subscription usage and recharge it when it's low on units,
+or maybe go for a higher plan. This can easily be done using scheduled tasks or cloud lambda functions.
+
