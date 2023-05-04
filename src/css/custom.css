@@ -6,27 +6,47 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-heading-color: #000000;
+  --ifm-font-color-base-inverse: #ffffff;
+  --ifm-color-primary: #6651e8;
+  --ifm-color-primary-dark: #4e35e4;
+  --ifm-color-primary-darker: #4228e3;
+  --ifm-color-primary-darkest: #311ac2;
+  --ifm-color-primary-light: #7e6dec;
+  --ifm-color-primary-lighter:#8a7aed;
+  --ifm-color-primary-lightest: #afa4f3;
   --ifm-code-font-size: 95%;
   --ifm-link-hover-decoration: none;
-  --ifm-link-color: #007bdd;
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-color-black: #000000;
+  --ifm-footer-background-color: #6651e8;
+  --ifm-footer-color: #ffffff;
+  --ifm-footer-padding-vertical: 5px;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-heading-color: #ffffff;
+  --ifm-font-color-base-inverse: #ffffff;
+  --ifm-color-primary: #6651e8;
+  --ifm-color-primary-dark: #4e35e4;
+  --ifm-color-primary-darker: #4228e3;
+  --ifm-color-primary-darkest: #311ac2;
+  --ifm-color-primary-light: #7e6dec;
+  --ifm-color-primary-lighter:#8a7aed;
+  --ifm-color-primary-lightest: #afa4f3;
+  --ifm-navbar-link-hover-color:  #aa9cff;
+  --ifm-menu-color-active:  #aa9cff;
+  --ifm-color-black: #ffffff;
+  --ifm-link-color: var(--ifm-color-primary-lightest);
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.hero {
+  background-color: #473b93;
+}
+
+.footer {
+  background-color: #473b93;
 }

@@ -3,6 +3,14 @@
  * and scoped locally.
  */
 
+.heroTitle {
+  color: var(--ifm-font-color-base-inverse);
+}
+
+.footer--dark {
+  --ifm-footer-background-color: rgb(81,30,135);
+}
+
 .heroBanner {
   padding: 4rem 0;
   text-align: center;

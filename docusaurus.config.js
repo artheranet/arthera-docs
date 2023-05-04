@@ -61,7 +61,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/docs-social-card.jpg',
       navbar: {
         title: 'Arthera Docs',
         logo: {
@@ -95,7 +95,7 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
+        style: 'light',
         copyright: `Copyright © ${new Date().getFullYear()} Arthera Network. Built with Docusaurus.`,
       },
       prism: {
@@ -106,9 +106,9 @@ const config = {
       announcementBar: {
         id: "support_us",
         content: `Arthera is currently running in TestNet`,
-        backgroundColor: "rgb(8 53 117)",
+        backgroundColor: "rgb(121,54,240)",
         textColor: "white",
-        isCloseable: true,
+        isCloseable: false,
       },
     }),
 };
