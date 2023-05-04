@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Arthera Resources',
+  title: 'Arthera Documentation',
   tagline: 'Building the next decentralized economy',
   favicon: 'img/favicon.ico',
   noIndex: true,
@@ -110,6 +110,21 @@ const config = {
         textColor: "white",
         isCloseable: false,
       },
+      metadata: [
+        {name: "title", content: "Arthera Documentation"},
+        {name: "description", content: "Browse tutorials and guides, learn how Arthera works and get started quickly with your first project."},
+        {prefix: "og: http://ogp.me/ns#"},
+        {property: "og:type", content: "website"},
+        {property: "og:url", content: "https://docs.arthera.net/"},
+        {property: "og:title", content: "Arthera Documentation"},
+        {property: "og:description", content: "Browse tutorials and guides, learn how Arthera works and get started quickly with your first project."},
+        {property: "og:image", content: "https://docs.arthera.net/img/docs-social-card.jpg"},
+        {property: "twitter:card", content: "summary_large_image"},
+        {property: "twitter:url", content: "https://docs.arthera.net/"},
+        {property: "twitter:title", content: "Arthera Documentation"},
+        {property: "twitter:description", content: "Browse tutorials and guides, learn how Arthera works and get started quickly with your first project."},
+        {property: "twitter:image", content: "https://docs.arthera.net/img/docs-social-card.jpg"},
+      ]
     }),
 };
 
