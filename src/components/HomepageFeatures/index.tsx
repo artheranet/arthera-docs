@@ -22,11 +22,21 @@ const FeatureList: FeatureItem[] = [
             </>
         ),
     },
+    {
+        title: 'Are you a validator ?',
+        link: '/validators/intro',
+        Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+        description: (
+            <>
+                Learn how to become a validators on the Arthera network
+            </>
+        ),
+    },
 ];
 
 function Feature({title, link, Svg, description}: FeatureItem) {
     return (
-        <div className={clsx('col col--12')}>
+        <div className={clsx('col col--6')}>
             <div className="text--center">
                 <Link href={link}>
                     <Svg className={styles.featureSvg} role="img"/>

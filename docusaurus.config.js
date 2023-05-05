@@ -83,6 +83,12 @@ const config = {
             label: "For Developers",
           },
           {
+            type: "doc",
+            docId: "validators/intro",
+            position: "left",
+            label: "For Validators",
+          },
+          {
             href: "https://twitter.com/artheranet",
             label: "Twitter",
             position: "right",

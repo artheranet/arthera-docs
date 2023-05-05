@@ -1,0 +1,78 @@
+---
+title: Getting started
+description: Get the Artera software and configure your validator node
+---
+import {Alert} from "@mui/material";
+
+## 1. Get the Arthera binaries
+```bash
+sudo bash -c "$(curl -sSfL https://release.arthera.net/1.0.0-rc1/installer)"
+```
+
+## 2. Create a wallet
+Run the following command as the `arthera` user to create a new account:
+
+```bash
+./bin/arthera --datadir /home/arthera/data account new
+```
+Enter a password for the new account and you will get an output similar to the one below:
+```
+Your new key was generated
+
+Public address of the key:   0x0bEdA7aAB9cFAa963443e27e30a8F04A79f099C3
+Path of the secret key file: /home/arthera/data/keystore/UTC--2023-05-05T07-27-01.026176084Z--0beda7aab9cfaa963443e27e30a8f04a79f099c3
+
+- You can share your public address with anyone. Others need it to interact with you.
+- You must NEVER share the secret key with anyone! The key controls access to your funds!
+- You must BACKUP your key file! Without the key, it's impossible to access account funds!
+- You must REMEMBER your password! Without the password, it's impossible to decrypt the key!
+```
+
+<Alert severity='error'>
+Copy the generated secret key file to a secure location and don't forget your password
+</Alert>
+
+## 3. Fund your wallet
+You need to get at least 500,000 AA coins to stake in your validator. You can do so from the [Testnet faucet](https://faucet.arthera.net), or directly from the [Arthera wallet](https://wallet-test.arthera.net).
+
+## 4. Create a validator account
+Run the following command as the `arthera` user to create a new validator account:
+
+```bash
+./bin/arthera --datadir /home/arthera/data validator new
+```
+Enter a password for the validator account and you will get an output similar to the one below:
+```
+Your new key was generated
+
+Public key: 		0xc004c1edab0ed2b77a316c81114177bb071bbc94ec2674a3ccb42c59fe539dd301c1868b919a7cd208d1e8798af141cf2fc41994c35cf4dfc3dd7df74f431f086022
+   Address: 		0xcF95c3A3DBe170caF1CCf9c8E02C70D4a1E72a2a
+Path of the secret key file: /home/arthera/data/keystore/validator/c004c1edab0ed2b77a316c81114177bb071bbc94ec2674a3ccb42c59fe539dd301c1868b919a7cd208d1e8798af141cf2fc41994c35cf4dfc3dd7df74f431f086022
+
+- You can share your public key with anyone. Others need it to validate messages from you.
+- You must NEVER share the secret key with anyone! The key controls access to your validator!
+- You must BACKUP your key file! Without the key, it's impossible to operate the validator!
+- You must REMEMBER your password! Without the password, it's impossible to decrypt the key!
+```
+
+<Alert severity='error'>
+Copy the generated secret key file to a secure location and don't forget your password
+</Alert>
+
+## 5. Register your validator
+You need the [Arthera wallet](https://wallet-test.arthera.net) to register you validator:
+
+1. Go to `https://wallet-test.arthera.net`
+2. Import you wallet private key created in step [2. Create a wallet]()
+3. Fund you account by getting Test AA
+4. Select the `Account` menu item
+5. Under the **Become a Validator** section enter you validator Public Key generated in step 4. Create a validator account[]
+6. Click **Register**
+
+If successful, you validator `ID` will be displayed
+
+Next, edit the `/home/arthera/bin/arthera-env` file and update the following entries:
+```
+ARTHERA_VALIDATOR_ID=
+...
+```

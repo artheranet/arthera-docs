@@ -1,0 +1,30 @@
+---
+title: Requirements
+description: Hardware and Software requirements you need to become a validator on Arthera
+---
+
+Our Mainnet is still in development, but until then the Arthera testnet is the best place to get started running a validator, or test out new validator configurations.
+
+## Prerequisites
+Participating in the Arthera testnet requires testnet AA coins that can be obtained from the [faucet](https://faucet.arthera.net), or directly from the [Arthera wallet](https://wallet-test.arthera.net).
+If you need any help getting started, please don't hesitate to contact us on our Telegram channel. We'll guide you through the process and help you solve any issues.
+
+## Hardware & Network requirements
+You can either run a node on your own hardware or use a cloud provider. We would recommend going with one of the big cloud providers like Amazon AWS.
+
+- CPU: 4 cores / 8 threads, 2.6GHz, or faster
+- RAM: 16GB or more
+- Disk: 500GB of SSD storage or more
+- Network: 10GBps
+
+On AWS EC2 we recommend the m5.xlarge instance with 4 vCPUs (3.1 GHz) and at least 1 TB of Amazon EBS General Purpose SSD (gp2) storage (or equivalent).
+
+**Network requirements:**
+- Your node must have static, external IP addresses. Ensure the machine used is not behind a residential NAT to avoid NAT traversal issues. A cloud-hosted machine works best.
+- Ensure that IP port 6534 is not blocked for Internet TCP and UDP inbound and outbound traffic.  This port is used to communicate with other nodes in the network.
+
+## Software requirements
+The following 64-bit Operating Systems are supported:
+- Ubuntu 22.04
+- Fedora 37+
+- CentOS 9

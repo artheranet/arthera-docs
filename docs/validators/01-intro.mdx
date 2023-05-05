@@ -1,5 +1,6 @@
 ---
-title: "Proof of Stake"
+title: Arthera Validators
+description: Secure the Arthera network by validating transactions
 ---
 
 Arthera's proof-of-stake consensus is the set of processes that determine which nodes become validators and how
@@ -17,9 +18,14 @@ of the validator fees attributable to delegators.  They will therefore compete b
 Higher performing node, with more reliable uptimes, will earn higher returns. Delegators will be incentivised to choose
 nodes that have a high validator score, i.e. are reliable and high performing.
 
+A validators needs a minimum amount of AA coins to be able to join the network.
+They also have a maximum cap based on how much coins they have staked:
 
-## Validator Rewards
-A validator's reward is weighted by 2 independent numbers:
+* Minimum stake: 500,000 AA
+* Maximum stake: 15 * _Minimum stake_
+
+## Rewards
+Validator rewards are calculated and distributed at the end of each epoch. A validator's reward is weighted by 2 independent numbers:
 - `transactions reward weight`: share of transaction fees the validator will receive at the end of epoch.
 - `base reward weight`: share of base reward (newly minted coins) the validator will receive at the end of epoch.
 
