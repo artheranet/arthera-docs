@@ -63,10 +63,10 @@ Copy the generated secret key file to a secure location and don't forget your pa
 You need the [Arthera wallet](https://wallet-test.arthera.net) to register you validator:
 
 1. Go to `https://wallet-test.arthera.net`
-2. Import you wallet private key created in step [2. Create a wallet]()
+2. Import you wallet private key created in step [2. Create a wallet](#2-create-a-wallet)
 3. Fund you account by getting Test AA
 4. Select the `Account` menu item
-5. Under the **Become a Validator** section enter you validator Public Key generated in step 4. Create a validator account[]
+5. Under the **Become a Validator** section enter you validator Public Key generated in step [4. Create a validator account](#4-create-a-validator-account)
 6. Click **Register**
 
 If successful, you validator `ID` will be displayed
@@ -74,5 +74,14 @@ If successful, you validator `ID` will be displayed
 Next, edit the `/home/arthera/bin/arthera-env` file and update the following entries:
 ```
 ARTHERA_VALIDATOR_ID=
+ARTHERA_VALIDATOR_PUBKEY=0x....
+ARTHERA_NODE_IP=<you external IP address of the machine>
 ...
+```
+
+## 6. Start your node
+```bash
+sudo systemctl daemon-reload
+sudo systemctl start arthera-validator
+
 ```
