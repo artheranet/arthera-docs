@@ -10,11 +10,11 @@ Contract subscriptions can also be packed in bundles by resellers, offering acce
 DApp subscription plans work in tiers of discounts, with gas prices being cheaper for larger amounts of units purchased.
 
 To enable a contract to have a subscription, it must have an EOA owner that can manage the contract's subscription.
-The contract itself and must inherit from `@arthera/subscription/ISubscriptionOwner`
-and `@openzeppelin/contracts/utils/introspection/ERC165.sol` and add the following imports and methods to its code:
+The contract itself and must inherit from `ISubscriptionOwner` and `@openzeppelin/contracts/utils/introspection/ERC165.sol`
+and add the following imports and methods to its code:
 
 ```solidity
-import "@arthera/subscription/ISubscriptionOwner.sol";
+import "./ISubscriptionOwner.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 /// ... contract code ....
@@ -36,6 +36,15 @@ function supportsInterface(bytes4 interfaceId)
 
 The `ISubscriptionOwner` interface allows Arthera to determine the owner of the subscription, which must be an EOA account.
 Once the contract gets a subscription, the owner will receive an ERC721 NFT that uniquely identifies the acquired subscription.
+The code for the `ISubscriptionOwner` interface is the following:
+
+```solidity
+pragma solidity ^0.8.0;
+
+interface ISubscriptionOwner {
+    function getSubscriptionOwner() external view returns (address);
+}
+```
 
 ## Whitelisting accounts
 After the contract gets a subscription, its users will still pay normal gas fees (Pay-as-You-Go mode) to work with the contract.
