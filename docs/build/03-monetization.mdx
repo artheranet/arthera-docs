@@ -1,0 +1,43 @@
+---
+title: Transaction monetisation
+---
+The Arthera blockchain offers two main transaction monetisation methods.
+
+* **Pay-as-you-go** - the standard pay-per-use model, where users pay for gas each time they use the blockchain
+
+* **Subscriptions** - are built into the Arthera protocol, and they determine how gas is being spent by an account (EOA or Contract). These subscriptions are the enabler for the Software as a Service (SaaS) licensing and delivery model.
+
+A 3rd party dApp can acquire a monthly, fixed fee, subscription gas quota from Arthera to completely waive all blockchain gas fees for their users. The dApp can re-sell this gas to make a profit, either using their own monthly subscription model, or by using a perpetual licence.
+
+<img src="/img/img1.png"/>
+
+## Pay-per-use
+The Pay-as-You-Go mode is the standard operating mode of Arthera for accounts that don't have an active subscription or for which their subscription reached its cap.
+Every transaction will incur gas costs for the sender, which means the sender needs to have a positive balance of AA in his wallet, otherwise the transaction will be reverted.
+
+**Lifetime Commision**
+
+Every contract account on Arthera can opt-in for gas-fee rebates by registering their address and a fee receiver account in a special system contract.
+The registered fee receiver **will get a 10%  lifetime commission** from the gas fees spent by EOAs that send transactions to the registered contract account.
+
+<img src="/img/img2.png"/>
+
+## Subscriptions
+In Arthera, **subscriptions are built into the core protocol** and they determine how gas is being spent by an account (EOA or Contract).
+
+### Monthly subscription model
+The blockchain protocol natively supports dApps applying a mothly subscription model with their clients. A dApp can assess their clients gas fee operation needs, create a custom plan for their necessary gas quota and use it by paying a fixed monthly subscription to Arthera.
+
+The monthly plan can be easily sustained through a subscription model. Its cost is predictable and can be included in the project user subscription. According to the project’s returning revenues, the plan can be upgraded or downgraded when necessary.
+
+<img src="/img/img3.png"/>
+
+### Perpetual Licence
+With a perpetual licence model, also sustained by the protocol, the dApp will create their custom subscription plan with Arthera, then charge a one-time fee to their clients, that must be able to sustain its Arthera subscription cost.
+
+The perpetual licence presents long-term sustainability risks. We only recommend it for projects transitioning from a pay-per-use to full subscription.
+
+<img src="/img/img4.png"/>
+
+## Read more
+Read more about the subscription model in the [Transaction pricing models](/learn/about-arthera/pricing-models) section.

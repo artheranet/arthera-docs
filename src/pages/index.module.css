@@ -3,6 +3,10 @@
  * and scoped locally.
  */
 
+.homeContainer {
+  margin: 0 100px;
+}
+
 .heroTitle {
   color: var(--ifm-font-color-base-inverse);
 }
@@ -13,7 +17,7 @@
 
 .heroBanner {
   padding: 4rem 0;
-  text-align: center;
+  text-align: start;
   position: relative;
   overflow: hidden;
 }

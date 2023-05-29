@@ -50,3 +50,7 @@
 .footer {
   background-color: #473b93;
 }
+
+p {
+  margin: 0 0 var(--ifm-paragraph-margin-bottom);
+}

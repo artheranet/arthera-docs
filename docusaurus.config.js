@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Arthera Documentation',
+  title: 'Arthera Developer Documentation',
   tagline: 'Building the next decentralized economy',
   favicon: 'img/favicon.ico',
   noIndex: true,
@@ -47,7 +47,7 @@ const config = {
           breadcrumbs: false,
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: "/",
-          showLastUpdateTime: true,
+          showLastUpdateTime: false,
         },
         blog: false,
         theme: {
@@ -65,31 +65,37 @@ const config = {
       navbar: {
         title: 'Arthera Docs',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Arthera Logo',
           src: 'img/logo.svg',
           srcDark: 'img/logo.svg',
         },
         items: [
           {
             type: "doc",
-            docId: "intro/intro",
+            docId: "learn/intro",
             position: "left",
-            label: "What is Arthera ?",
+            label: "Learn",
           },
           {
             type: "doc",
-            docId: "dapp/intro",
+            docId: "build/intro",
             position: "left",
-            label: "For Developers",
+            label: "Build",
           },
           {
             type: "doc",
             docId: "validators/intro",
             position: "left",
-            label: "For Validators",
+            label: "Validators",
           },
           {
-            href: "https://twitter.com/artheranet",
+            type: "doc",
+            docId: "connect/intro",
+            position: "left",
+            label: "Connect",
+          },
+          {
+            href: "https://twitter.com/artherachain",
             label: "Twitter",
             position: "right",
           },

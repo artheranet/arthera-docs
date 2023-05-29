@@ -1,0 +1,96 @@
+---
+title: The protocol
+---
+
+Introduction to the Arthera protocol, its implementation details, and the relationship to Ethereum.
+
+## What is the Arthera Protocol?
+Arthera's blockchain is a DAG-based blockchain that is fully EVM-compatible. Its implementation started from go-ethereum, the Go implementation of the Ethereum protocol, but with a different consensus engine and operating model, aimed at high transaction volumes, fast confirmation times and low gas fees.
+
+## Stages
+The protocol is designed to go live in two stages:
+
+* **Stage 1**: the Beacon chain based on a leaderless, scalable, asynchronous BFT that uses DAG streams. The purpose of the Beacon chain is to kickstart the ecosystem.
+
+* **Stage 2**: the Final chain that will use a proprietary DAG-based mempool and zero-message consensus. When Stage 2 will go live, Arthera will be able to scale with no limits due to changes in the node's architecture and EVM parallelization features, achieving record TPS numbers and fast block finality.
+
+In addition to the blockchain node, some core components of the protocol are implemented in smart contract level and even off-chain (e.g. price oracles or phone number verification via SMS).
+
+## Native Currency
+The native currency of Arthera is `AA` and its subdivision is `wei`.
+
+`One AA = 10^18 wei`
+
+## Epochs
+The protocol is organized in Epochs comprised of a number of (finalized) blocks. Each epoch is sealed when one of the below conditions is satisfied:
+
+* a maximum threshold of gas power was spent
+* the epoch's duration is finished
+* at least one dishonest validator is confirmed in the current block
+* on-request
+
+The lowest possible epoch number is 1.
+
+## Proof of Stake
+Arthera's proof-of-stake consensus is the set of processes that determine which nodes become validators and how incentives are distributed to secure the network.
+
+Validator nodes are responsible for generating and validating blocks. In return they will receive block rewards and a percentage of transaction fees and subscription fees. Based on their performance and reputation, validator nodes are assigned a score. They are incentivized to act in accordance with the network because they are subject to penalization (slashing) if they behave maliciously.
+
+## Consensus
+Arthera’s consensus will behave differently in the two development stages.
+
+### Stage 1 (current)
+Arthera's Stage 1 Consensus is based on the Lachesis open-source software library. Lachesis is designed to easily plug into any blockchain node written in Golang, or in any other language if provided with a wrapper. Basically, Lachesis process consensus messages from other nodes and guarantee that everyone processes the same commands in the same order. To do this, it uses a DAG aBFT consensus algorithm.
+
+Lachesis is:
+* Asynchronous: Participants have the freedom to process commands at different times.
+* Leaderless: No participant plays a 'special' role
+* Byzantine Fault-Tolerant: Supports one third of faulty nodes, including malicious behavior
+* Final: Lachesis's output can be used immediately, no need for block confirmations, etc.
+
+Lachesis is a DAG-based aBFT consensus protocol with guaranteed finality. The Lachesis protocol is leaderless achieving complete asynchrony, no round robin and no proof-of-work. Every confirmed transaction is final, unless more than 1/3W of validators are Byzantine.
+
+Each Lachesis node stores a local acyclic directed graph (DAG) composed of event blocks, each of which contains transactions. In this wiki, the terms 'event' and 'event block' are sometimes used interchangebly. The DAG capturing the happens-before relationship between the events is used to calculate an exact final order of events (and hence transactions) independently on each node.
+
+Events are divided into confirmed and unconfirmed events. New events are unconfirmed, whilst usually events from past 2-3+ frames are all confirmed. For confirmed events, honest nodes can compute their exact order. Unconfirmed events can only be partially ordered.
+
+Consensus results into batches of confirmed events, where each batch of events is called a block. Blocks (or finalized blocks) forming the final chain are calculated from event blocks independently on each node. Unlike PoW, round-robin PoS, coinage PoS and sync BFT, nodes don't send blocks to each other. Only events are being synced between nodes. Validators of the network do not vote on a concrete state of the network, but instead they periodically exchange transactions and events they observe with peers.
+
+Unlike sync BFT (like pBFT), Lachesis do not use new events in current election, but instead they are used to vote for the events in 2-3+ previous virtual elections simultaneously. This leads to a smaller number of created consensus messages, as the same event is reused in different elections. Hence, Lachesis achieves a lower TTF and a smaller consensus overhead comparing to sync BFT.
+
+You can read more about Lachesis in the [academic paper](https://arxiv.org/pdf/2108.01900).
+
+### Stage 2 (BlazeDAG and BlazeTM)
+Arthera's Stage 2 will bring massive improvements to scaling, finality and speed of transaction processing. A hyper-scalable L1 chain is needed for running the next generation of Web3 SaaS applications, where low infrastructure costs will be a driving factor for ecosystem growth and mass adoption.
+
+#### 1. Scaling consensus
+The Stage 2 is a technological evolution for Arthera that is currently under implementation. Arthera will evolve into a hyper-scalable L1 chain riding on reliable, causal DAG transports using our own **BlazeDAG** consensus that will be made public once the Final chain is live.
+
+Recent works and emerging Proof-of-Stake blockchains rely on DAG (Direct Acyclic Graph) structures to achieve high TPS. With BlazeDAG, we show that it’s possible to reach a consensus with minimum delay on the global ordering of transactions using DAG transports that provide causality and non-equivocation.
+This approach is an improvement over existing partial synchrony DAG consensus protocols where transactions are added to the DAG only after consensus steps/timers have been completed, introducing "empty" time slots when no action is executed. It is true, however, that during "empty" slots, the DAG keeps accumulating transactions, but the addition of timers/delays by the consensus protocols delays block finality.
+
+In BlazeDAG we propose an optimized approach to achieve BFT consensus that is entirely independent of the DAG transport and does not add any constraints to it. We show that a maximum of two broadcast latencies are needed to reach consensus when the network is stable and that no additional steps/timers are needed, allowing the consensus to progress as fast as possible, speeding up block finality.
+
+DAG messages contain blocks of transactions or transaction references in each message. Messages contribute to the total ordering of committed transactions at no additional cost, have a non-equivocating property, and carry causality information that simplifies consensus protocol design.
+
+Early tests of BlazeDAG currently reach 830k TPS/s with 2 second finality in an AWS deployment with 20 geographically distributed single-machine validators over 5 continents.
+
+#### 2. Scaling validator nodes
+Arthera relies on the DAG transport to aggregate transactions at network speed, ensuring partial liveness for low-latency transaction submission for clients. Validator nodes are split into master and worker nodes.
+
+The master node runs the protocol as specified, but instead of including transactions into a block, it includes cryptographic hashes of its own worker batches. The validation conditions for the reliable broadcast at other validators are also adapted to ensure availability. A master only signs a block if the batches included have been stored by its own workers. This ensures, by induction, that all data referred to by a certificate of availability can be retrieved.
+
+Transferring and storing transaction data is a parallel process. Worker nodes create batches of transactions and send them to worker nodes of each of the other validators. Once a quorum of workers has received an acknowledgment, the cryptographic hash of the batch is shared with the master node of the validator for inclusion in a block. Worker nodes are fronted by a load balancer to ensure all worker nodes receive transactions data at a similar rate.
+
+The master node’s blocks are small because they only include hashes of transactions. Worker nodes handle actual transaction data, and they constantly create and share batches in the background. Small batches, in the order of a few hundred to a few thousand transactions ensure transactions do not suffer more than some maximum latency.
+
+Block ordering is performed only by the master node. Committing a leader proposal and its causal history is a matter of topologically sorting the DAG back to the last committed proposal using a pre-order depth-first search.
+
+#### 3. Scaling transaction processing
+The ordered sequence of blocks is passed to an Executor to execute the actual transactions in a way that that is consistent meaning that all validators must reach the same outcome after performing the execution. Our goal is to accelerate execution by optimistically running transactions in parallel, using all available worker nodes.
+
+Recent advances like BlockSTM managed to achieve in-memory parallelism, but this is still limited by the hardware available to the validator node, since BlockSTM needs to run on a single machine.
+
+We introduce **BlazeTM**, an execution engine that leverages a distributed high-performance transactional memory implementation to enable parallel processing of transactions on multiple machines. The engine uses a high-performance active replication protocol that wraps transactions in transactional request messages and executes them on all worker nodes in the same order. To achieve this, BlazeTM employs a speculative concurrency control protocol (SCC), which starts transaction execution speculatively upon delivery by the network service, assuming the optimistic order as the processing order. This approach avoids atomic operations, thereby enabling transactions to reach maximum performance between the optimistic and final delivery. The protocol also avoids conflict detection and other complex mechanisms to ensure that a sequence of transactions is executed within their final notifications.
+
+The SCC protocol stores a list of committed versions for each shared object, enabling read-only transactions to execute in parallel to write transactions. As a result, write transactions are broadcasted between all workers, while read-only transactions are directly delivered to a single worker that will process it locally (each worker has the same state). Workers already have transaction data, so a minimal pull-mechanism is implemented to synchronize their state. Workers typically sit on the same gigabit LAN, meaning that synchronizing transaction data between them can be done extremely fast.
