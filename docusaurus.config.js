@@ -47,7 +47,7 @@ const config = {
           breadcrumbs: false,
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: "/",
-          showLastUpdateTime: true,
+          showLastUpdateTime: false,
         },
         blog: false,
         theme: {
