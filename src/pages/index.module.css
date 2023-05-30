@@ -33,3 +33,7 @@
   align-items: center;
   justify-content: center;
 }
+
+main {
+  margin-bottom: 1rem;
+}

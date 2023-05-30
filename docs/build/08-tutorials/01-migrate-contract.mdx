@@ -1,0 +1,36 @@
+---
+title: Migrate your EVM smart contract
+---
+import {Alert} from "@mui/material";
+
+In terms of programmability, Arthera is similar to Ethereum. Both networks run the Ethereum Virtual Machine (EVM)
+to support smart contract functionality.
+
+<Alert severity='success'>
+    <strong>All programming languages, developer tooling and standards that target the EVM should work on Arthera as well.</strong>
+</Alert>
+<br/>
+
+<Alert severity='warning'>
+    <strong>There are some minor differences described in the <a href="/build/differences">EVM & API differences</a> section. Please read the section carefully to see if the EVM and API differences have an impact on your dApp.</strong>
+</Alert>
+<br/>
+
+Because Arthera supports all programming languages, developer tooling and standards that target the EVM, deploying your contracts on Arthera should follow the same process as with other EVMs:
+
+1. Configure your contract tooling and SDKs to target the Arthera testnet:
+    - **RPC Endpoint: `https://rpc-test.arthera.net`**
+    - **WebSocket Endpoint (Optional): `wss://ws-test.arthera.net`**
+    - **Chain ID: `10243`**
+
+2. Create an account using the [Arthera Wallet](https://wallet-test.arthera.net) and get some testnet AA coins from the [Testnet Faucet](https://faucet.arthera.net) or directly from the wallet.
+
+3. Deploy your contract(s)
+
+4. Check the [Blockchain Explorer](https://explorer-test.arthera.net) for the deployment transaction to be successful
+
+5. Optionally verify your contract. Go to the [Blockchain Explorer](https://explorer-test.arthera.net), search for your contract address and click the `Verify and Publish` button under the `Contract` tab:
+
+<img src="/img/verify-contract.png"/>
+
+

@@ -1,15 +1,14 @@
 ---
-title: From other EVMs
+title: EVM & API differences
 ---
 Arthera is a Layer 1 protocol and blockchain platform, and the Arthera Network is separate from the Ethereum network.
-While the Arthera blockchain node is implemented on top of go-ethereum (or geth), it has several significant differences,
+While the Arthera blockchain node is implemented on top of go-ethereum (or geth), it has small differences,
 the most notable one being a leaderless proof-of-stake DAG-based asynchronous BFT consensus mechanism.
 
 In terms of programmability, Arthera is similar to Ethereum. Both networks run the Ethereum Virtual Machine (EVM)
 to support smart contract functionality. This means that all programming languages, developer tooling and standards
 that target the EVM are relevant to Arthera as well. Developers building on Arthera can write smart contracts in Solidity,
-use Truffle or Hardhat for smart contract management and take advantage of smart contract standards that have already
-been developed for Ethereum.
+using their tooling of choice and take advantage of smart contract standards that have already been developed for Ethereum.
 
 ## Differences
 
@@ -50,6 +49,3 @@ Retrieval of pending blocks is not supported, because Arthera does not have this
 - `shh`
 - `db`
 - `bzz`
-
-
-

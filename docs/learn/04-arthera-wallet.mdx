@@ -1,0 +1,140 @@
+---
+title: Arthera Wallet
+---
+import {Alert} from "@mui/material";
+
+The [Arthera Wallet](https://wallet-test.arthera.net) is the official wallet for Arthera. Besides performing basic tasks like transfers and viewing your account activity, it allows users to manage all Artera-specific features like _staking_, _validators_ and _subscriptions_.
+
+<img src="/img/wallet-login.png"/>
+
+## Main page
+The main page of the wallet is where you can see your address, AA balance, tokens and collectibles (NFTs), recent activity and manage subscriptions.
+
+<img src="/img/wallet-home.png"/>
+
+## Subscriptions
+The Arthera Wallet is the only supported way right now to purchase and manage your Arthera subscription.
+
+### Buying a subscription
+In the subscriptions widget you can purchase a new subscription or manage you existing subscription. There are two types of subscriptions:
+
+- [EOA Plan](/learn/about-arthera/pricing-models#eoa-subscriptions)
+- [Contract Plan](/learn/about-arthera/pricing-models#contract-subscriptions)
+
+<img src="/img/wallet-buy-sub.png"/>
+
+Regular users can buy an **EOA Plan**, while dApps need to buy a **Contract Plan**. For more information about the differences between the two types of subscriptions, please refer to [Subscription Plans](/learn/about-arthera/pricing-models#subscription-plans).
+
+Each subscription plan has a number of **gas units** included and optionally a [cap](/learn/about-arthera/pricing-models#caps).
+
+Click **Subscribe** to purchase a subscription.
+
+To buy a **Contract Plan**, you need to be logged in as the _Subscription Owner_ of the contract for which you're buying the subscription.
+
+<img src="/img/wallet-dapp-plan.png"/>
+
+### Manage the subscription
+Once you've purchased a subscription, you can view it's details:
+
+<img src="/img/wallet-manage-sub.png"/>
+
+- **Balance**: remaining gas units
+- **Start date**: when the subscription was purchased
+- **End date**: when the subscription will expire
+- **Usage cap**: usage cap enforced by the purchased subscription
+
+You can **Renew** or **Terminate** your subscription anytime. **Renewing** the subscription will top up its Balance and End date.
+The subscription can be **terminated** anytime, deleting the subscription from your account and you will be transitioned to the [Pay per use model](/learn/about-arthera/pricing-models#pay-per-use) immediately.
+
+## Staking
+
+<Alert severity='warning'>
+    <strong>A WORD OF CAUTION</strong>
+    <p className="m-0 mt-1">Staking cryptocurrency carries risks and is generally intended for experienced users. Please read and understand the information thoroughly before proceeding!</p>
+</Alert>
+<br/>
+
+On the **Staking** page you can view and manage your delegations.
+
+<img src="/img/wallet-staking.png"/>
+
+### Stake your AA
+Click the **Stake my tokens** button to delegate your AA to an existing validator. The first step is to choose a validator to delegate your coins to:
+
+<img src="/img/wallet-select-validator.png"/>
+
+Click the **Select** button next to your preferred validator. On the next page, you will see information about the selected validator:
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-validator-info.png"/>
+</div>
+
+- **Validator fee**: the fee the validator will take from your staking rewards
+- **Total amount staked**: the total amount of AA delegated to this validator
+
+Click the **Stake with validator** to move to the next page where you will enter the amount of AA you want to delegate:
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-stake-amount.png"/>
+</div>
+
+Enter your desired amount and click the **Submit stake** button. A popup will display to confirm your action. Click **Confirm** to finish the process and delegate your coins. If the transaction is successful, a success message will be displayed:
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-staking-success.png"/>
+</div>
+
+### Unstake your AA
+To unstake your coins from a validator, click the validator address on the Staking page:
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-unstake-select.png"/>
+</div>
+
+This will take you to the validator page, where you can unstake your coins. Click the **Unstake** button to continue.
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-unstake-info.png"/>
+</div>
+
+Enter the amount you want to unstake and click the **Unstake** button:
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-unstake-amount.png"/>
+</div>
+
+A popup will display to confirm your action. Click **Confirm** to finish the unstaking process. If the transaction is successful, a success message will be displayed:
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-unstake-success.png"/>
+</div>
+
+<Alert severity='warning'>
+    <strong>The avoid bad practices and malicious actors, unstaking will be performed within a 48h window. This means your unstaked coins will not be immediately available for withdrawal.</strong>
+</Alert>
+<br/>
+
+### Withdrawing staked AA
+After enough time has passed since your unstake request (48h), you can withdraw the funds to your wallet. Select your validator from the *Staking* page and you will see your active Unstake requests:
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-unstake-requests.png"/>
+</div>
+
+Click the **Withdraw** button next to your desired unstake request to withdraw the funds to your wallet.
+
+### Managing rewards
+As time goes by, your staked coins will generate rewards. You can view how much AA you earned with a validator by selecting the validator on the **Staking** page.
+The **Pending rewards** section displays the amount of AA available for withdrawal or restaking.
+
+<div className="text-center mb-1">
+    <img src="/img/wallet-unstake-info.png"/>
+</div>
+
+Rewards can be **Restaked** or **Withdrawed**:
+
+- **Restaking** will add all pending rewards to your existing stake, increasing your delegation with the validator. The validator needs to be active to restake your rewards with it.
+- **Withdrawing** will transfer all pending rewards in your wallet.
+
+
+

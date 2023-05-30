@@ -21,7 +21,7 @@ export default function HomepageFeatures(): JSX.Element {
       <div className={styles.feature}>
         <h1>Arthera Wallet</h1>
         <p>It’s right here. Use it to play around with our subscriptions and to check out our partner dApps, for now.</p>
-        <Link href="/">Here is a detailed guide</Link>
+        <Link href="/learn/arthera-wallet">Here is a detailed guide</Link>
       </div>
 
       <div className={styles.feature}>
@@ -34,16 +34,7 @@ export default function HomepageFeatures(): JSX.Element {
             <div className={clsx('col col--4')}>
               <div className={styles.card}>
                 <div className={styles.cardBody}>
-                  <Link className={styles.cardTitle} href="#"><h2>Easy onboarding tutorials</h2></Link>
-                  <p className={styles.cardText}>Submit your first transaction, deploy your first coin, and more</p>
-                </div>
-              </div>
-            </div>
-
-            <div className={clsx('col col--4')}>
-              <div className={styles.card}>
-                <div className={styles.cardBody}>
-                  <Link className={styles.cardTitle} href="#"><h2>Learn everything about Arthera</h2></Link>
+                  <Link className={styles.cardTitle} href="/learn/intro"><h2>Learn everything about Arthera</h2></Link>
                   <p className={styles.cardText}>Learn the key concepts of the Arthera Protocol, like subscriptions, transactions, accounts, gas and transaction fees, nodes, and more</p>
                 </div>
               </div>
@@ -52,8 +43,8 @@ export default function HomepageFeatures(): JSX.Element {
             <div className={clsx('col col--4')}>
               <div className={styles.card}>
                 <div className={styles.cardBody}>
-                  <Link className={styles.cardTitle} href="#"><h2>Develop apps with the SDKs</h2></Link>
-                  <p className={styles.cardText}>SDKs for building on the Arthera blockchain</p>
+                  <Link className={styles.cardTitle} href="/build/intro"><h2>Develop or Migrate your contracts</h2></Link>
+                  <p className={styles.cardText}>Everything you need to know about building and deploying contracts on the Arthera blockchain</p>
                 </div>
               </div>
             </div>
@@ -63,7 +54,7 @@ export default function HomepageFeatures(): JSX.Element {
 
       <div className={styles.feature}>
         <h1>Become a Validator</h1>
-        <p>Install and run a validator node on your local testnet. <Link href="#">Here is the tutorial</Link></p>
+        <p>Install and run a validator node on your local testnet. <Link href="/validators/getting-started">Here is the tutorial</Link></p>
       </div>
 
       <div className={styles.feature}>

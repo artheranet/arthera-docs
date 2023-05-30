@@ -1,0 +1,63 @@
+---
+title: Use subscriptions in your contract
+---
+import {Alert} from "@mui/material";
+
+A few steps are needed to enable subscriptions for your contract.
+
+**Step 1: ** Create an account that will manage the subscription for the contract. This account will act as the **Subscription Owner**, allowing it to make changes to the contract's subscription plan.
+
+<Alert severity='info'>
+    Once you purchase a subscription for your contract, the <strong>Subscription Owner will receive an ERC721 NFT</strong> that uniquely identifies the subscription.
+</Alert>
+<br/>
+
+
+**Step 2: ** Create the `ISubscriptionOwner.sol` file:
+
+```solidity
+pragma solidity ^0.8.0;
+
+interface ISubscriptionOwner {
+    function getSubscriptionOwner() external view returns (address);
+}
+```
+
+**Step 3: ** Import `ISubscriptionOwner.sol` and `@openzeppelin/contracts/utils/introspection/ERC165.sol`:
+```solidity
+import "./ISubscriptionOwner.sol";
+import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+```
+
+**Step 4: ** Have your contract inherit from `ISubscriptionOwner` and `ERC165`:
+```solidity
+contract YourContract is ISubscriptionOwner, ERC165 {
+    /// ... contract code ....
+}
+```
+
+**Step 5: ** Add the following methods at the end of your contract code:
+```solidity
+/// ... contract code ....
+
+function getSubscriptionOwner() external view returns (address) {
+    // the owner of the subscription must be an EOA
+    // Replace this with the account created in Step 1
+    return address_of_subscription_owner;
+}
+
+function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC165)
+    returns (bool)
+    {
+        return interfaceId == type(ISubscriptionOwner).interfaceId || super.supportsInterface(interfaceId);
+    }
+```
+
+The `ISubscriptionOwner` interface allows Arthera to determine the owner of the subscription, which must be an EOA account.
+
+**Step 6: ** Deploy the contract
+
+**Step 7: ** Login to the [Arthera Wallet](https://wallet-test.arthera.net) using the  **Subscription Owner** account created in **Step 1** and purchase a dApp subscription for your newly deployed contract

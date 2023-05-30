@@ -54,3 +54,19 @@
 p {
   margin: 0 0 var(--ifm-paragraph-margin-bottom);
 }
+
+.text-center {
+  text-align: center !important;
+}
+
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+
+.mt-1 {
+  margin-top: 1rem !important;
+}
+
+.m-0 {
+  margin: 0;
+}

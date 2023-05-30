@@ -108,7 +108,7 @@ const config = {
       },
       footer: {
         style: 'light',
-        copyright: `Copyright © ${new Date().getFullYear()} Arthera Network. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Arthera Network`,
       },
       prism: {
         theme: lightCodeTheme,
