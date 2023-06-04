@@ -49,7 +49,7 @@ const config = {
                     showLastUpdateTime: false,
                 },
                 gtag: {
-                    trackingID: "G-QKFFXP4B7Y"
+                    trackingID: "G-FFB1DDQF01"
                 },
                 sitemap: {
                     changefreq: 'weekly',
