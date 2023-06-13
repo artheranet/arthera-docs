@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import Link from "@docusaurus/Link";
 import clsx from "clsx";
+import AddMetamaskNetwork from "@site/src/components/AddMetamaskNetwork";
 
 export default function HomepageFeatures(): JSX.Element {
   return (
@@ -16,6 +17,7 @@ export default function HomepageFeatures(): JSX.Element {
       <div className={styles.feature}>
         <h1>Arthera testnet is live</h1>
         <p>You can check it out using the <Link href="https://explorer-test.arthera.net">Explorer</Link></p>
+        <AddMetamaskNetwork network={'testnet'} title={'Add Arthera Testnet to Metamask'}/>
       </div>
 
       <div className={styles.feature}>
