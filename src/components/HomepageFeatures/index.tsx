@@ -17,7 +17,7 @@ export default function HomepageFeatures(): JSX.Element {
       <div className={styles.feature}>
         <h1>Arthera testnet is live</h1>
         <p>You can check it out using the <Link href="https://explorer-test.arthera.net">Explorer</Link></p>
-        <AddMetamaskNetwork network={'testnet'} title={'Add Arthera Testnet to Metamask'}/>
+        <AddMetamaskNetwork network={'testnet'} title={'Add Arthera Testnet to Metamask'} size={'medium'}/>
       </div>
 
       <div className={styles.feature}>

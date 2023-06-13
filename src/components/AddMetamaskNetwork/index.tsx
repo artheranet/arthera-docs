@@ -1,9 +1,18 @@
 import React from "react";
-import Link from "@docusaurus/Link";
 import {addNetwork} from "@site/src/utils";
+import {Button} from "@mui/material";
 
-export default function AddMetamaskNetwork(props: {network: 'testnet' | 'mainnet', title: string}): JSX.Element {
+export default function AddMetamaskNetwork(props: {
+    network: 'testnet' | 'mainnet',
+    title: string,
+    size: 'small' | 'medium' | 'large'
+}): JSX.Element {
     return (
-        <Link onClick={() => addNetwork(props.network)} href={'#'}>{props.title}</Link>
+        <Button
+            variant="contained"
+            color={'secondary'}
+            onClick={() => addNetwork(props.network)}
+            size={props.size}>{props.title}
+        </Button>
     )
 }
