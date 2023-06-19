@@ -26,6 +26,14 @@ export default function HomepageFeatures(): JSX.Element {
         <Link href="/learn/arthera-wallet">Here is a detailed guide</Link>
       </div>
 
+        <div className={styles.feature}>
+            <h1>Arthera Exporer</h1>
+            <p>Use it to explore the Arthera blockchain: blocks, transactions, tokens, addresses, smart contracts and more.</p>
+            <Link href="https://explorer-test.arthera.net">Arthera Explorer</Link>
+            <br/>
+            <Link href="https://explorer-test-api.arthera.net">Arthera Explorer API</Link>
+        </div>
+
       <div className={styles.feature}>
         <h1>Get started</h1>
       </div>
