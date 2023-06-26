@@ -347,22 +347,20 @@ type Subscription {
 ```
 
 ### Interactive console
-You can play around and test GraphQL queries by opening the `/graphi` endpoint on each API gateway.
+You can play around and test GraphQL queries by opening the [**/graphi**](https://gw-eu1-test.arthera.net/graphi) endpoint on each API gateway.
 
 <img src="/img/graphi.png"/>
 
 ## REST
 Besides the GrapgQL API which covers most needs, the API Gateway provides some useful REST endpoints:
 
-* **`/rest/gas`** returns a JSON structure with current gas price info:
+* [**/rest/gas**](https://gw-eu1-test.arthera.net/rest/gas) returns a JSON structure with current gas price info:
     * `fastest` - price in gwei
     * `fast` - price in gwei
     * `average` - price in gwei
     * `safeLow` - price in gwei
 
-* **`/rest/offline-validators`**  displays a list of validators that are down
-
-* **`/rest/account?addr=0x...`** returns detailed information for the provided address as a JSON object with the following structure:
+* [**/rest/account?addr=0x...**](https://gw-eu1-test.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD) returns detailed information for the provided address as a JSON object with the following structure:
     * `balance` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the account balance in WEI
     * `contract` - contract creation transaction hash if available
     * `type` - the type of address: wallet, contract, ERC20, ERC721, ERC1155
