@@ -1,0 +1,373 @@
+---
+title: API Gateway
+---
+import {Alert} from "@mui/material";
+import Link from "@docusaurus/Link";
+
+Arthera provides high-performance GraphQL and REST API gateway for fetching blockchain data. It provides conveninent endpoints for fetching low-level and aggregate information related to accounts, tokens, staking, subscriptions and more.
+
+<Alert severity='info'>
+    <p>The Testnet has the following available API Gateway endpoints:</p>
+    <ul>
+        <li><Link href={'https://gw-eu1-test.arthera.net'}>https://gw-eu1-test.arthera.net</Link></li>
+        <li><Link href={'https://gw-eu2-test.arthera.net'}>https://gw-eu2-test.arthera.net</Link></li>
+        <li><Link href={'https://gw-us-test.arthera.net'}>https://gw-us-test.arthera.net</Link></li>
+    </ul>
+</Alert>
+
+## GraphQL
+The GraphQL API describes available entities and attributes with a schema and lets the client decide which parts, elements and services it needs to perform its operation.
+The schema is extensively documented, so you should be able to use it intuitively.
+
+The GraphQL API is available under the `/api` endpoint.
+
+### Scalar Values
+The API uses additional scalar types beyond the default GraphQL ones to encode big numbers, byte arrays and addresses:
+
+- **Hash** - a 32-byte hexadecimal string prefixed by 0x
+- **Address** - a 20-byte hexadecimal string prefixed by 0x representing an Arthera address
+- **BigInt** - a hexadecimal string prefixed by 0x representing a Big Integer
+- **Long** - a hexadecimal string prefixed by 0x representing a 64-bit unsigned integer
+- **Bytes** - a hexadecimal string prefixed by 0x representing byte array. An empty array is represented by '0x'
+- **Cursor** - an unspecified string value representing the position in a sequential list of edges. Read more about cursors in the **Pagination** section.
+
+Transaction amounts, account balances, rewards and all amount-related data is encoded in `WEI` as big integers in prefixed hexadecimal format.
+
+In your client application you can use Ethereum's Web3 libraries to help you deal with decoding and validation for most data types defined here.
+
+### Pagination
+The API paginates results based on cursors. Each member of a collection has a unique identifier named `cursor`.
+When you want to obtain a slice of the collection, you specify the `cursor` value of the collection member and a count of how many records following the one provided you need.
+If you do not specify the `cursor`, we assume you mean either the top or the bottom of the collection. The relative anchor is determined by the value of your neighbors `count`.
+
+For example this query provides 15 consecutive block after the one with cursor "0x134b7":
+
+```graphql
+query BlocksList {
+    blocks (cursor: "0x25c3", count: 5) {
+        totalCount
+        pageInfo {
+            first
+            last
+            hasNext
+            hasPrevious
+        }
+        edges {
+            cursor
+            block {
+                hash
+                number
+                timestamp
+                transactionCount
+            }
+        }
+    }
+}
+```
+
+To get 10 most recent transactions, you have to skip the `cursor` and send the following query:
+
+```graphql
+query TransactionsList {
+    transactions (count: 10) {
+        totalCount
+        pageInfo {
+            first
+            last
+            hasNext
+            hasPrevious
+        }
+        edges {
+            cursor
+            transaction {
+                hash
+                from
+                to
+                value
+                block {
+                    timestamp
+                }
+            }
+        }
+    }
+}
+```
+Each response will contain data structures to help you navigate through the collection:
+ * `pageInfo`: contains the `first` and `last` cursor of your current slice
+ * `edges`: contains the data element and a `cursor` which can be used to create a link to the same position in the collection regardless of the absolute distance of the element from the top or bottom.
+
+### Schema
+The full GraphQL schema is:
+
+```graphql
+# Root schema definition
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+# Entry points for querying the API
+type Query {
+    # version represents the API server version responding to your requests.
+    version: String!
+
+    # State represents the current state of the blockchain and network.
+    state: CurrentState!
+
+    # stakingConfig provides the current configuration
+    # of the Staking contract managing the block chain staking economy.
+    stakingConfig: StakingConfig!
+
+    # Total number of accounts active on the Arthera blockchain.
+    accountsActive:Long!
+
+    # Get an Account information by hash address.
+    account(address:Address!):Account!
+
+    # Get list of Contracts with at most <count> edges.
+    # If <count> is positive, return edges after the cursor,
+    # if negative, return edges before the cursor.
+    # For undefined cursor, positive <count> starts the list from top,
+    # negative <count> starts the list from bottom.
+    # ValidatedOnly specifies if the list should contain all the Contracts,
+    # or just contracts with validated byte code and available source/ABI.
+    contracts(validatedOnly: Boolean = false, cursor:Cursor, count:Int!):ContractList!
+
+    # Get block information by number or by hash.
+    # If neither is provided, the most recent block is given.
+    block(number:Long, hash: Bytes32):Block
+
+    # Get list of Blocks with at most <count> edges.
+    # If <count> is positive, return edges after the cursor,
+    # if negative, return edges before the cursor.
+    # For undefined cursor, positive <count> starts the list from top,
+    # negative <count> starts the list from bottom.
+    blocks(cursor:Cursor, count:Int!):BlockList!
+
+    # Get transaction information for given transaction hash.
+    transaction(hash:Bytes32!):Transaction
+
+    # Get list of Transactions with at most <count> edges.
+    # If <count> is positive, return edges after the cursor,
+    # if negative, return edges before the cursor.
+    # For undefined cursor, positive <count> starts the list from top,
+    # negative <count> starts the list from bottom.
+    transactions(cursor:Cursor, count:Int!):TransactionList!
+
+    # Get filtered list of ERC20 Transactions.
+    erc20Transactions(cursor:Cursor, count:Int = 25, token: Address, account: Address, txType: [TokenTransactionType!]): ERC20TransactionList!
+
+    # Get filtered list of ERC721 Transactions.
+    erc721Transactions(cursor:Cursor, count:Int = 25, token: Address, tokenId: BigInt, account: Address, txType: [TokenTransactionType!]): ERC721TransactionList!
+
+    # Get filtered list of ERC1155 Transactions.
+    erc1155Transactions(cursor:Cursor, count:Int = 25, token: Address, tokenId: BigInt, account: Address, txType: [TokenTransactionType!]): ERC1155TransactionList!
+
+    # Get the id of the current epoch of the Arthera blockchain.
+    currentEpoch:Long!
+
+    # Get information about specified epoch. Returns current epoch information
+    # if id is not provided.
+    epoch(id: Long): Epoch!
+
+    # Get a scrollable list of epochs sorted from the last one back by default.
+    epochs(cursor: Cursor, count: Int = 25): EpochList!
+
+    # The last staker id in Arthera blockchain.
+    lastValidatorId: Long!
+
+    # The number of validators in Arthera blockchain.
+    validatorsNum: Long!
+
+    # Validator information. The validator is loaded either by numeric ID,
+    # or by address. null if none is provided.
+    validatorStake(id: BigInt, address: Address): ValidatorStake
+
+    # List of validator information from Staking smart contract.
+    validatorStakes: [ValidatorStake!]!
+
+    # provides list of validator information from Staking smart contract
+    # for validators with the given flag set to TRUE. This can be used to obtain a subset
+    # of validators in a given state of  the staking process.
+    validatorStakesWithFlag(flag: ValidatorFlagFilter!): [ValidatorStake!]!
+
+    # The list of delegations for the given validator ID.
+    # Cursor is used to obtain specific slice of the validator delegations.
+    # The most recent delegations are provided if cursor is omitted.
+    delegationsOf(validator:BigInt!, cursor: Cursor, count: Int = 25): DelegationList!
+
+    # Get the details of a specific delegation by it's delegator address
+    # and validator the delegation belongs to.
+    delegation(address:Address!, validator: BigInt!): Delegation
+
+    # Get the list of all delegations by it's delegator address.
+    delegationsByAddress(address:Address!, cursor: Cursor, count: Int = 25): DelegationList!
+
+    # Returns the current price per gas in WEI units.
+    gasPrice: Long!
+
+    # estimateGas returns the estimated amount of gas required
+    # for the transaction described by the parameters of the call.
+    estimateGas(from: Address, to: Address, value: BigInt, data: String): Long
+
+    # Get price details of the Arthera blockchain token for the given target symbols.
+    price(to:String!):Price!
+
+    # Get calculated staking rewards for an account or given
+    # staking amount in AA tokens.
+    # At least one of the address and amount parameters must be provided.
+    # If you provide both, the address takes precedence and the amount is ignored.
+    estimateRewards(address:Address, amount:Long):EstimatedRewards!
+
+    # stakingRewardsCollectedAmount provides an amount of rewards collected based on given
+    # filtering options, which are all optional. If no filter option is passed,
+    # the total amount of collected rewards is being presented.
+    stakingRewardsCollectedAmount(delegator: Address, validator: BigInt, since: Long, until: Long): BigInt!
+
+    # erc20Token provides the information about an ERC20 token specified by it's
+    # address, if available. The resolver returns NULL if the token does not exist.
+    erc20Token(token: Address!):ERC20Token
+
+    # erc20TokenList provides list of the most active ERC20 tokens
+    # deployed on the block chain.
+    erc20TokenList(count: Int = 50):[ERC20Token!]!
+
+    # erc20Assets provides list of tokens owned by the given account address.
+    erc20Assets(owner: Address!, count: Int = 50):[ERC20Token!]!
+
+    # erc20TotalSupply provides the current total supply amount of a specified ERC token
+    # identified by it's ERC contract address.
+    erc20TotalSupply(token: Address!):BigInt!
+
+    # ercTokenBalance provides the current available balance of a specified ERC20 token
+    # identified by it's ERC20 contract address.
+    erc20TokenBalance(owner: Address!, token: Address!):BigInt!
+
+    # erc20TokenAllowance provides the current amount of ERC20 tokens unlocked
+    # by the token owner for the spender to be manipulated with.
+    erc20TokenAllowance(token: Address!, owner: Address!, spender: Address!):BigInt!
+
+    # erc721Assets provides list of tokens owned by the given account address.
+    erc721Assets(owner: Address!, count: Int = 50):[ERC721Token!]!
+
+    # erc721Contract provides the information about ERC721 non-fungible token (NFT) by it's address.
+    erc721Contract(token: Address!):ERC721Contract
+
+    # erc721ContractList provides list of ERC721 non-fungible tokens (NFT) ordered by their activity.
+    erc721ContractList(count: Int = 50):[ERC721Contract!]!
+
+    # erc1155Assets provides list of tokens owned by the given account address.
+    erc1155Assets(owner: Address!, count: Int = 50):[ERC1155Token!]!
+
+    # erc1155Token provides the information about ERC1155 multi-token contract by it's address.
+    erc1155Contract(address: Address!):ERC1155Contract
+
+    # erc1155ContractList provides list of ERC1155 multi-token contracts ordered by their activity.
+    erc1155ContractList(count: Int = 50):[ERC1155Contract!]!
+
+    # trxVolume provides a list of daily aggregations of the network transaction flow.
+    # If boundaries are not defined, last 90 days of aggregated trx flow is provided.
+    # Boundaries are defined in format YYYY-MM-DD, i.e. 2021-01-23 for January 23rd, 2021.
+    trxVolume(from:String, to:String):[DailyTrxVolume!]!
+
+    # trxSpeed provides the recent speed of the network
+    # as number of transactions processed per second
+    # calculated for the given range denominated in secods. I.e. range:300 means last 5 minutes.
+    # Minimal range is 60 seconds, any range below this value will be adjusted to 60 seconds.
+    trxSpeed(range: Int = 1200): Float!
+
+    # trxGasSpeed provides average gas consumed by transactions, either base or cumulative,
+    # per second in the given date/time period. Please specify the ending date and time
+    # as RFC3339 time stamp, i.e. 2021-05-14T00:00:00.000Z. The current time is used if not defined.
+    # The range represents the number of seconds prior the end time stamp
+    # we use to calculate the average gas consumption.
+    trxGasSpeed(range: Int = 1200, to: String): Float!
+
+    # gasPriceList provides a list of gas price ticks for the given date/time span.
+    # If the end time is not specified, the list is provided up to the current date/time.
+    # The maximal date/time span of the list is 30 days.
+    gasPriceList(from: Time! to: Time): [GasPriceTick!]!
+
+    # aaBurnedTotal provides the total amount of native AA tokens burned
+    # by the chain from paid transaction fees in WEI units.
+    aaBurnedTotal: BigInt!
+
+    # aaBurnedTotalAmount provides the total amount of native AA tokens burned
+    # by the chain from paid transaction fees in AA units.
+    aaBurnedTotalAmount: Float!
+
+    # aaLatestBlockBurnList provides a list of latest burned native AA tokens per-block.
+    aaLatestBlockBurnList(count: Int = 25): [AABlockBurn!]!
+
+    # dailyFeeFlow provides a list of fee distribution information aggregated by days.
+    dailyFeeFlow(from: Time, to: Time): [FeeFlowDaily!]!
+
+    # aaTreasuryTotal provides the total amount of native AA tokens sent into treasury
+    # by the chain from paid transaction fees in WEI units.
+    aaTreasuryTotal: BigInt!
+
+    # aaTreasuryTotalAmount provides the total amount of native AA tokens sent into treasury
+    # by the chain from paid transaction fees in AA units.
+    aaTreasuryTotalAmount: Float!
+
+    # networkNodesAggregated provides an aggregated list of network nodes on the Arthera network.
+    networkNodesAggregated(level: NetworkNodeGroupLevel = COUNTRY): NetworkNodeGroupList!
+
+    subscriptionPlans: [SubscriptionPlan!]!
+    subscriptionPlan(id: Long): SubscriptionPlan
+    subscriptionData(address: Address!): SubscriptionData
+    activeSubscription(address: Address!): Boolean!
+    anySubscription(address: Address!): Boolean!
+    subscriptionTokenId(address: Address!): Long!
+}
+
+# Mutation endpoints for modifying the data
+type Mutation {
+    # SendTransaction submits a raw signed transaction into the block chain.
+    # The tx parameter represents raw signed and RLP encoded transaction data.
+    sendTransaction(tx: Bytes!):Transaction
+
+    # Validate a deployed contract byte code with the provided source code
+    # so potential users can check the contract source code, access contract ABI
+    # to be able to interact with the contract and get the right metadata.
+    # Returns updated contract information. If the contract can not be validated,
+    # it raises a GraphQL error.
+    validateContract(contract: ContractValidationInput!): Contract!
+}
+
+# Subscriptions to live events broadcasting
+type Subscription {
+    # Subscribe to receive information about new blocks in the blockchain.
+    onBlock: Block!
+
+    # Subscribe to receive information about new transactions in the blockchain.
+    onTransaction: Transaction!
+}
+```
+
+### Interactive console
+You can play around and test GraphQL queries by opening the `/graphi` endpoint on each API gateway.
+
+<img src="/img/graphi.png"/>
+
+## REST
+Besides the GrapgQL API which covers most needs, the API Gateway provides some useful REST endpoints:
+
+* **`/rest/gas`** returns a JSON structure with current gas price info:
+    * `fastest` - price in gwei
+    * `fast` - price in gwei
+    * `average` - price in gwei
+    * `safeLow` - price in gwei
+
+* **`/rest/offline-validators`**  displays a list of validators that are down
+
+* **`/rest/account?addr=0x...`** returns detailed information for the provided address as a JSON object with the following structure:
+    * `balance` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the account balance in WEI
+    * `contract` - contract creation transaction hash if available
+    * `type` - the type of address: wallet, contract, ERC20, ERC721, ERC1155
+    * `lastActivity` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the unix timestamp of the block where the account was last seen
+    * `txCount` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the number of transactions sent from the account
+    * `erc20Tokens` - array of ERC20 tokens owned by the account
+    * `erc721Tokens` - array of ERC20 tokens owned by the account
+    * `erc1155Tokens` -  array of ERC20 tokens owned by the account
