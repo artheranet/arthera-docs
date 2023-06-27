@@ -355,17 +355,43 @@ You can play around and test GraphQL queries by opening the [**/graphi**](https:
 Besides the GrapgQL API which covers most needs, the API Gateway provides some useful REST endpoints:
 
 * [**/rest/gas**](https://gw-eu1-test.arthera.net/rest/gas) returns a JSON structure with current gas price info:
+  * _Output_: a JSON object with the following structure:
     * `fastest` - price in gwei
     * `fast` - price in gwei
     * `average` - price in gwei
     * `safeLow` - price in gwei
 
-* [**/rest/account?addr=0x...**](https://gw-eu1-test.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD) returns detailed information for the provided address as a JSON object with the following structure:
+  * _Example_:
+  ```shell
+  curl "https://gw-eu1-test.arthera.net/rest/gas"
+  ```
+* [**/rest/account**](https://gw-eu1-test.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD) returns detailed information for the provided address:
+  * _Input_:
+    * `addr` - 0x-prefixed account address as a URL parameter
+  * _Output_: a JSON object with the following structure:
     * `balance` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the account balance in WEI
     * `contract` - contract creation transaction hash if available
     * `type` - the type of address: wallet, contract, ERC20, ERC721, ERC1155
     * `lastActivity` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the unix timestamp of the block where the account was last seen
     * `txCount` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the number of transactions sent from the account
-    * `erc20Tokens` - array of ERC20 tokens owned by the account
-    * `erc721Tokens` - array of ERC20 tokens owned by the account
-    * `erc1155Tokens` -  array of ERC20 tokens owned by the account
+    * `erc20Tokens` - array of ERC20 token addresses owned by the account
+    * `erc721Tokens` - array of ERC20 tokens addresses owned by the account
+    * `erc1155Tokens` -  array of ERC20 tokens addresses owned by the account
+
+  * _Example_:
+    ```bash
+    curl "https://gw-eu1-test.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD"
+    ```
+* [**/rest/balanceof**](https://gw-eu1-test.arthera.net/rest/balanceof) returns the balance of an ERC20, ERC721 or ERC1155 token for the provided address:
+  * _Input_:
+    * `addr` - 0x-prefixed account address as a URL parameter
+    * `token` - 0x-prefixed token contract address as a URL parameter
+    * `type` - type of ERC token contract: erc20, erc721, erc1155
+    * `tokenId` - (only for type=erc1155)  Big Integer encoded as a 0x-prefixed hexadecimal string representing the token id
+  * _Output_: a JSON object with the following structure:
+    * `balance` - Big Integer encoded as a 0x-prefixed hexadecimal string representing the token balance in WEI
+
+  * _Example_:
+  ```bash
+  curl "https://gw-eu1-test.arthera.net/rest/balanceof?type=erc1155&addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD&token=0x000000000000000000000000000000000000Aa07&tokenId=0x1"
+  ```
