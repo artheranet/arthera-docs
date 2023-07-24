@@ -1,15 +1,14 @@
 ---
 title: Security best practices
-description: Security best practices
+description: Setting up a minimum level of security on your server
 ---
-
-## Setting up a minimum level of security on your server:
 
 After installing your validator or rpc server, the next step is setting up the level of security you feel comfortable with. The standards in this guide are for the minimum recommended level of operational security to ensure best possible uptime on Ubuntu server 20.04 and newer.
 
-#### Your Firewall:
+## Your Firewall
 
 1. Before you do anything else, as a sudo user, make sure your system is up to date:
+
    `sudo apt-get update -y && sudo apt upgrade -y`
 
    Once that process is complete do a:
@@ -37,7 +36,7 @@ After installing your validator or rpc server, the next step is setting up the l
    **Stopping:** `sudo ufw disable`
    **Starting:**`sudo ufw enable`
 
-6) After hardening our system we need to open up port 6534 to ensure that our validator can communicate with the rest of the network:
+6. After hardening our system we need to open up port 6534 to ensure that our validator can communicate with the rest of the network:
    `sudo ufw allow 6534`
 
 7. Repeat step 5 and check the status of UFW using:
@@ -45,20 +44,17 @@ After installing your validator or rpc server, the next step is setting up the l
 
    This will produce console output that should make it clear what rules you have configured in UFW.
 
-#### Hardening pain-points:
+## Hardening pain-points
 
 If you are allowing Username and Password access to your server, you should also set up security for your access, one of the best applications for this is **fail2ban** configured correctly it will stop bruteforce attacks as well as several forms of DOS attacks.
 
 1. Installing fail2ban:
    `apt-get install fail2ban`
 
-2. Switching to the location of the configuration file:
-   `cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`
+2. Edit the configuration file:
+   `nano /etc/fail2ban/jail.local`
 
-3. Edit the configuration options:
-   `nano jail.local`
-
-4. Find the **[DEFAULT]** section and edit these options:
+3. Find the **[DEFAULT]** section and edit these options:
 
    **ignoreip:**This option enables you to specify IP addresses or hostnames that fail2ban will ignore. For example, you could add your home or office IP address so fail2ban does not prevent you from accessing your own server. To specify multiple addresses, separate them with a space. For example:
 
