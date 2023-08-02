@@ -22,6 +22,17 @@ const ARTHERA_NETWORK_DETAILS = {
         },
         rpcUrls: ["https://rpc-test.arthera.net/"],
         blockExplorerUrls: ["https://explorer-test.arthera.net"],
+    },
+    'devnet': {
+        chainId: "0x2805",
+        chainName: "Arthera Devnet",
+        nativeCurrency: {
+            name: "Arthera",
+            symbol: "AA",
+            decimals: 18,
+        },
+        rpcUrls: ["https://rpc-dev.arthera.net/"],
+        blockExplorerUrls: ["https://explorer-dev.arthera.net"],
     }
 }
 

@@ -3,7 +3,7 @@ import {addNetwork} from "@site/src/utils";
 import {Button} from "@mui/material";
 
 export default function AddMetamaskNetwork(props: {
-    network: 'testnet' | 'mainnet',
+    network: 'testnet' | 'mainnet' | 'devnet',
     title: string,
     size: 'small' | 'medium' | 'large'
 }): JSX.Element {
