@@ -6,19 +6,10 @@ description: Learn how to configure Hardhat for Arthera
 [**Hardhat**](https://hardhat.org/) is a popular development framework for Solidity smart contracts.
 To work with a local Arthera node or with the Arthera TestNet, HardHat needs to know how to connect to the respective network.
 Add the following snippet in the `networks` section of the `hardhat.config.js` file. (if the `networks` section does
-not exist, you can add it)
+not exist, you can add it).
 
-```json
-...
+```js
 networks: {
-  ...
-  arthera-local: {
-    url: 'http://localhost:18545',
-    chainId: 10244,
-    accounts: [
-      "163f5f0f9a621d72fedd85ffca3d08d131ab4e812181e0d30ffd1c885d20aac7"
-    ]
-  },
   arthera-testnet: {
     url: 'https://rpc-test.arthera.net',
     chainId: 10243,
@@ -29,6 +20,14 @@ networks: {
 
 Now you can run your HardHat scripts with `npx hardhat run scripts/<YOUR_SCRIPT> --network arthera-testnet`
 
+You can view a more complete example of a Hardhat config file [here](https://github.com/julienbrg/arthera-hardhat-example-typescript/blob/main/hardhat.config.ts).
+
 ### A Hardhat template
 
-You can clone or fork **[this repository](https://github.com/julienbrg/arthera-hardhat-example-typescript)** to see how Arthera can be integrated in a Hardhat project. It's in TypeScript. You can simply click on the 'Use this template' button, and then select 'Create a new repository' or 'Open in a codespace'.
+You can clone or fork [this repository](https://github.com/julienbrg/arthera-hardhat-example-typescript) to see how Arthera can be integrated in a Hardhat project. It's in TypeScript. You can simply click on the 'Use this template' button, and then select 'Create a new repository' or 'Open in a codespace'.
+
+:::info
+
+_Latest update: [August 5, 2023](https://github.com/artheranet/arthera-docs)_
+
+:::
