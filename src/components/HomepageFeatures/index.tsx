@@ -23,16 +23,19 @@ export default function HomepageFeatures(): JSX.Element {
       <div className={styles.feature}>
         <h1>Arthera Wallet</h1>
         <p>It’s right here. Use it to play around with our subscriptions and to check out our partner dApps, for now.</p>
-        <Link href="/learn/arthera-wallet">Here is a detailed guide</Link>
+        <ul>
+          <li><Link href="/learn/arthera-wallet">Here is a detailed guide</Link></li>
+        </ul>
       </div>
 
-        <div className={styles.feature}>
-            <h1>Arthera Exporer</h1>
-            <p>Use it to explore the Arthera blockchain: blocks, transactions, tokens, addresses, smart contracts and more.</p>
-            <Link href="https://explorer-test.arthera.net">Arthera Explorer</Link>
-            <br/>
-            <Link href="https://explorer-test-api.arthera.net">Arthera Explorer API</Link>
-        </div>
+      <div className={styles.feature}>
+          <h1>Arthera Explorer</h1>
+          <p>Use it to explore the Arthera blockchain: blocks, transactions, tokens, addresses, smart contracts and more.</p>
+          <ul>
+            <li><Link href="https://explorer-test.arthera.net">Arthera Explorer</Link></li>
+            <li><Link href="https://explorer-test-api.arthera.net">Arthera Explorer API</Link></li>
+          </ul>            
+      </div>
 
       <div className={styles.feature}>
         <h1>Get started</h1>
@@ -64,17 +67,17 @@ export default function HomepageFeatures(): JSX.Element {
 
       <div className={styles.feature}>
         <h1>Become a Validator</h1>
-        <p>Install and run a validator node on your local testnet. <Link href="/validators/getting-started">Here is the tutorial</Link></p>
+        <p>Install and run a validator node on your local testnet. <Link href="/validators/getting-started">Here is the tutorial.</Link></p>
       </div>
 
       <div className={styles.feature}>
         <h1>Join the Arthera ecosystem</h1>
-        <p>In order to properly organise your onboarding please <Link href="https://forms.gle/dKQsUK3L7JW8dN4Y6">complete this form</Link>. The more accurate your answers – the better we can settle you in.</p>
+        <p>In order to properly organise your onboarding please <Link href="https://forms.gle/dKQsUK3L7JW8dN4Y6">complete this form</Link>. The more accurate your answers are, the better we can settle you in. You can also check out <Link href="https://drive.google.com/file/d/1Y82EWqNcFdCjAW0iLs_SURP1LykO5lak/view?usp=sharing">this deck</Link> to get more information about building on Arthera.</p>
       </div>
 
       <div className={styles.feature}>
         <h1>Find out more</h1>
-        <p>Find out more about us and exchange ideas by joining the <Link href="https://t.me/artherachain">Telegram group</Link> or by following our <Link href="https://twitter.com/artherachain">Twitter page</Link>. </p>
+        <p>Find out more about us and exchange ideas by joining the <Link href="https://t.me/artherachain">Telegram group</Link> or by following our <Link href="https://t.me/artherachain/8">Telegram group</Link> if you need tech support.</p>
       </div>
     </section>
   );
