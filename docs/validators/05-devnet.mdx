@@ -123,10 +123,20 @@ echo "YOUR_PASSWORD" > $HOME/arthera/password
 ```
 
 ## 10. Generate your node key
-Run the command below and replace `YOUR_PASSWORD` with the password entered in step [7. Create the validator identity](#7-create-the-validator-identity)
+Run the command below to generate your unique node key:
 ```bash
 docker run -it -v $HOME/arthera:/data arthera/arthera-node:latest p2p genkey /data/node.key
 ```
+
+Check to see if the key was generated successfully by running:
+```bash
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:latest p2p enodeurl /data/node.key
+````
+You should see an output similar to the one below:
+```
+enode://f2927b8b1bc1b05997acf60f713cda3c776300cdac52b80d8dbfb2b434ef0e7283f8d3ca891d832bab3927b03c52593e575d48d9916804af5bf66a75b5b1288a@127.0.0.1:6534
+```
+The output above is your node's `enode` URL. You will need it later on for identifying your node in the Metrics dashboard.
 
 ## 11. Download the latest Devnet genesis file
 Run the command below to download the `devnet.g` genesis file:
@@ -176,7 +186,10 @@ INFO [08-12|05:23:22.805] New block                                ....
 If you get messages like `New event` and `New block` it means your node is syncing and working properly.
 
 Check the [Metrics Dashboard](https://metrics.arthera.net/d/de1a140f-ba0d-47b4-9ff1-697f5b018f1d) to see if your node is listed and has statistics available.
-Choose your validator node from the dropdown list. The validator id displayed in the dropdown list is actually your node id from the `$HOME/arthera/node.key` file formatted like `<first 4 chars><middle 4 chars><last 4 chars>`
+Choose your validator node from the dropdown list.
+
+The validator id displayed in the dropdown list is actually your enode url from step
+[10. Generate your node key](#10-generate-your-node-key) file formatted like `<first 4 chars><middle 4 chars><last 4 chars>`
 
 <img src="/img/metrics.png" alt="Metrics Dashboard" width="800"/>
 <p/>
