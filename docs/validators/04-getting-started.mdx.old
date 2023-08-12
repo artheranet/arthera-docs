@@ -18,10 +18,12 @@ See the [Docker Installation Guide](https://docs.docker.com/engine/install/)
 ```bash
 docker pull arthera/arthera-node:latest
 ```
+
 ## 4. Create a folder to hold your Arthera node data
 ```bash
 mkdir $HOME/arthera
 ```
+
 ## 5. Create a wallet for your validator
 ```bash
 docker run -it -v $HOME/arthera:/data arthera/arthera-node:latest account new
