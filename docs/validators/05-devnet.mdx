@@ -202,6 +202,23 @@ docker run -d --restart unless-stopped -p 6535:6060 -p 18545:18545 -p 18546:1854
   --validator.password "/data/password"
 ```
 
+Check the node was started with `docker ps`:
+
+```
+CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS        PORTS                                                                                                              NAMES
+d6ac0f5fdf14   arthera/arthera-node:latest   "arthera-node --data…"   2 seconds ago   Up 1 second   0.0.0.0:18545-18546->18545-18546/tcp, :::18545-18546->18545-18546/tcp, 0.0.0.0:6535->6060/tcp, :::6535->6060/tcp   heuristic_northcutt
+```
+and check the logs of the container with `docker logs <CONTAINER_ID>`. You should see the following output:
+
+```bash
+INFO [08-12|05:57:39.972] New block                                ....
+INFO [08-12|05:57:39.972] New block                                ....
+INFO [08-12|05:57:39.972] New block                                ....
+INFO [08-12|05:57:39.973] New block                                ....
+INFO [08-12|05:57:39.973] New block                                ....
+INFO [08-12|05:57:39.973] New block                                ....
+```
+
 ## Troubleshooting
 
 #### 1. Node is not syncing
