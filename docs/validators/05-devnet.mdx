@@ -153,13 +153,12 @@ Replace the following variables and run the command below to start your validato
 
 ```bash
 docker pull arthera/arthera-node:latest
-docker run -v $HOME/arthera:/data arthera/arthera-node:latest -p 6535:6060 -p 18545:18545 -p 18546:18546 \
-  --nodekey=/data/node.key \
-  --metrics --verbosity=4 \
-  --nat=extip:YOUR_PUBLIC_IP \
+docker run -p 6535:6060 -v $HOME/arthera:/data arthera/arthera-node:latest \
+  --nodekey /data/node.key \
+  --metrics \
+  --nat extip:YOUR_PUBLIC_IP \
   --validator.id ID_FROM_STEP_8 \
-  --validator.pubkey="VALIDATOR_PUBLIC_KEY_FROM_STEP_7" \
-  --validator.password="/data/password"
+  --validator.pubkey "VALIDATOR_PUBLIC_KEY_FROM_STEP_7"
 ```
 
 Check the output to have the following info:
@@ -205,14 +204,12 @@ Replace the following variables and run the command below to start your validato
 
 ```bash
 docker pull arthera/arthera-node:latest
-docker run -d --restart unless-stopped -p 6535:6060 -p 18545:18545 -p 18546:18546 \
-  -v $HOME/arthera:/data arthera/arthera-node:latest \
+docker run -d --restart unless-stopped -p 6535:6060 -v $HOME/arthera:/data arthera/arthera-node:latest \
   --nodekey /data/node.key \
   --metrics \
   --nat extip:YOUR_PUBLIC_IP \
   --validator.id ID_FROM_STEP_8 \
-  --validator.pubkey "VALIDATOR_PUBLIC_KEY_FROM_STEP_7" \
-  --validator.password "/data/password"
+  --validator.pubkey "VALIDATOR_PUBLIC_KEY_FROM_STEP_7"
 ```
 
 Check the node was started with `docker ps`:
