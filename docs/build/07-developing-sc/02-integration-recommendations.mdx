@@ -11,12 +11,12 @@ This integration process can also be a great opportunity to engage with the dev 
 1. [Iso-functional deployment](./integration-recommendations#1-iso-functional-deployment)
 2. [End-to-end tests](./integration-recommendations#2-end-to-end-tests)
 3. [Deployment with Arthera subscriptions](./integration-recommendations#3-arthera-subscriptions-integration)
-4. [End-to-end tests II](./integration-recommendations#4-end-to-end-tests)
+4. [End-to-end tests II](./integration-recommendations#4-end-to-end-tests-ii)
 5. [Fiat payment widget integration **(soon)**](./integration-recommendations#5-fiat-payment-widget-integration)
 
 ### 1. Iso-functional deployment
 
-The very first step is to deploy your Solidity contracts to Arthera Tesnet without making any modification, meaning first without Arthera subscriptions. It should work the exact same way as any EVM-based network. If you're using Hardhat, [this tutorial](../developing-sc/using-hardhat) is available and you can view here a [typical Hardhat config file here](https://github.com/julienbrg/arthera-hardhat-example-typescript/blob/f861531cc403d869fbe0653651978d148578dc39/hardhat.config.ts#L40-L43).
+The very first step is to deploy your Solidity contracts to Arthera Tesnet without making any modification, meaning first without Arthera subscriptions. It should work the exact same way as any EVM-based network. If you're using Hardhat, [this tutorial](https://docs.arthera.net/build/developing-sc/using-hardhat) is available and you can view here a [typical Hardhat config file here](https://github.com/julienbrg/arthera-hardhat-example-typescript/blob/f861531cc403d869fbe0653651978d148578dc39/hardhat.config.ts#L40-L43).
 
 ### 2. End-to-end tests
 
@@ -24,10 +24,10 @@ You probably already have these in place. At this stage, your unit tests and scr
 
 ### 3. Arthera subscriptions integration
 
-There's nothing easier than an Arthera subs integration. A new tutorial will be published in the coming days, but you already can go ahead and follow [this tutorial](../tutorials/use-subscriptions). To recap, you want to:
+There's nothing easier than an Arthera subs integration. A new tutorial will be published in the coming days, but you already can go ahead and follow [this tutorial](https://docs.arthera.net/build/tutorials/use-subscriptions). To recap, you want to:
 
 - Subscribe your app [here](https://wallet-test.arthera.net/)
-- Edit your contract (as shown on [this page](../tutorials/use-subscriptions))
+- Edit your contract (as shown on [this page](https://docs.arthera.net/build/tutorials/use-subscriptions))
 - Test it
 - Deploy it
 - Add your contract address [here](https://wallet-test.arthera.net/)
