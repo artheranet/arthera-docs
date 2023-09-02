@@ -234,5 +234,12 @@ INFO [08-12|05:57:39.973] New block                                ....
 #### 1. Node is not syncing
 The most common problems are firewalls and incorrectly provided external IP address.
 
-#### 2. Database is corrupted
-Remove the database with `rm -rf $HOME/arthera/arthera-node $HOME/arthera/chaindata` and start your node to re-sync again.
+#### 2. Cleanup node data and restart validator
+1. Stop the doocker container with `docker container stop <CONTAINER_ID>`
+2. Remove the docker container with `docker container rm <CONTAINER_ID>`
+3. Remove the database with `rm -rf $HOME/arthera/arthera-node $HOME/arthera/chaindata`
+4. Start the docker container
+
+#### 3. Database is corrupted
+See [Cleanup node data and restart validator](#2-cleanup-node-data-and-restart-validator)
+
