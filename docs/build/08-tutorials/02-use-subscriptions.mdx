@@ -6,7 +6,9 @@ import { Alert } from "@mui/material";
 
 A few steps are needed to enable subscriptions for your contract.
 
-**Step 1: ** Create an account that will manage the subscription for the contract. This account will act as the **Subscription Owner**, allowing it to make changes to the contract's subscription plan.
+### Step 1
+
+Create an account that will manage the subscription for the contract [using Arthera Wallet UI](https://wallet-test-v2.arthera.net), we call it the **subscription owner**. The subscription owner account can whitelist its users so they can interact with the app without paying any gas fees.
 
 <Alert severity="info">
   Once you purchase a subscription for your contract, the{" "}
@@ -15,7 +17,9 @@ A few steps are needed to enable subscriptions for your contract.
 </Alert>
 <br />
 
-**Step 2: ** Create the `ISubscriptionOwner.sol` file:
+### Step 2
+
+Create the `ISubscriptionOwner.sol` file:
 
 ```solidity
 pragma solidity ^0.8.0;
@@ -25,14 +29,18 @@ interface ISubscriptionOwner {
 }
 ```
 
-**Step 3: ** Import `ISubscriptionOwner.sol` and `@openzeppelin/contracts/utils/introspection/ERC165.sol`:
+### Step 3
+
+Import `ISubscriptionOwner.sol` and `@openzeppelin/contracts/utils/introspection/ERC165.sol`:
 
 ```solidity
 import "./ISubscriptionOwner.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 ```
 
-**Step 4: ** Have your contract inherit from `ISubscriptionOwner` and `ERC165`:
+### Step 4
+
+Your contract must inherit from `ISubscriptionOwner` and `ERC165`:
 
 ```solidity
 contract YourContract is ISubscriptionOwner, ERC165 {
@@ -40,7 +48,9 @@ contract YourContract is ISubscriptionOwner, ERC165 {
 }
 ```
 
-**Step 5: ** Add the following methods at the end of your contract code:
+### Step 5
+
+At the end of your contract code, you must add the following methods:
 
 ```solidity
 /// ... contract code ....
@@ -48,21 +58,56 @@ contract YourContract is ISubscriptionOwner, ERC165 {
 function getSubscriptionOwner() external view returns (address) {
     // the owner of the subscription must be an EOA
     // Replace this with the account created in Step 1
-    return address_of_subscription_owner;
+    return <ADDRESS_OF_THE_SUBSCRIPTION_OWNER>;
 }
 
-function supportsInterface(bytes4 interfaceId)
-    public
-    view
-    override(ERC165)
-    returns (bool)
-    {
-        return interfaceId == type(ISubscriptionOwner).interfaceId || super.supportsInterface(interfaceId);
-    }
+function supportsInterface(bytes4 interfaceId) public view override(ERC165) returns (bool) {
+    return interfaceId == type(ISubscriptionOwner).interfaceId || super.supportsInterface(interfaceId);
+}
 ```
 
-The `ISubscriptionOwner` interface allows Arthera to determine the owner of the subscription, which must be an EOA account.
+The `ISubscriptionOwner` interface allows Arthera to determine the owner of the subscription, which must be an EOA account (it can't be a contract).
 
-**Step 6: ** Deploy the contract
+If your contract is ownable, your `getSubscriptionOwner` function would look like this:
 
-**Step 7: ** Login to the [Arthera Wallet](https://wallet-test.arthera.net) using the **Subscription Owner** account created in **Step 1** and purchase a dApp subscription for your newly deployed contract
+```solidity
+function getSubscriptionOwner() external view returns (address) {
+    return owner();
+}
+```
+
+If your contracts inherits from other contracts, you want to make sure the order of inheritances is correct (the `ERC165` often goes first).
+
+### Step 6
+
+Deploy your contract to Arthera Testnet.
+
+- RPC Endpoint: **`https://rpc-test.arthera.net`**
+- Chain ID: **`10243`**
+
+### Step 7
+
+- Go back to the [Arthera Wallet UI](https://wallet-test-v2.arthera.net)
+- Connect with your subscription owner wallet
+- Click on "Subscribe" (**DApp Plan**)
+- Paste your contract address in the field
+
+At this stage, you're ready to whitelist your users so they can interact with your service without paying any gas fees.
+
+In your app interface, you can whitelist users calling the `whitelistAccount` function from the subscription owner wallet:
+
+```js
+await subscribers.whitelistAccount(contractAddress, userAddress);
+```
+
+THe ABI of the Subscribers contract is [here](https://github.com/w3hc/imnotlate-ui/blob/main/src/pages/index.tsx#L56-L1788), the address is:
+
+```
+0x000000000000000000000000000000000000aa07
+```
+
+:::info
+
+_Latest update: [Septembre 12, 2023](https://github.com/artheranet/arthera-docs)_
+
+:::
