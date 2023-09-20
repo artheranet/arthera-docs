@@ -1,0 +1,76 @@
+import Link from "@docusaurus/Link";import {Alert} from "@mui/material";
+
+Arthera provides a native precompiled contract to interact with the AA coin through an ERC20 interface.
+One of the main benefits of this precompile is that it removes the necessity of having a wrapped representation of the protocol token as an ERC-20 smart contract, such as WETH on Ethereum.
+Furthermore, it prevents having multiple wrapped representations of the same protocol token. Consequently, DApps that need to interact with the protocol token via an ERC-20 interface can do so without needing a separate smart contract.
+
+<Alert severity="info">
+    Available on all Arthera networks at address:{" "}
+    <strong>0x000000000000000000000000000000000000aA09</strong>
+</Alert>
+<br/>
+
+The AA ERC20 interface respects OpenZeppelin's [IERC20Metadata.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Metadata.sol) interface that extends [IERC20.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol) with the `name()`, `symbol()` and `decimals()` functions.
+
+More specifically, the AA ERC20 interface is defined as follows:
+
+### name()
+Read-only function that returns the value `Arthera`
+
+### symbol()
+Read-only function that returns the value `AA`
+
+### decimals()
+Read-only function that returns the value `18`
+
+### totalSupply()
+Read-only function that returns the total supply of AA tokens in existence.
+
+### balanceOf()
+Read-only function that returns the amount of AA tokens owned by `account`.
+
+**Method parameters:**
+- `address account` the account to get the balance of
+
+### allowance()
+Read-only function that checks and returns the amount of AA that a spender is allowed to spend on behalf of the owner.
+
+**Method parameters:**
+- `address owner` the account that owns the AA
+- `address spender` the account that can spend the AA
+
+### transfer()
+Transfers the given amount of AA to a specified address and returns `true` if the transfer was successful
+
+**Method parameters:**
+- `address to` the account to transfer the AA to
+- `uint256 amount` the amount of AA to transfer
+
+**Emits**
+- `event Transfer(address indexed from, address indexed to, uint256 value)`
+
+### approve()
+Approves the provided address to spend a specified amount of AA on behalf of the caller. Returns `true` if successful.
+
+**Method parameters:**
+- `msg.sender` the account that owns the AA
+- `address spender` the account that can spend the AA
+- `uint256 amount` the maximum amount of AA the `spender` can spend on behalf of `msg.sender`
+
+**Emits**
+- `event Approve(address indexed from, address indexed to, uint256 value)`
+
+### transferFrom()
+Transfers the given amount of AA from a specified address to another address and returns `true` if the transfer was successful.
+The `msg.sender` must be approved to spend AA on behalf of the `from` account.
+
+**Method parameters:**
+- `address from` the account to transfer the AA from
+- `address to` the account to transfer the AA to
+- `uint256 amount` the amount of AA to transfer
+
+
+<Alert severity={"warning"}>
+    The ERC-20 standard does not specify the implications of multiple calls to <code>approve()</code>. Changing an allowance with this function numerous times enables a possible attack vector. To avoid incorrect or unintended transaction ordering, you can first reduce the spender allowance to 0 and then set the desired allowance afterward. For more details on the attack vector, you can check out
+    <Link href={'https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA_jp-RLM/edit#'}> ERC-20 API: An Attack Vector on Approve/TransferFrom Methods overview)</Link>
+</Alert>
