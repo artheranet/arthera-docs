@@ -1,0 +1,28 @@
+---
+title: "Contracts verification"
+description: How to get your Solidity contracts verified on the explorer?
+---
+
+There are several ways to get your contract verified on Arthera Testnet explorer.
+
+### Manually
+
+The easiest way is probably to first flatten your contracts, and paste the flattened code in the explorer. if you're using Hardhat, you can use the following command (it's built-in):
+
+```bash
+npx hardhat flatten
+```
+
+Copy your code, then in the [explorer](https://explorer-test.arthera.net), search for your contract address, click the `Verify and Publish` button and paste your code there.
+
+<img src="/img/verify-contract.png" />
+
+### Programmatically
+
+[Sourcify](https://www.sourcify.com/) will be fully supported in the coming days.
+
+:::info
+
+_Latest update: [September 19, 2023](https://github.com/artheranet/arthera-docs)_
+
+:::
