@@ -30,13 +30,13 @@ After installing your validator or rpc server, the next step is setting up the l
    Follow that with:
    `sudo ufw default allow outgoing`
    The third general policy is about ssh, if you are self-hosting the node or validator we strongly recommend disabling ssh as you will be accessing it via a physical keyboard.
-   `sudo ufw allow ssh` **or** if disabling it `sudo ufw deny ssh`
+   `sudo ufw allow OpenSSH` **or** if disabling it `sudo ufw deny OpenSSH`
 
 5. Now that we have general policies in place for hardening our system we need to stop and restart UFW to make sure the changes have been activated that is done by:
    **Stopping:** `sudo ufw disable`
    **Starting:**`sudo ufw enable`
 
-6. After hardening our system we need to open up port 6534 to ensure that our validator can communicate with the rest of the network:
+6. After hardening our system we need to open up peering port (which is by default 6534) to ensure that our validator can communicate with the rest of the network:
    `sudo ufw allow 6534`
 
 7. Repeat step 5 and check the status of UFW using:
