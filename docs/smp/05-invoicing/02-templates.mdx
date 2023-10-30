@@ -1,0 +1,37 @@
+---
+title: Invoice Template
+description: Learn how to personalize invoices and emails
+---
+This can be useful, for instance, to show the invoices directly to your customer on the billing section of your website.
+This document explains how to configure custom invoice templates.
+
+Arthera SMP uses the [mustache](https://mustache.github.io/) engine for generating HTML content.
+
+The template needs to be a standalone HTML document that has Mustache directives and placeholders for various variables that Arthera will fill automatically.
+Because the template must be a standalone HTML document, you need to embed all CSS styles in the HTML and insert images either as Base64 `data` elements or by using external links.
+
+### Invoice Template
+Arthera SMP provides the following variables to the invoice HTML template:
+
+| Variable                                  | Description                                   |
+|-------------------------------------------|-----------------------------------------------|
+| account                                   | Customer account details                      |
+| account.name                              | Customer full name (first name and last name) |
+| account.email                             | Customer email address                        |
+| account.address1                          | Customer address                              |
+| account.companyName                       | Customer company name                         |
+| account.city                              | Customer city                                 |
+| account.stateOrProvince                   | Customer state/province                       |
+| account.postalCode                        | Customer postal code                          |
+| account.country                           | Customer country                              |
+| invoice                                   | Invoice details                               |
+| invoice.formattedInvoiceDate              | Invoice date                                  |
+| invoice.formattedChargedAmount            | Invoice charge amount                         |
+| invoice.formattedPaidAmount               | Invoice paid amount                           |
+| invoice.formattedBalance                  | Invoice balance                               |
+| invoice.invoiceItems                      | Invoice items list                            |
+| invoice.invoiceItems[].formattedStartDate | Start date of invoice item                    |
+| invoice.invoiceItems[].formattedEndDate   | End date of invoice item                      |
+| invoice.invoiceItems[].prettyPlanName     | Display name of the plan                      |
+| invoice.invoiceItems[].prettyProductName  | Display name of the product                   |
+

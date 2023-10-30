@@ -34,7 +34,7 @@ export default function HomepageFeatures(): JSX.Element {
           <ul>
             <li><Link href="https://explorer-test.arthera.net">Arthera Explorer</Link></li>
             <li><Link href="https://explorer-test-api.arthera.net">Arthera Explorer API</Link></li>
-          </ul>            
+          </ul>
       </div>
 
       <div className={styles.feature}>
@@ -61,6 +61,15 @@ export default function HomepageFeatures(): JSX.Element {
                 </div>
               </div>
             </div>
+
+              <div className={clsx('col col--4')}>
+                  <div className={styles.card}>
+                      <div className={styles.cardBody}>
+                          <Link className={styles.cardTitle} href="/smp/intro"><h2>Start a Web 3.0 SaaS business</h2></Link>
+                          <p className={styles.cardText}>Transform your Web3 dApp into a SaaS offering with Arthera SMP. Simplify and enhance your billing, payment, invoicing, and subscription management operations</p>
+                      </div>
+                  </div>
+              </div>
           </div>
         </div>
       </div>

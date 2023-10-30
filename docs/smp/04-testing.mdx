@@ -1,0 +1,32 @@
+---
+title: Test before going live
+description: Learn how to test your setup before going live
+---
+Arthera SMP has two modes of operation: **Live mode** and **Test mode**. By default, the SMP is in Test mode where you don't work with real money/customers.
+Once you go live, you can always switch back to Test mode by using the **Test mode switch** available in the top bar.
+
+In Test mode, you can play with your products and plans, test that they work properly using the test checkout pages and test Self-Service Portal.
+
+### Going Live
+To move from Test mode to Live mode, you need to complete all steps from the Setup Guide:
+
+<img className={'mb-1'} src="/img/smp14.png"/>
+
+Once you completed all the steps from the Setup Guide, you are ready to Go Live ! You can do that by clicking the **Go LIVE** button at the end of the Setup Guide, and you can choose what data you want to be copied over to your new live environment.
+
+<img src="/img/smp15.png"/>
+
+You can copy the following items:
+- **Catalogs**: copy All test mode Catalogs (published and unpublished), all Published test mode catalogs or only the last test mode published catalog
+- **Payment Gateway configuration**: copy the configuration for your Payment Gateway (e.g. Stripe public key and secret key)
+- **Invoice & Email templates**: copy the configured Invoice and Email templates
+
+Once you are ready, click the **Go LIVE** button and your new live environment will be created. There will be no customer data, only the chosen configuration items that you selected to be copied over.
+
+### Hosted Pages
+The hosted pages are also available in test mode or live mode.
+
+The enable Test mode for the Self-Service portal, append the `sbx=true` query param to the Self-Service Portal URL:
+https://smp.arthera.net/hosted/portal?sbx=true or to the Checkout URL.
+
+

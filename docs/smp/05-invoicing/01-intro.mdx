@@ -1,0 +1,81 @@
+---
+title: How invoicing works
+description: Learn how the SMP handles invoices for your customers
+---
+Most billing system are batch oriented: invoice calculation occurs at certain specific times (often configurable), and the system goes through all accounts and generate the missing invoices.
+Arthera SMP, on the other hand, generates new invoices as soon as there is a change in the system that requires such a new invoice. This may occur, for example:
+
+- when there is a change to a subscription (creation, change of plan, cancellation, etc.)
+- when the system detects a recurring charge is due (e.g. monthly recurring subscriptions)
+- when an operator creates an adjustment item: Credit or Charge
+
+After an invoice has been generated, its balance is positive or zero.  If it is positive, the customer owes money and needs to pay the balance.
+Each time an invoice would become negative, the system automatically inserts a special item, called credit balance adjustment (CBA), to bring the balance back to zero.
+That credit is automatically added to the account and used on future invoices. If the invoice is paid, a payment is added against that invoice.
+If the invoice is adjusted later on, a CBA item will be automatically generated and appear on the invoice.
+
+Recurring invoice items start and end on the same day of the month. For example, a monthly subscription starting on the 21st will have items for the service period 21 Aug 2023 to 21 Sep 2023, 21 Sep 2023 to 21 Oct 202, etc.
+Fixed items only have a start date and never get prorated.
+
+## Invoice and Customer Balance
+The invoice balance is computed by adding all the charges, subtracting credits and adjustments, and then subtracting the amount paid.
+The account balance is the sum of all the invoice balances after subtracting any account credit. For example, if all invoices were fully paid, and if there was a $10 account credit, the account balance would be negative and equal to -$10.
+
+## Invoice Items
+### Fixed Items
+An invoice for a subscription on a fixed phase of $0 (trial phase for example) would look like:
+
+| Invoice # | Type  | Description  | Amount | Start Date  |
+|-----------|-------|--------------|--------|-------------|
+| 1001      | Fixed | Single trial | 0$     | 10 Mar 2023 |
+
+### Recurring Items
+An invoice for a subscription on a recurring phase of $20 would look like:
+
+| Invoice # | Type      | Description      | Amount | Start Date  |
+|-----------|-----------|------------------|--------|-------------|
+| 1002      | Recurring | Standard monthly | 20$    | 10 Mar 2023 |
+
+### Plan Changes
+In a case where invoicing occurs in advance, a user gets charged for the upcoming period. For instance a user that subscribed to a monthly plan on 2013-04-11, would get a first invoice, charging for that month. Assuming he paid his invoice, his balance is now 0. Let’s assume he decides to upgrade on 26 Apr 2023:
+Previous invoice:
+
+| Invoice # | Type      | Description      | Amount | Start Date  | End Date    |
+|-----------|-----------|------------------|--------|-------------|-------------|
+| 1003      | Recurring | Standard monthly | 20$    | 11 Apr 2023 | 11 May 2023 |
+
+On the new invoice, the system will generate a REPAIR_ADJ item for the part of the subscription on the old plan that was not used, and a new RECURRING item for the new plan on the remaining period.
+
+| Invoice # | Type       | Description      | Amount | Start Date  | End Date    |
+|-----------|------------|------------------|--------|-------------|-------------|
+| 1004      | Recurring  | Pro monthly      | 15$    | 26 Apr 2023 | 11 May 2023 |
+| 1003      | REPAIR_ADJ | Standard monthly | -10$   | 26 Apr 2023 | 11 May 2023 |
+
+Note that if the absolute value of the amount of the REPAIR_ADJ had been greater than the amount of the new RECURRING item, the system would have generated a CBA_ADJ item whose purpose would have been to bring the balance to 0, and provide the customer some credit that would have been used on subsequent invoices.
+
+### Invoice Item Adjustment
+An invoice item adjustment would look like (assuming the invoice wasn't paid, otherwise a CBA_ADJ item would be added):
+
+| Invoice # | Type      | Description | Amount | Start Date  | End Date    |
+|-----------|-----------|-------------|--------|-------------|-------------|
+| 1004      | Recurring | Pro monthly | 20$    | 26 Apr 2023 | 11 May 2023 |
+| 1003      | ITEM_ADJ  |             | -20$   | 28 Apr 2023 | 28 May 2023 |
+
+### Credit
+Note that CREDIT_ADJ items are also used to represent credits created by the user via the SMP interface. In this case, a dummy invoice is created with a negative amount for the CREDIT_ADJ item. This makes the system generate a CBA_ADJ automatically, which in turn can be used as account credits. For example, here is how a $20 credit would be represented:
+
+| Invoice # | Type       | Description | Amount | Start Date  | End Date    |
+|-----------|------------|-------------|--------|-------------|-------------|
+| 1003      | CREDIT_ADJ |             | -20$   | 28 Apr 2023 | 28 May 2023 |
+
+## Invoice Previews
+In some situations, it is necessary to preview what a given customer will be invoiced for at a given date or after making a subscription change.
+Arthera SMP provides preview invoices to accomplish this goal, and there are a few flavours for different use cases:
+
+- Next upcoming invoice: When is the next upcoming invoice for a given customer, and what will this invoice contain (items, amount, date, ...) ?
+- Next upcoming invoice associated with a given subscription: When is the next upcoming invoice for a given subscription, and what will this invoice contain (items, amount, date, ...)?
+- Given a targetDate, what invoice will the system generate ?
+- Subscription modification: Given a change in a subscription (new subscription, change of plan, cancellation, ...), what invoice will the system generate ?
+
+You can generate a preview invoice from the Customer page in Arthera SMP.
+

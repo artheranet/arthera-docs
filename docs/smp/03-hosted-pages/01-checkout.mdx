@@ -1,0 +1,62 @@
+---
+title: Checkout
+description: Learn about the hosted Checkout page
+---
+The Arthera SMP provides some prebuilt web pages to help dApps accelerate their go-to market strategy. One of these feature is the Checkout hosted page.
+This means that dApps don't have to spend time to build their own custom checkout flow, they can just place a link on their website/app and start onboarding customers.
+
+The **Checkout URL** can be obtained from the [Checkout](/smp/guide#5-the-checkout-form) page.
+
+<img src="/img/smp3.png"/>
+
+The following configuration options available:
+- **Latest published catalog**: This is a read-only, informational field showing the lasted published catalog in effect that this time.
+- **Success URL**: the URL Arthera will redirect to after the customer successfully subscribes to a plan. Usually this is a page from your app where you thank customers for their purchase. Arthera appends an address request param to the URL with the customer's whitelisted wallet.
+- **Cancel URL**: the URL Arthera will redirect to if the customers cancels the buying process. Usually this is a page from your app where you ask customers to try again, give discounts etc.
+
+The Checkout URL has a placeholder called `<PLAN_NAME>` that needs to be replaced with the actual _Name_ of the plan. dApps must place this Checkout URL on their website/app to trigger the checkout flow for the selected plan.
+
+### Example
+
+Let's assume you configure three plans: _Basic, Premium_ and _Enterprise_. You will list the plans on your website/app with a checkout **Buy Now** button for each plan.
+In Arthera SMP, you configured the three plans with names _basic-plan_, _premium-plan_ and _enterprise-plan_.
+
+You configured the Checkout page and your generated Checkout URL is:
+
+`http://smp.arthera.net/hosted/checkout?c=5e75e0d5-2439-4c2c-b680-93d10ffcad2d&su=https://dapp.site/success&ca=https://dapp.site/cancel&p=<PLAN_NAME>`
+
+
+<img src="/img/smp8.png"/>
+
+The Checkout URLs for each **Buy Now** button are:
+- **Basic**: `http://smp.arthera.net/hosted/checkout?c=5e75e0d5-2439-4c2c-b680-93d10ffcad2d&su=https://dapp.site/success&ca=https://dapp.site/cancel&p=basic-plan`
+- **Premium**: `http://smp.arthera.net/hosted/checkout?c=5e75e0d5-2439-4c2c-b680-93d10ffcad2d&su=https://dapp.site/success&ca=https://dapp.site/cancel&p=premium-plan`
+- **Enterprise**: `http://smp.arthera.net/hosted/checkout?c=5e75e0d5-2439-4c2c-b680-93d10ffcad2d&su=https://dapp.site/success&ca=https://dapp.site/cancel&p=enterprise-plan`
+
+We just replaced `<PLAN_NAME>` with the name of the respective plan.
+
+## Identifying customers
+Customers are uniquely identified by their wallet address on Arthera SMP, so before triggering the checkout flow for a customer, we need to know the customer's wallet.
+This means that customers need to login first to get their wallet address.
+
+<img src="/img/smp6.png"/>
+
+They can login using their Google or Github accounts, Metamask wallet or an existing email address. Their wallet will be linked to the first login method they use, so it's important they **always use the same login method to access their wallet**.
+Using a different login method will generate a new wallet address.
+
+If it's a new customer, the login process will generate a **non-custodial wallet** for them, and if it's a returning customer the same wallet address will always be returned for the same login method.
+
+## The Checkout page
+After a customer logs in successfully, the checkout page is presented for him to enter his billing details.
+
+<img src="/img/smp7.png"/>
+
+Once they fill their details and click the **Continue** button, the SMP will redirect the customer to the Payment Gateway's page where they will enter their card details and complete the payment.
+
+## Handling success and failure
+Because the checkout page is a hosted page (served by the Arthera SMP), it needs to know where to redirect the customer after a successful payment or if the customers decides to cancel the purchase.
+Based on what the outcome of the payment process is, Arthera will redirect the customer either to the [Success URL](/smp/guide#5-the-checkout-form) if the payment was successful, or to the [Cancel URL](/smp/guide#5-the-checkout-form) if the payment failed or the customer cancelled the transaction.
+
+The **Success URL** will have an `address` query parameter appended with the wallet address of the customer that made the payment. Based on this wallet address, the dApp can take further actions to activate the customer's services.
+
+The SMP will also [whitelist](/smp/manage-customers/whitelist-blacklist) the customer's wallet in the dApps on-chain subscription, so they can enjoy gas-less transactions.

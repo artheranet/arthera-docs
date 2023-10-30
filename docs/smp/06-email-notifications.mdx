@@ -1,0 +1,58 @@
+---
+title: Email Notifications
+description: Learn how to configure automated email notifications for your customers
+---
+Arthera SMP can send email notifications when certain events occur:
+
+- **INVOICE_CREATION**: The customer will receive an email informing them that a new invoice is available.
+- **INVOICE_NOTIFICATION**: The customer will receive an email about upcoming invoices
+- **INVOICE_PAYMENT_SUCCESS**: The customer will receive an email after each successful payment or refund.
+- **INVOICE_PAYMENT_FAILED**: The customer will receive an email after each failed payment.
+- **SUBSCRIPTION_CANCEL**: The customer will receive an email at the time a subscription was requested to be canceled and/or at the effective date of the subscription cancellation.
+
+### Email Templates
+Every time Arthera send a notification email, it will use the configured template for each notification type.
+Arthera SMP uses the [mustache](https://mustache.github.io/) engine for generating HTML content.
+
+The templates need to be standalone HTML documents that have Mustache directives and placeholders for various variables that Arthera will fill automatically.
+Because the template must be a standalone HTML document, you need to embed all CSS styles in the HTML and insert images either as Base64 `data` elements or by using external links.
+
+Arthera SMP provides the following variables to the email HTML templates:
+
+| Variable                                  | Description                                         |
+|-------------------------------------------|-----------------------------------------------------|
+| account                                   | Customer account details                            |
+| account.name                              | Customer full name (first name and last name)       |
+| account.email                             | Customer email address                              |
+| account.address1                          | Customer address                                    |
+| account.companyName                       | Customer company name                               |
+| account.city                              | Customer city                                       |
+| account.stateOrProvince                   | Customer state/province                             |
+| account.postalCode                        | Customer postal code                                |
+| account.country                           | Customer country                                    |
+| subscription                              | Subscription data                                   |
+| subscription.createdDate                  | Datetime the service starts                         |
+| subscription.billingStartDate             | Datetime on which the system starts invoicing       |
+| subscription.billingEndDate               | Datetime on which the system ends invoicing         |
+| subscription.billCycleDayLocal            | Day of the month on which invoices are generated)   |
+| subscription.state                        | Current state of the subscription (see notes below) |
+| invoice                                   | Invoice details                                     |
+| invoice                                   | Invoice details                                     |
+| invoice.formattedInvoiceDate              | Invoice date                                        |
+| invoice.formattedChargedAmount            | Invoice charge amount                               |
+| invoice.formattedPaidAmount               | Invoice paid amount                                 |
+| invoice.formattedBalance                  | Invoice balance                                     |
+| invoice.invoiceItems                      | Invoice items list                                  |
+| invoice.invoiceItems[].formattedStartDate | Start date of invoice item                          |
+| invoice.invoiceItems[].formattedEndDate   | End date of invoice item                            |
+| invoice.invoiceItems[].prettyPlanName     | Display name of the plan                            |
+| invoice.invoiceItems[].prettyProductName  | Display name of the product                         |
+
+`subscription.state` - possible values are:
+
+- PENDING: The subscription is not yet created.
+- ACTIVE: The subscription is currently active.
+- BLOCKED: The subscription is currently paused.
+- CANCELLED: The subscription has been cancelled.
+- EXPIRED: The subscription has expired. This state is applicable only for subscriptions with a _Fixed Term_ phase.
+

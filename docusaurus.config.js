@@ -96,6 +96,12 @@ const config = {
                     },
                     {
                         type: "doc",
+                        docId: "smp/intro",
+                        position: "left",
+                        label: "SMP",
+                    },
+                    {
+                        type: "doc",
                         docId: "connect/intro",
                         position: "left",
                         label: "Connect",
