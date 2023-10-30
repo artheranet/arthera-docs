@@ -1,0 +1,142 @@
+---
+title: The Catalog
+description: Learn how to configure the product catalog
+---
+## Overview
+The catalog is the central configuration object of Arthera SMP for all of your business rules.
+It contains what the customer buys (products), how the customer pays for a product (plans), change rules, prices, etc.
+
+The Catalog is a data model that captures the core configuration of the billing system and sits at the heart of the billing system.
+If your billing system is not capable of capturing all of the business logic it ends up being put in multiple places such as your purchase flow, Admin UI, human process etc.
+It becomes very difficult to keep all these places consistent, and very difficult to make changes when they are needed.
+
+Arthera SMP provides a very powerful catalog that, unlike other billing systems, allows the administrator to set up sophisticated business rules around cancellation and plan changes.
+For example, the SMP can just be told to "Cancel" a plan and it will know when to perform the cancel, based on things like the type of plan, or whether it is in trial.
+
+The things you can configure with the SMP catalog include:
+- Trials and discount phases - plans can be configured with trial and discount phases so that they move automatically between different pricing schemes
+- Cancellation - business rules to determine when a cancellation should happen.
+- Plan Change - business rules to determine when to apply upgrades and downgrades.
+- Which add-ons are available with which product types, so that when the customer upgrades or downgrades, add-ons that are not available are automatically cancelled
+- Billing Alignment - rules to determine if a Plan should be billed independently or on the account billing date.
+- Catalog change - ways to specify how and when catalog changes apply to new and existing subscriptions
+
+Arthera SMP also supports the concept of a Price List, which is a grouping of (usually discounted) plans that can be offered to a customer.
+
+### Concepts
+In this section we outline some key pieces of terminology that you will need to understand.
+Different billing systems use these same words to mean subtly different things so, even if you are familiar with the language, it is worth looking through exactly how we use the terms in Arthera SMP.
+
+- Customer – someone who buys your product
+- Administrator (or Admin) – the person who can use the SMP web interface to view and modify customer accounts
+- Account – a customer account. It represents what the SMP knows about a customer.
+- Subscription – a contract between you and a customer to purchase a particular product with particular terms. In the system it associates a Plan (see below) with an Account and a start date.
+
+### What's in a Catalog ?
+
+An Arthera SMP Catalog includes the following sections:
+- **Products** - The things that the customer actually buys (or rents). In the example depicted at the start of the chapter, the product available for rent is a Spy Car, which is available in three different versions: Standard, Sports and Super.
+- **Plans** - Specifications for the terms of the Subscription contract. In particular, plans define how much a customer pays for a product, and how often they pay it. For example, we could offer the Standard Spy Car product at $100 per month.
+- **Plan Phases** (or just **Phases**) - Time periods within a subscription during which certain rules apply. Arthera SMP plans can have multiple phases and each phase can have a different price and payment term. In this way, we can have plans with built in trials or discount phases. The SMP automatically handles the transitions between phases. In our example above the plans have two phases: they start with a 30 day trial which is free, and then move to a recurring phase at $100 per month.
+- **Price List** - A collection of plans. Price Lists are normally used to group discount plans that are associated with a particular customer group. For example, MI6 might have special rental terms for their Spy Cars with the CIA. In this case they would create a CIA Price List that grouped plans with those special terms together. When CIA agents would come to the rental site, they would see plans from that price list. More importantly, if they change plans (for example, if they upgrade from Sports to Super to meet the needs of a particularly difficult mission), they will upgrade to the Sports plan within the CIA Price List.
+- **Billing Period** - The period for which the customer is billed (e.g MONTHLY, ANNUAL, ...)
+- **Rules** - The rules that determine how the SMP should behave when a plan is created, cancelled or changed.
+
+### How is the Catalog used ?
+The SMP first uses the catalog when the user creates a subscription, then subsequently if there is a change of Plan (upgrade or downgrade), and then finally when the user cancels the subscription.
+During such operations, catalog information is retrieved to make sure the system builds the right subscription (e.g. maybe there is a TRIAL phase to start). Information about how to perform such operations is configured in the catalog through the Subscription Alignment Rules. Examples of these rules include:
+- **Plan Cancellation Timing** - Should the customer get a pro-ration credit when the subscription is cancelled before its next renewal date?
+- **Plan Change Timing** - Should a customer downgrading to a lower (paid) plan be active immediately or should the system wait for the next renewal date?
+
+The catalog is also used by the invoicing system to make sure each customer is billed at the right time and for the right amount. Information about how the customer is billed and when the customer is billed is also defined in the catalog using alignments and their associated rules.
+
+Catalog configuration allows the SMP Administrator to define whether all subscriptions attached to a customer should be invoiced at the same time, or if they should be billed separately on their own schedule.
+There could also be a mix of both where some are grouped together on the same invoice and others are invoiced independently. In the simplest case, the customer gets one invoice per billing period. Note that grouping subscriptions together may by default lead to some proration for a new subscription, to align it with the billing period. For further discussion of this topic see Billing Alignment Rules.
+
+### Creating the Catalog
+The catalog can be created by using the SMP web interface.
+
+## Products
+The Product is a representation of the thing the customer is actually buying. Specifying a Product is very straightforward. The product is described by the following parameters:
+- Name - a string that is used to refer to the Product elsewhere in the catalog. For example "Super".
+- Category - a descriptor that determines how Arthera SMP allows the combining of this product with others within a bundle. The options are BASE and ADD_ON. These options are explained below.
+- Inclusion/Exclusion lists (optional) - Lists that determine which addons can be purchased with a given base plan.
+
+## Plans
+Plans specify the terms of a subscription contract. Each Plan has a name and refers to the purchase of a single product.
+The details of a Plan are arranged by phase. In the illustration (right) we are showing a Plan with a 30-day Trial followed by an unlimited recurring or "Evergreen" phase.
+
+For each phase of the Plan we need to specify:
+- Phase Type - can be one of TRIAL, DISCOUNT, FIXEDTERM, EVERGREEN
+- Duration - the length of the phase in days, months, years or UNLIMITED
+- Billing Period - how frequently do we want to invoice for this phase. Can be DAILY, WEEKLY, BIWEEKLY, THIRTY_DAYS, MONTHLY, QUARTERLY, BIANNUAL, ANNUAL, BIENNIAL or NO_BILLING_PERIOD
+- Recurring Price - the recurring price that needs to be paid every billing period (unless no billing period was specified). The price needs to specify numeric values for every currency that the catalog supports.
+- Fixed Price - a fixed price charged at the beginning of the period in addition to the recurring price. This is also a multi currency price and must be specified for all currencies.
+
+Plan and Phase sections can have a `Display Name` field which would correspond to the display name (such information is subsequently available on invoice items).
+This is useful for instance if a product is rebranded to a new name in a subsequent version. Plan names don't need to be updated.
+
+Note that unlike `Display Name`, the name elements need to be globally unique in the catalog  and must conform to the XML NCName definition.
+This means that they cannot contain symbol characters like: `, @ $ % & / + , ;`  whitespace characters or parentheses, and they cannot begin with a number, dot or minus character.
+
+## Product Categories
+As noted above, Arthera SMP supports two categories of products:
+- Base Products - Products that can have one or more addons
+- Add-On Products - Products that can be bundled with a base product
+
+The terms BASE and ADD_ON represent plans that are associated with these three types of product respectively.
+Having an explicit representation of Add-On products allows the SMP to be configured to only allow purchases of add-ons with particular base plans, and to trigger appropriate cancellations automatically when the base plan changes or is cancelled.
+
+The Arthera SMP catalog allows you to specify the inclusion and availability of Add-On Products with associated Base Products.
+
+## Billing Alignment Rules
+Billing alignment is concerned with specifying the day on which a particular subscription is to be billed.
+If an account has multiple subscriptions it is often desirable that they be billed on the same day.
+
+If the billing period for a subscription is MONTHLY or a multiple of MONTHLY (such as QUARTERLY, ANNUAL, etc.) then we define the **Bill Cycle Day (BCD)**.
+This is the date on which the billing occurs for that subscription each month. If multiple subscriptions have the same BCD, they may be billed on the same invoice. However, if the BCD for a new subscription differs from its start date, then the initial bill will have to be prorated. This will also occur anytime the BCD for a subscription is changed.
+
+If a BCD falls on a date past the end of a given month, such as April 31, it will be set to the last day of that month.
+
+The Billing Alignment Rules specify the policy for billing alignment for the current subscription. There are two kinds of alignment available:
+
+- ACCOUNT - this alignment means that the billing cycle of the subscription will be lined up with the BCD of the account. If a day value is not specified, the system will generate one using the first recurring bill date of all subscriptions with an ACCOUNT billing alignment. In some cases this is undesirable, because it means that the bill amount will need to be prorated on the first billing to line up the cycles.
+- SUBSCRIPTION - this alignment will cause the subscription’s bill cycle to line up with the first bill day of the subscription plan. For example, if the subscription starts on January 3rd and has a 15 day free trial, the first billed day will be January 18th, and the BCD for the subscription will be set to 18.
+
+For example, suppose we have a MONTHLY subscription, billed on the 15th of the month, and we add an ANNUAL subscription. If we start the ANNUAL on the 8th, we have 2 choices:
+1. We can use an ACCOUNT alignment, so everything gets invoiced on the 15th. This would require an initial proration for the ANNUAL subscription from the 8th to the 15th, to align it with the MONTHLY subscription.
+2. We can use a SUBSCRIPTION alignment and keep the ANNUAL on its own invoice, once a year on the 8th. This avoids any leading proration, but requires separate invoices.
+
+## Subscription Alignment Rules
+
+### Plan Cancellation Timing
+This rule is used to specify when a cancellation should occur. There are two options:
+- END_OF_TERM - means that the cancellation will be applied at the end of the billed period. This is typical in a situation where we want to avoid generating credits.
+- IMMEDIATE - means that the cancellation will be applied immediately and the customer credited with the balance of the subscription that they have paid for but not yet used.
+
+### Plan Change Timing
+This rule specifies when a plan change should occur. There are three options:
+- END_OF_TERM - specifies that the change should happen at the end of the current billed period.
+- IMMEDIATE - specifies that the change should happen when requested.
+- ILLEGAL - plan change is not allowed.
+
+### Plan Change Phase Alignment
+This rule specifies how the phases of a new plan should align with the phases of the existing plan when a plan is changed.
+
+There are two options:
+- START_OF_SUBSCRIPTION - The plan phases start with the start of the subscription. This is the most common alignment and applies in most situations.
+- CHANGE_OF_PLAN - The plan phases start at the time of the change
+
+## Catalog Versions
+Arthera SMP allows you to modify the catalog over time. Each catalog you create (and publish) has an `Effective Date` which constitutes the version of the catalog.  In this way we can change prices, add new Plans, Products, Price Lists etc, retire Plans, Products, Price Lists, etc.
+
+Note that it is possible to remove entries in subsequent catalog versions. For example, removing a Plan in a new catalog version would prevent future customers from subscribing to that Plan. However existing subscriptions may still refer to it.
+
+### Deferred Price Change
+Arthera SMP supports the ability to make a price change to a plan that applies based on the catalog effective date for new purchases, but which is deferred for existing subscriptions. It is often the case that existing customers will need a notice period before prices are changed but you need to deliver the new prices to new purchases as soon as the change is announced.
+
+This feature uses the field `Effective Date for Existing Subscriptions` field that is included on Plans. The semantics is simply that the changes to that plan will only take effect for existing subscriptions, after that date, but new subscription would use the new price immediately.
+
+The drawing below summarizes how the system would apply the change for an existing subscription:
+
+<img src="/img/smp18.png"/>
