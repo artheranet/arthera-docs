@@ -98,7 +98,7 @@ const config = {
                         type: "doc",
                         docId: "smp/intro",
                         position: "left",
-                        label: "SMP",
+                        label: "Subscription Management Platform",
                     },
                     {
                         type: "doc",
