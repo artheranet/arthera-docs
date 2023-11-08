@@ -76,7 +76,7 @@ export default function HomepageFeatures(): JSX.Element {
 
       <div className={styles.feature}>
         <h1>Become a Validator</h1>
-        <p>Install and run a validator node on your local testnet. <Link href="/validators/getting-started">Here is the tutorial.</Link></p>
+        <p>Install and run a validator node on your local testnet. <Link href="https://forms.gle/THL21KgiktVWikjf9">Join as a validator.</Link></p>
       </div>
 
       <div className={styles.feature}>
