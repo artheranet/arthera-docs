@@ -47,7 +47,7 @@ Path of the secret key file: /data/keystore/UTC--2023-07-18T21-48-46.572871703Z-
 </Alert>
 
 ## 6. Fund your validator wallet
-Fund your validator wallet with at least 500,000 AA coins.
+Fund your validator wallet with at least 100,000 AA coins.
 
 ## 7. Create the validator identity
 ```bash
