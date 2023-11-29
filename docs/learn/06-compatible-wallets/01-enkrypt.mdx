@@ -1,0 +1,55 @@
+---
+title: Enkrypt
+---
+
+Enkrypt has Arthera **natively integrated**. Simply toggle the Arthera Testnet in the list of networks!
+
+## Use Enkrypt
+
+Here's a step-by-step guide:
+
+1. **Open Enkrypt:**
+   Launch the Enkrypt extension in your web browser (Chrome, Firefox, Brave, Safari, Opera or Edge). If you haven't installed Enkrypt yet, you can download it from the official [Enkrypt website](https://www.enkrypt.com/?mtm_campaign=Arthera%20Official%20Wallets).
+
+2. **Log in to your wallet:**
+   If you're not logged in already, enter your password and log in to your Enkrypt wallet.
+
+3. **Toggle Arthera Testnet On**:
+
+   3.1. **Access the network menu:**
+   In the Enkrypt extension window, click on "Manage networks".
+
+   3.2. **Enable Testnets:** Click on the Settings button on the top right, then toggle "Show testnets" on.
+
+   3.3. **Find Arthera:** In the same window, scroll down until you see Arthera. Toggle it on and you're set!
+
+4. **Connect to Arthera:** Once the network is added, it will be available in the network menu on the left. Click on Arthera to connect to it.
+
+Now your Enkrypt wallet is connected to Arthera, and you can [interact with smart contracts and dApps on Arthera using Enkrypt](https://blog.enkrypt.com/interact-with-arthera-using-enkrypt/).
+Remember that each network has its own set of tokens, so your balances may be different across networks.
+
+## Add Enkrypt to your dApp
+
+Enkrypt provides a [wagmi compatible adapter](https://www.npmjs.com/package/@enkryptcom/connector-wagmi) that can be used within your existing wagmi dapps and along side other wallets.
+
+```ts
+import { EnkryptConnector } from "@enkryptcom/connector-wagmi";
+import {
+  createClient,
+  defaultChains,
+} from 'wagmi'
+
+const client = createClient({
+  autoConnect: true,
+  connectors: [
+    new EnkryptConnector({ chains: defaultChains })
+});
+```
+
+You can read more about connecting Enkrypt to your dApp in [Enkrypt docs](https://myetherwallet.gitbook.io/enkrypt-documentation/add-enkrypt-to-dapps#evm-dapps).
+
+:::info
+
+_Latest update: [November 29, 2023](https://github.com/artheranet/arthera-docs)_
+
+:::
