@@ -54,13 +54,13 @@ After the contract gets a subscription, its users will still pay normal gas fees
 The subscription owner (owner of the contract) must call the [addWhitlister()](/build/developing-sc/system-contracts/Subscribers#addwhitelister) method to allow a third party address to whitellist an end-user.
 
 To allow users to consume from the contract's subscription, the whitelister must whitelist the respective user accounts
-using the [whitelistAccount()](/build/developing-sc/system-contracts/Subscribers#whitelistaccount) method available in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
+using the [whitelistAccount()](/build/developing-sc/system-contracts/Subscribers#whitelistaccount) method available in the [Subscribers](/build/developing-sc/system-contracts/Subscribers) system contract.
 
-To disallow a whitelisted user from using the contract's subscription, the owner of the contract must use the [blacklistAccount()](/dapp/developing-sc/system-contracts/Subscribers#blacklistaccount)
-method available in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
+To disallow a whitelisted user from using the contract's subscription, the owner of the contract must use the [blacklistAccount()](/build/developing-sc/system-contracts/Subscribers#blacklistaccount)
+method available in the [Subscribers](/build/developing-sc/system-contracts/Subscribers) system contract.
 
-Querying if an account is whitelisted/blacklisted can be done by invoking the [isWhitelisted()](/dapp/developing-sc/system-contracts/Subscribers#iswhitelisted) method available
-in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
+Querying if an account is whitelisted/blacklisted can be done by invoking the [isWhitelisted()](/build/developing-sc/system-contracts/Subscribers#iswhitelisted) method available
+in the [Subscribers](/build/developing-sc/system-contracts/Subscribers) system contract.
 
 ## Charging DApp customers
 
