@@ -1,6 +1,7 @@
 ---
 title: Using Subscriptions
 ---
+
 A Contract (DApp) subscription is meant to waive gas fees for EOAs that send transactions to the contract account
 if the EOA is whitelisted to use the contract's subscription.
 
@@ -47,10 +48,13 @@ interface ISubscriptionOwner {
 ```
 
 ## Whitelisting accounts
+
 After the contract gets a subscription, its users will still pay normal gas fees (Pay-as-You-Go mode) to work with the contract.
 
-To allow users to consume from the contract's subscription, the owner of the contract must whitelist the respective user accounts
-using the [whitelistAccount()](/dapp/developing-sc/system-contracts/Subscribers#whitelistaccount) method available in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
+The subscription owner (owner of the contract) must call the [addWhitlister()](/build/developing-sc/system-contracts/Subscribers#addwhitelister) method to allow a third party address to whitellist an end-user.
+
+To allow users to consume from the contract's subscription, the whitelister must whitelist the respective user accounts
+using the [whitelistAccount()](/build/developing-sc/system-contracts/Subscribers#whitelistaccount) method available in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
 
 To disallow a whitelisted user from using the contract's subscription, the owner of the contract must use the [blacklistAccount()](/dapp/developing-sc/system-contracts/Subscribers#blacklistaccount)
 method available in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
@@ -59,10 +63,10 @@ Querying if an account is whitelisted/blacklisted can be done by invoking the [i
 in the [Subscribers](/dapp/developing-sc/system-contracts/Subscribers) system contract.
 
 ## Charging DApp customers
+
 The developer of the DApp can charge its users using any payment method: fiat money, cards or give access to its services for free.
 Arthera provides an advanced [Subscription Management Platform](/smp/intro) for free to all dApps in the ecosystem. This drastically reduces frauds and eliminates scams.
 
 The DApp can create its own revenue stream using for example the Software-as-a-Service model, without worrying about its users having to pay
 for gas fees or owning cryptocurrencies. The DApp only needs to track its Arthera subscription usage and recharge it when it's low on units,
 or maybe go for a higher plan. This can easily be done using scheduled tasks or cloud lambda functions.
-

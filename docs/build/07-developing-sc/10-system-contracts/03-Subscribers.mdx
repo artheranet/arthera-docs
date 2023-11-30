@@ -130,6 +130,19 @@ Terminates a subscription immediately and burns the NFT. No refunds are made.
 
 - `event TerminateSubscription(uint256 id)`
 
+### addWhitelister()
+
+Allows a third-party account to whitelist an end-user account.
+
+**Method parameters:**
+
+- `address _contract` the address of the subscribed contract
+- `address whitelister` new whitelister account address
+
+**Emits**
+
+- `event WhitelisterAdded(uint256 id, address account)`
+
 ### whitelistAccount()
 
 Whitelists the provided account to consume from the contract account subscription.
@@ -137,7 +150,7 @@ Whitelists the provided account to consume from the contract account subscriptio
 **Method parameters:**
 
 - `address _contract` the address of the subscribed contract
-- `address account` subscription owner
+- `address account` whitelister address
 
 **Emits**
 
