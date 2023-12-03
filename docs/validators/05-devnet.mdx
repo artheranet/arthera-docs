@@ -151,7 +151,7 @@ Run the command below and replace `YOUR_PASSWORD` with the password entered in s
 echo "YOUR_PASSWORD" > $HOME/arthera/password
 ```
 
-## 10. Generate your node key
+## 11. Generate your node key
 
 Run the command below to generate your unique node key:
 
@@ -173,7 +173,7 @@ enode://f2927b8b1bc1b05997acf60f713cda3c776300cdac52b80d8dbfb2b434ef0e7283f8d3ca
 
 The output above is your node's `enode` URL. You will need it later on for identifying your node in the Metrics dashboard.
 
-## 11. Download the latest Devnet genesis file
+## 12. Download the latest Devnet genesis file
 
 Run the command below to download the `devnet3.g` genesis file:
 
@@ -181,7 +181,7 @@ Run the command below to download the `devnet3.g` genesis file:
 curl -o $HOME/arthera/genesis.g https://s3.eu-central-1.amazonaws.com/release.arthera.net/devnet.g
 ```
 
-## 12. Test your node
+## 13. Test your node
 
 Replace the following variables and run the command below to start your validator:
 
@@ -224,7 +224,7 @@ If you get messages like `New event` and `New block` it means your node is synci
 
 You can now stop the node with `Ctrl+C`, clean the output folder with `rm -rf $HOME/arthera/arthera-node $HOME/arthera/chaindata` and move to the next step.
 
-## 13. Run your node
+## 14. Run your node
 
 Replace the following variables and run the command below to start your validator:
 
