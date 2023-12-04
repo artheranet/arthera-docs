@@ -130,7 +130,7 @@ This step requires that you submit the validator's wallet address created in ste
 and the Public Key created in [6. Create the validator identity](#6-create-the-validator-identity) to Arthera, so we can delegate the required
 coins to your validator (the minimum stake of 100,000 AA).
 
-## 9. View your validator in the Arthera Wallet
+## 8. View your validator in the Arthera Wallet
 While you wait for us to delegate the required coins to your validator, you can register your account it in the [Arthera wallet](https://wallet-test.arthera.net).
 
 1. Configure MetaMask to connect to the Arthera Devnet (see [Network details](#network-details))
@@ -143,7 +143,7 @@ While you wait for us to delegate the required coins to your validator, you can 
     The next steps require that your validator is shown in the Arthera Wallet. If you don't see it, wait for us to delegate the required coins to it and try again.
 </Alert>
 
-## 10. Create a password file
+## 9. Create a password file
 
 Run the command below and replace `YOUR_PASSWORD` with the password entered in step [7. Create the validator identity](#7-create-the-validator-identity)
 
@@ -151,7 +151,7 @@ Run the command below and replace `YOUR_PASSWORD` with the password entered in s
 echo "YOUR_PASSWORD" > $HOME/arthera/password
 ```
 
-## 11. Generate your node key
+## 10. Generate your node key
 
 Run the command below to generate your unique node key:
 
@@ -173,7 +173,7 @@ enode://f2927b8b1bc1b05997acf60f713cda3c776300cdac52b80d8dbfb2b434ef0e7283f8d3ca
 
 The output above is your node's `enode` URL. You will need it later on for identifying your node in the Metrics dashboard.
 
-## 12. Download the latest Devnet genesis file
+## 11. Download the latest Devnet genesis file
 
 Run the command below to download the `devnet3.g` genesis file:
 
@@ -181,7 +181,7 @@ Run the command below to download the `devnet3.g` genesis file:
 curl -o $HOME/arthera/genesis.g https://s3.eu-central-1.amazonaws.com/release.arthera.net/devnet.g
 ```
 
-## 13. Test your node
+## 12. Test your node
 
 Replace the following variables and run the command below to start your validator:
 
@@ -224,7 +224,7 @@ If you get messages like `New event` and `New block` it means your node is synci
 
 You can now stop the node with `Ctrl+C`, clean the output folder with `rm -rf $HOME/arthera/arthera-node $HOME/arthera/chaindata` and move to the next step.
 
-## 14. Run your node
+## 13. Run your node
 
 Replace the following variables and run the command below to start your validator:
 
