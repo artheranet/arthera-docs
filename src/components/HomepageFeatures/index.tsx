@@ -86,7 +86,7 @@ export default function HomepageFeatures(): JSX.Element {
 
       <div className={styles.feature}>
         <h1>Find out more</h1>
-        <p>Find out more about us and exchange ideas by joining the <Link href="https://t.me/artherachain">Telegram group</Link> or by following our <Link href="https://t.me/artherachain/8">Telegram group</Link> if you need tech support.</p>
+        <p>Find out more about us and exchange ideas by joining the <Link href="https://t.me/artherachain">Telegram group</Link> or by following our <Link href="https://t.me/artherachain">Telegram group</Link> if you need tech support.</p>
       </div>
     </section>
   );
