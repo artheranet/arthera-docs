@@ -4,7 +4,7 @@ title: Configure the SMP
 
 The Arthera SMP ([Subcription Management Platform](../../smp/intro)) is a service that allows you to configure and manage the subscriptions you want to offer to your users.
 
-You can go ahead and create an account: **[https://smp.arthera.net](https://smp.arthera.net)**
+You can create an account here: **[https://smp.arthera.net](https://smp.arthera.net)**
 
 ## Requirements
 
@@ -12,30 +12,30 @@ You can go ahead and create an account: **[https://smp.arthera.net](https://smp.
 
 :::info
 
-_Payments in crypto will be supported in a near future thanks to our partner [Rampnalysis](https://www.rampnalysis.com/)_
+_Payments in crypto will be supported in the near future thanks to our partner [Rampnalysis](https://www.rampnalysis.com/)_
 
 :::
 
-As of now, the SMP **only supports Stripe** as a payment gateway. So to test the SMP, you want to setup a Stripe account:
+As of now, the SMP **only supports Stripe** as a payment gateway. So to test the SMP, you will need to setup a Stripe account:
 
 - [Sign up or log in to your Stripe account](https://dashboard.stripe.com/login)
 - Give it your business info
 - Click on [Developers](https://dashboard.stripe.com/test/developers) (top-right)
 - Switch on the Test mode (top-right)
 - Click on the [API keys tab](https://dashboard.stripe.com/test/apikeys)
-- You're ready to copy-paste the "Publishable key" and the "Secret key"
+- You're now ready to copy-paste the "Publishable key" and the "Secret key"
 
 ## Configure your subscription
 
-The SMP is currently in beta so there's a 'happy path' to follow if you want to test it successfully.
+The SMP is currently in beta, so there's a 'happy path' to follow if you want to test it successfully.
 
 ### Steps to follow
 
 1. Complete your business profile
 2. Select a payment gateway
 3. Create a catalog
-4. Create one or several products (no space, no hyphen in the name field)
-5. Create one or several plans (no space, no hyphen in the name field)
+4. Create one or several products (no spaces or hyphens in the name field)
+5. Create one or several plans (no spaces or hyphens in the name field)
 6. Publish your catalog
 7. Edit your email templates
 8. Edit your invoice template
@@ -43,17 +43,17 @@ The SMP is currently in beta so there's a 'happy path' to follow if you want to 
 
 ### Integration
 
-You can now paste the checkout link in your app: your users will be redirected to the payment page. Once they're done, they will be redirected to "Success URL" you indicated in the Checkout page (in the SMP).
+You can now paste the checkout link into your app; your users will be redirected to the payment page. Once they're done, they will be redirected to the "Success URL" you indicated in the Checkout page (in the SMP).
 
 ### Test
 
-Please note that when you test the checkout process, you need to connect to a wallet that is different from the `subscription owner` wallet.
+Please note that, when you test the checkout process, you need to connect to a wallet that is different from the `subscription owner` wallet.
 
-You can use the following VISA card account (there are other test credit cards numbers available [here](https://stripe.com/docs/testing?testing-method=card-numbers#visa)):
+You can use the following VISA card account for testing (there are other test credit cards numbers available [here](https://stripe.com/docs/testing?testing-method=card-numbers#visa)):
 
 - `4242424242424242`
 
-Then fill out the checkout form with any future date for the expiration, any CVC number, and any name. you will be redirected to the success page.
+Now fill out the checkout form with any future date for the expiration, any CVC number, and any name. After this, you will be redirected to the success page.
 
 ## On-chain subscriptions (optional)
 
@@ -61,7 +61,7 @@ The SMP allows you to manage the subscriptions of your on-chain app users.
 
 To activate this feature, you need to add a few lines of code in your Solidity contract. Please follow [this tutorial](./use-subscriptions) (also available as a **[dev.to post](https://dev.to/julienbrg/how-to-add-arthera-subscriptions-to-your-solidity-contracts-43do)**).
 
-Then in the SMP, you want to:
+Then, in the SMP, you want to do the following:
 
 - Go to the `On-Chain` section in the left menu
 - Connect your MetaMask wallet with the `subscription owner` wallet address (typically **the wallet that deployed the Solidity contract**)
@@ -71,6 +71,6 @@ Then in the SMP, you want to:
 
 :::info
 
-_Latest update: [December 8, 2023](https://github.com/artheranet/arthera-docs)_
+_Latest update: [December 11, 2023](https://github.com/artheranet/arthera-docs)_
 
 :::
