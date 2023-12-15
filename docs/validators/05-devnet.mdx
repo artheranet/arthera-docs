@@ -33,7 +33,7 @@ Here are the coordinates to the Arthera Devnet
 - **RPC Endpoint: `https://rpc-dev.arthera.net`**
 - **WebSocket Endpoint: `wss://ws-dev.arthera.net`**
 - **Chain ID: `10245`**
-- **Explorer: https://explorer-dev.arthera.net **
+- **Explorer: https://explorer-dev.arthera.net or https://arthera-testnet.socialscan.io**
 - **Wallet: https://wallet-dev.arthera.net **
 - **API Gateways**:
   - https://gw-dev1.arthera.net
@@ -98,7 +98,6 @@ Path of the secret key file: /data/keystore/UTC--2023-07-18T21-48-46.572871703Z-
   2. Remember the password
 </Alert>
 
-
 ## 6. Create the validator identity
 
 ```bash
@@ -131,6 +130,7 @@ and the Public Key created in [6. Create the validator identity](#6-create-the-v
 coins to your validator (the minimum stake of 100,000 AA).
 
 ## 8. View your validator in the Arthera Wallet
+
 While you wait for us to delegate the required coins to your validator, you can register your account it in the [Arthera wallet](https://wallet-test.arthera.net).
 
 1. Configure MetaMask to connect to the Arthera Devnet (see [Network details](#network-details))
@@ -140,7 +140,9 @@ While you wait for us to delegate the required coins to your validator, you can 
 5. Under the **Account** menu you should see your new validator (after we delegate the required coins to it)
 
 <Alert severity="warning">
-    The next steps require that your validator is shown in the Arthera Wallet. If you don't see it, wait for us to delegate the required coins to it and try again.
+  The next steps require that your validator is shown in the Arthera Wallet. If
+  you don't see it, wait for us to delegate the required coins to it and try
+  again.
 </Alert>
 
 ## 9. Create a password file
@@ -232,6 +234,7 @@ Replace the following variables and run the command below to start your validato
 - `YOUR_PUBLIC_IP` with your actual Public IP address.
 - `ID_FROM_STEP_8` with the Validator ID obtained from step [8. View your validator in the Arthera Wallet](#8-view-your-validator-in-the-arthera-wallet)
 - `VALIDATOR_PUBLIC_KEY_FROM_STEP_6` with the **Public key** of your validator from step [6. Create the validator identity](#6-create-the-validator-identity)
+
 ```bash
 docker container rm arthera-validator # remove any existing containers just to be sure
 docker pull arthera/arthera-node:1.2.0-devnet.rc2
