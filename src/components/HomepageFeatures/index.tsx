@@ -16,7 +16,7 @@ export default function HomepageFeatures(): JSX.Element {
 
       <div className={styles.feature}>
         <h1>Arthera testnet is live</h1>
-        <p>You can check it out using the <Link href="https://explorer-test.arthera.net">Explorer</Link></p>
+        <p>You can check it out using the explorer (<Link href="https://explorer-test.arthera.net">Blockscout</Link> or <Link href="https://arthera-testnet.socialscan.io">SocialScan</Link>)</p>
         <AddMetamaskNetwork network={'testnet'} title={'Add Arthera Testnet to Metamask'} size={'medium'}/>
       </div>
 
@@ -29,10 +29,10 @@ export default function HomepageFeatures(): JSX.Element {
       </div>
 
       <div className={styles.feature}>
-          <h1>Arthera Explorer</h1>
+          <h1>Arthera Explorers</h1>
           <p>Use it to explore the Arthera blockchain: blocks, transactions, tokens, addresses, smart contracts and more.</p>
           <ul>
-            <li><Link href="https://explorer-test.arthera.net">Arthera Explorer</Link></li>
+          <li>Block explorer (<Link href="https://explorer-test.arthera.net">Blockscout</Link> or <Link href="https://arthera-testnet.socialscan.io">SocialScan</Link>)</li>
             <li><Link href="https://explorer-test-api.arthera.net">Arthera Explorer API</Link></li>
           </ul>
       </div>

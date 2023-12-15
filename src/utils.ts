@@ -10,7 +10,7 @@ const ARTHERA_NETWORK_DETAILS = {
             decimals: 18,
         },
         rpcUrls: ["https://rpc.arthera.net/"],
-        blockExplorerUrls: ["https://explorer.arthera.net/"],
+        blockExplorerUrls: ["https://explorer.arthera.net/","https://arthera-testnet.socialscan.io/"],
     },
     'testnet': {
         chainId: "0x2803",
@@ -21,7 +21,7 @@ const ARTHERA_NETWORK_DETAILS = {
             decimals: 18,
         },
         rpcUrls: ["https://rpc-test.arthera.net/"],
-        blockExplorerUrls: ["https://explorer-test.arthera.net"],
+        blockExplorerUrls: ["https://explorer-test.arthera.net","https://arthera-testnet.socialscan.io/"],
     },
     'devnet': {
         chainId: "0x2805",
@@ -32,7 +32,7 @@ const ARTHERA_NETWORK_DETAILS = {
             decimals: 18,
         },
         rpcUrls: ["https://rpc-dev.arthera.net/"],
-        blockExplorerUrls: ["https://explorer-dev.arthera.net"],
+        blockExplorerUrls: ["https://explorer-dev.arthera.net","https://arthera-testnet.socialscan.io/"],
     }
 }
 
