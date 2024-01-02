@@ -10,6 +10,11 @@ not exist, you can add it).
 
 ```js
 networks: {
+  arthera: {
+    url: 'https://rpc.arthera.net',
+    chainId: 10242,
+    accounts: []
+  },
   arthera-testnet: {
     url: 'https://rpc-test.arthera.net',
     chainId: 10243,
@@ -20,18 +25,18 @@ networks: {
 
 Now you can run your HardHat scripts with `npx hardhat run scripts/<YOUR_SCRIPT> --network arthera-testnet`
 
-You can view a more complete example of a Hardhat config file [here](https://github.com/julienbrg/arthera-hardhat-example-typescript/blob/main/hardhat.config.ts).
+You can view a more complete example of a Hardhat config file [here](https://github.com/artheranet/arthera-hardhat-template/blob/main/hardhat.config.ts).
 
 ### A Hardhat template
 
-You can clone or fork [this repository](https://github.com/julienbrg/arthera-hardhat-example-typescript) to see how Arthera can be integrated in a Hardhat project. It's in TypeScript. You can simply click on the 'Use this template' button, and then select 'Create a new repository' or 'Open in a codespace'.
+You can clone or fork [this repository](https://github.com/artheranet/arthera-hardhat-template) to see how Arthera can be integrated in a Hardhat project. It's in TypeScript. You can simply click on the 'Use this template' button, and then select 'Create a new repository' or 'Open in a codespace'.
 
 ### Contract verification
 
-[Learn more abot contracts verification](/build/developing-sc/contracts-verification)
+Arthera Hardhat template includes the Hardhat Deploy plugin. [Learn more abot contracts verification](/build/developing-sc/contracts-verification)
 
 :::info
 
-_Latest update: [September 19, 2023](https://github.com/artheranet/arthera-docs)_
+_Latest update: [January 2, 2023](https://github.com/artheranet/arthera-docs)_
 
 :::
