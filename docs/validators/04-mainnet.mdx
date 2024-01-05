@@ -121,7 +121,7 @@ While you wait for us to delegate the required coins to your validator, you can 
 Run the command below and replace `YOUR_PASSWORD` with the password entered in step [6. Create the validator identity](#6-create-the-validator-identity)
 
 ```bash
-echo "YOUR_PASSWORD" > $HOME/arthera/keystore/validator/password
+echo "YOUR_PASSWORD" | sudo tee $HOME/arthera/keystore/validator/password
 ```
 
 ## 10. Generate your node key
