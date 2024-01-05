@@ -46,7 +46,13 @@ Only the team can publish a new version.
 #### Publish 
 
 ```
-./upload-s3.sh
+yarn push
+```
+
+Alternatively:
+
+```
+git checkout main && git pull && yarn build && ./upload-s3.sh
 ```
 
 #### Alternatively 
