@@ -121,7 +121,7 @@ While you wait for us to delegate the required coins to your validator, you can 
 Run the command below and replace `YOUR_PASSWORD` with the password entered in step [6. Create the validator identity](#6-create-the-validator-identity)
 
 ```bash
-echo "YOUR_PASSWORD" > $HOME/arthera/password
+echo "YOUR_PASSWORD" > $HOME/arthera/keystore/validator/password
 ```
 
 ## 10. Generate your node key
@@ -212,7 +212,7 @@ Replace the following variables and run the command below to start your validato
 ```bash
 docker container rm arthera-validator # remove any existing containers just to be sure
 docker pull arthera/arthera-node:1.2.0-mainnet.rc3
-docker run --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 \
+docker run -d --restart unless-stopped --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 \
   --port 6533 \
   --genesis /data/mainnet.g \
   --syncmode snap \
