@@ -167,7 +167,7 @@ docker pull arthera/arthera-node:1.2.0-mainnet.rc3
 docker run --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 \
   --port 6533 \
   --genesis /data/mainnet.g \
-  --syncmode snap \
+  --syncmode full \
   --nodekey /data/node.key \
   --metrics \
   --verbosity 3 \
@@ -216,7 +216,7 @@ docker pull arthera/arthera-node:1.2.0-mainnet.rc3
 docker run -d --restart unless-stopped --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 \
   --port 6533 \
   --genesis /data/mainnet.g \
-  --syncmode snap \
+  --syncmode full \
   --nodekey /data/node.key \
   --verbosity 3 \
   --cache 4000 \
