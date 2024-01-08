@@ -169,8 +169,7 @@ docker run --name arthera-validator --network host -v $HOME/arthera:/data arther
   --genesis /data/mainnet.g \
   --syncmode full \
   --nodekey /data/node.key \
-  --metrics \
-  --verbosity 3 \
+  --verbosity 4 \
   --cache 4000 \
   --nat extip:YOUR_PUBLIC_IP \
   --validator.id ID_FROM_STEP_8 \
@@ -218,6 +217,7 @@ docker run -d --restart unless-stopped --name arthera-validator --network host -
   --genesis /data/mainnet.g \
   --syncmode full \
   --nodekey /data/node.key \
+  --metrics \
   --verbosity 3 \
   --cache 4000 \
   --nat extip:YOUR_PUBLIC_IP \
