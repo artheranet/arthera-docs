@@ -2,16 +2,18 @@
 title: Self-Service Portal
 description: Learn about the Self-Service Portal
 ---
+
 The Arthera SMP provides some prebuilt web pages to help dApps accelerate their go-to market strategy. One of these feature is the Self-Service Portal hosted page where customers can manage their subscription, invoices and payment methods.
 This means that dApps don't have to spend time to build their own custom pages, they can just place a link to the Self-Service portal on their website/app.
 
-The Self-Service Portal is available for all customers at https://smp.arthera.net/hosted/portal
+The Self-Service Portal is available for all customers at https://smp-test.arthera.net/hosted/portal
 
 ## Identifying customers
+
 Customers are uniquely identified by their wallet address on Arthera SMP, so before triggering the checkout flow for a customer, we need to know the customer's wallet.
 This means that customers need to login first to get their wallet address.
 
-<img src="/img/smp6.png"/>
+<img src="/img/smp6.png" />
 
 They can login using their Google or Github accounts, Metamask wallet or an existing email address. Their wallet will be linked to the first login method they use, so it's important they **always use the same login method to access their wallet**.
 Using a different login method will generate a new wallet address.
@@ -19,38 +21,45 @@ Using a different login method will generate a new wallet address.
 If it's a new customer, the login process will generate a **non-custodial wallet** for them, and if it's a returning customer the same wallet address will always be returned for the same login method.
 
 ## The Self-Service Portal
+
 After a customer logs in successfully, the Self-Service Portal page is presented for him to manage his subscriptions, payment methods, invoices and billing details.
 
-<img src="/img/smp9.png"/>
+<img src="/img/smp9.png" />
 
 ### Your Subscriptions
+
 The customer sees here their active and inactive subscriptions for products purchased through Arthera SMP.
 They can cancel an active subscription and update his payment methods.
 
 #### Cancelling a subscription
+
 Subscriptions can be cancelled anytime the customer desires to. **Once a subscription is cancelled, it can no longer be re-activated**. The customer needs to purchase the product again and get new subscription.
 
 The subscription can be cancelled:
+
 - **Immediately** - goes into effect immediately
 - **On next renewal** - goes into effect before the next renewal
 
-<img src="/img/smp10.png"/>
+<img src="/img/smp10.png" />
 
 #### Updating Payment Methods
+
 Sometimes the customer needs to update his payment details to prevent service interruption. This can be caused by a lost/change/expiry of his credit card or other personal reasons.
 
-<img src="/img/smp11.png"/>
+<img src="/img/smp11.png" />
 
 The customer can add a new credit card to his payment methods, delete an existing card or set a card as the default payment method.
 Please note that **the default payment method cannot be deleted**.
 
 ### Your Invoices
+
 Under this section, the customer can see all generated invoices and their outstanding balance and can download each invoice.
 Invoices are generated based on the configured [Invoice Template](/smp/invoicing/templates).
 
-<img src="/img/smp12.png"/>
+<img src="/img/smp12.png" />
 
 ### Your Billing Details
+
 Under this section the customer can update his billing details that will be displayed on invoices.
 
-<img src="/img/smp13.png"/>
+<img src="/img/smp13.png" />
