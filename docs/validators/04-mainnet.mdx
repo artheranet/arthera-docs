@@ -33,7 +33,7 @@ See the [Docker Installation Guide](https://docs.docker.com/engine/install/)
 ## 3. Pull the latest Arthera node image
 
 ```bash
-docker pull arthera/arthera-node:1.2.0-mainnet.rc3
+docker pull arthera/arthera-node:1.2.0-mainnet-rc.4
 ```
 
 ## 4. Create a folder to hold your Arthera node data
@@ -45,7 +45,7 @@ mkdir $HOME/arthera
 ## 5. Create a wallet for your validator
 
 ```bash
-docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 account new
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet-rc.4 account new
 ```
 
 Enter a password for the new account and you will get an output similar to the one below:
@@ -72,7 +72,7 @@ Path of the secret key file: /data/keystore/UTC--2023-07-18T21-48-46.572871703Z-
 ## 6. Create the validator identity
 
 ```bash
-docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 validator new
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet-rc.4 validator new
 ```
 
 Enter a password for the validator account and you will get an output similar to the one below:
@@ -129,13 +129,13 @@ echo "YOUR_PASSWORD" | sudo tee $HOME/arthera/keystore/validator/password
 Run the command below to generate your unique node key:
 
 ```bash
-docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 p2p genkey /data/node.key
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet-rc.4 p2p genkey /data/node.key
 ```
 
 Check to see if the key was generated successfully by running:
 
 ```bash
-docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 p2p enodeurl /data/node.key
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet-rc.4 p2p enodeurl /data/node.key
 ```
 
 You should see an output similar to the one below:
@@ -163,8 +163,8 @@ Replace the following variables and run the command below to start your validato
 - `VALIDATOR_PUBLIC_KEY_FROM_STEP_6` with the **Public key** of your validator from step [6. Create the validator identity](#6-create-the-validator-identity)
 
 ```bash
-docker pull arthera/arthera-node:1.2.0-mainnet.rc3
-docker run --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 \
+docker pull arthera/arthera-node:1.2.0-mainnet-rc.4
+docker run --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet-rc.4 \
   --port 6533 \
   --genesis /data/mainnet.g \
   --syncmode full \
@@ -211,8 +211,8 @@ Replace the following variables and run the command below to start your validato
 
 ```bash
 docker container rm arthera-validator # remove any existing containers just to be sure
-docker pull arthera/arthera-node:1.2.0-mainnet.rc3
-docker run -d --restart unless-stopped --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet.rc3 \
+docker pull arthera/arthera-node:1.2.0-mainnet-rc.4
+docker run -d --restart unless-stopped --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.0-mainnet-rc.4 \
   --port 6533 \
   --genesis /data/mainnet.g \
   --syncmode full \
@@ -230,7 +230,7 @@ Check the node was started with `docker ps`:
 
 ```
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS        PORTS     NAMES
-d6ac0f5fdf14   arthera/arthera-node:1.2.0-mainnet.rc3  "arthera-node --data…"   2 seconds ago   Up 1 second             arthera-validator
+d6ac0f5fdf14   arthera/arthera-node:1.2.0-mainnet-rc.4  "arthera-node --data…"   2 seconds ago   Up 1 second             arthera-validator
 ```
 
 and check the logs of the container with `docker logs -f arthera-validator`. You should see the following output:
