@@ -36,8 +36,8 @@ After installing your validator or rpc server, the next step is setting up the l
    **Stopping:** `sudo ufw disable`
    **Starting:**`sudo ufw enable`
 
-6. After hardening our system we need to open up peering port (which is by default 6534) to ensure that our validator can communicate with the rest of the network:
-   `sudo ufw allow 6534`
+6. After hardening our system we need to open up peering port (which is by default 6534 but we use 6533) to ensure that our validator can communicate with the rest of the network:
+   `sudo ufw allow 6533`
 
 7. Repeat step 5 and check the status of UFW using:
    `sudo ufw status verbose`
