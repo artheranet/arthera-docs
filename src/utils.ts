@@ -21,7 +21,7 @@ const ARTHERA_NETWORK_DETAILS = {
             decimals: 18,
         },
         rpcUrls: ["https://rpc-test2.arthera.net/"],
-        blockExplorerUrls: ["https://explorer-test.arthera.net","https://arthera-testnet.socialscan.io/"],
+        blockExplorerUrls: ["https://explorer-test2.arthera.net","https://arthera-testnet.socialscan.io/"],
     },
     'devnet': {
         chainId: "0x2805",
