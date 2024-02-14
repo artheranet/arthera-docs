@@ -8,21 +8,11 @@ import Link from "@docusaurus/Link";
 Arthera provides high-performance GraphQL and REST API gateway for fetching blockchain data. It provides conveninent endpoints for fetching low-level and aggregate information related to accounts, tokens, staking, subscriptions and more.
 
 <Alert severity="info">
-  <p>The Testnet has the following available API Gateway endpoints:</p>
+  <p>The Mainnet has the following available API Gateway endpoint:</p>
   <ul>
     <li>
-      <Link href={"https://gw-eu1-test.arthera.net"}>
-        https://gw-eu1-test.arthera.net
-      </Link>
-    </li>
-    <li>
-      <Link href={"https://gw-eu2-test.arthera.net"}>
-        https://gw-eu2-test.arthera.net
-      </Link>
-    </li>
-    <li>
-      <Link href={"https://gw-us-test.arthera.net"}>
-        https://gw-us-test.arthera.net
+      <Link href={"https://apigw.arthera.net"}>
+        https://apigw.arthera.net
       </Link>
     </li>
   </ul>
@@ -417,7 +407,7 @@ type Subscription {
 
 ### Interactive console
 
-You can play around and test GraphQL queries by opening the [**/graphi**](https://gw-eu1-test.arthera.net/graphi) endpoint on each API gateway.
+You can play around and test GraphQL queries by opening the [**/graphi**](https://apigw.arthera.net/graphi) endpoint on each API gateway.
 
 <img src="/img/graphi.png" />
 
@@ -425,7 +415,7 @@ You can play around and test GraphQL queries by opening the [**/graphi**](https:
 
 Besides the GrapgQL API which covers most needs, the API Gateway provides some useful REST endpoints:
 
-- [**/rest/gas**](https://gw-eu1-test.arthera.net/rest/gas) returns a JSON structure with current gas price info:
+- [**/rest/gas**](https://apigw.arthera.net/rest/gas) returns a JSON structure with current gas price info:
 
   - _Output_: a JSON object with the following structure:
 
@@ -437,10 +427,10 @@ Besides the GrapgQL API which covers most needs, the API Gateway provides some u
   - _Example_:
 
   ```shell
-  curl "https://gw-eu1-test.arthera.net/rest/gas"
+  curl "https://apigw.arthera.net/rest/gas"
   ```
 
-- [**/rest/account**](https://gw-eu1-test.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD) returns detailed information for the provided address:
+- [**/rest/account**](https://apigw.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD) returns detailed information for the provided address:
 
   - _Input_:
     - `addr` - 0x-prefixed account address as a URL parameter
@@ -457,10 +447,10 @@ Besides the GrapgQL API which covers most needs, the API Gateway provides some u
 
   - _Example_:
     ```bash
-    curl "https://gw-eu1-test.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD"
+    curl "https://apigw.arthera.net/rest/account?addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD"
     ```
 
-- [**/rest/balanceof**](https://gw-eu1-test.arthera.net/rest/balanceof) returns the balance of an ERC20, ERC721 or ERC1155 token for the provided address:
+- [**/rest/balanceof**](https://apigw.arthera.net/rest/balanceof) returns the balance of an ERC20, ERC721 or ERC1155 token for the provided address:
 
   - _Input_:
     - `addr` - 0x-prefixed account address as a URL parameter
@@ -474,5 +464,5 @@ Besides the GrapgQL API which covers most needs, the API Gateway provides some u
   - _Example_:
 
   ```bash
-  curl "https://gw-eu1-test.arthera.net/rest/balanceof?type=erc1155&addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD&token=0x000000000000000000000000000000000000Aa07&tokenId=0x1"
+  curl "https://apigw.arthera.net/rest/balanceof?type=erc1155&addr=0x3BD2DeC1Dd270d5673eFFd3cC30fD13445e964aD&token=0x000000000000000000000000000000000000Aa07&tokenId=0x1"
   ```
