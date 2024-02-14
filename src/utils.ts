@@ -20,7 +20,7 @@ const ARTHERA_NETWORK_DETAILS = {
             symbol: "AA",
             decimals: 18,
         },
-        rpcUrls: ["https://rpc-test.arthera.net/"],
+        rpcUrls: ["https://rpc-test2.arthera.net/"],
         blockExplorerUrls: ["https://explorer-test.arthera.net","https://arthera-testnet.socialscan.io/"],
     },
     'devnet': {
