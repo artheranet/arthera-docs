@@ -129,7 +129,7 @@ const config = {
             },
             announcementBar: {
                 id: "support_us",
-                content: `Arthera is currently running in TestNet`,
+                content: `Arthera is currently running in MainNet`,
                 backgroundColor: "rgb(121,54,240)",
                 textColor: "white",
                 isCloseable: false,
