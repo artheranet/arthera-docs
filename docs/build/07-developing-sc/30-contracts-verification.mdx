@@ -5,24 +5,45 @@ description: How to get your Solidity contracts verified on the explorer?
 
 There are several ways to get your contract verified on Arthera Testnet explorer.
 
+### Programmatically
+
+#### Forge
+
+[Forge](https://book.getfoundry.sh/reference/forge/forge-create) makes it easiest to deploy and verify in the same command run.
+
+```bash
+export RPC_URL=<Your RPC endpoint>
+export PRIVATE_KEY=<Your wallets private key>
+export CONTRACT_NAME=<Your contract name>
+forge create $CONTRACT_NAME --rpc-url=$RPC_URL --private-key=$PRIVATE_KEY --verify --verifier blockscout --verifier-url 'https://explorer.arthera.net/api?'
+```
+
+There is a more detailed [Forge tutorial](https://book.getfoundry.sh/tutorials/solmate-nft)
+
+#### Hardhat
+
+[Sourcify](https://www.sourcify.dev/) is supported on both TestNet and MainNet.
+
+It can be used as documented at [hardhat-deploy](https://github.com/wighawag/hardhat-deploy?tab=readme-ov-file#5-hardhat-sourcify)
+
+```bash
+npx hardhat --network arthera sourcify
+```
+
 ### Manually
 
-The easiest way is probably to first flatten your contracts, and paste the flattened code in the explorer. if you're using Hardhat, you can use the following command (it's built-in):
+For simple contracts the easiest way is probably to first flatten your contracts, and paste the flattened code in the explorer. if you're using Hardhat, you can use the following command (it's built-in):
 
 ```bash
 npx hardhat flatten
 ```
 
-Copy your code, then in the explorer ([Blockscout](https://explorer-test2.arthera.net) or [SocialScan](https://arthera-testnet.socialscan.io)), search for your contract address, click the `Verify and Publish` button and paste your code there.
+Copy your code, then in the explorer ([Blockscout](https://explorer.arthera.net) or [SocialScan](https://arthera-testnet.socialscan.io)), search for your contract address, click the `Verify and Publish` button and paste your code there.
 
 <img src="/img/verify-contract.png" />
 
-### Programmatically
-
-[Sourcify](https://www.sourcify.com/) will be fully supported in the coming days.
-
 :::info
 
-_Latest update: [December 15, 2023](https://github.com/artheranet/arthera-docs)_
+_Latest update: [February 19, 2023](https://github.com/artheranet/arthera-docs)_
 
 :::
