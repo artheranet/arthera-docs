@@ -38,7 +38,7 @@ export default function HomepageFeatures(): JSX.Element {
           <h1>Arthera Explorers</h1>
           <p>Use it to explore the Arthera blockchain: blocks, transactions, tokens, addresses, smart contracts and more.</p>
           <ul>
-          <li>Block explorer (<Link href="https://explorer-test2.arthera.net">Blockscout</Link> or <Link href="https://arthera-testnet.socialscan.io">SocialScan</Link>)</li>
+          <li><Link href="https://explorer-test2.arthera.net">Block explorer</Link></li>
             <li><Link href="https://explorer-test-api.arthera.net">Arthera Explorer API</Link></li>
           </ul>
       </div>
