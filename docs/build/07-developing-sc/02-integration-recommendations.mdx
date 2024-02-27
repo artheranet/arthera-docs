@@ -2,21 +2,23 @@
 title: Integration recommendations
 ---
 
-Arthera will launch its Mainnet in Q4 2023. As you know, the best way to get ready for this is to test your app as much as possible (Solidity contracts and interfaces) using Arthera Testnet. Following the current development best practices, we invite you to follow the steps described below.
+Arthera Mainnet is live. Following the current development best practices, we invite you to follow the steps described below.
 
-This integration process can also be a great opportunity to engage with the dev community you may have: these tasks are easy and don't require specific knowledge. External contributors can express themselves at each step of the way: that's the magic of open source development! Also, the Arthera team will be happy to guide and advise everyone, sometimes even during one of our weekly [Build-in-Public sessions](https://www.youtube.com/@Artherachain/streams), we're on [Telegram](https://t.me/artherachain/8) and [Discord](https://discord.gg/arthera).
+This integration process can also be a great opportunity to engage with the dev community you may have: these tasks are easy and don't require specific knowledge. External contributors can express themselves at each step of the way: that's the magic of open source development! Also, the Arthera team will be happy to guide and advise everyone, sometimes even during one of our weekly [Build-in-Public sessions](https://www.youtube.com/@Artherachain/streams), we're on [Telegram](https://t.me/artherachain/8).
 
 ## Standard process
 
 1. [Iso-functional deployment](./integration-recommendations#1-iso-functional-deployment)
 2. [End-to-end tests](./integration-recommendations#2-end-to-end-tests)
 3. [Deployment with Arthera subscriptions](./integration-recommendations#3-arthera-subscriptions-integration)
-4. [End-to-end tests II](./integration-recommendations#4-end-to-end-tests-ii)
-5. [Fiat payment widget integration **(soon)**](./integration-recommendations#5-fiat-payment-widget-integration)
+4. [SMP integration](./integration-recommendations#4-smp-integration)
+5. [Mainnet deployment](./integration-recommendations#5-fiat-payment-widget-integration)
 
 ### 1. Iso-functional deployment
 
 The very first step is to deploy your Solidity contracts to Arthera Tesnet without making any modification, meaning first without Arthera subscriptions. It should work the exact same way as any EVM-based network. If you're using Hardhat, [this tutorial](https://docs.arthera.net/build/developing-sc/using-hardhat) is available and you can view here a [typical Hardhat config file here](https://github.com/julienbrg/arthera-hardhat-example-typescript/blob/f861531cc403d869fbe0653651978d148578dc39/hardhat.config.ts#L40-L43).
+
+You can get a Testnet subscription on our faucet: [https://faucet-test.arthera.net/](https://faucet-test.arthera.net/)
 
 ### 2. End-to-end tests
 
@@ -24,43 +26,28 @@ You probably already have these in place. At this stage, your unit tests and scr
 
 ### 3. Arthera subscriptions integration
 
-There's nothing easier than an Arthera subs integration. A new tutorial will be published in the coming days, but you already can go ahead and follow [this tutorial](https://docs.arthera.net/build/tutorials/use-subscriptions). To recap, you want to:
+You don't necessarily need what we call a 'dapp plan', but if you want to allow your users to interact with your contracts in a gas-less way, you can follow [this tutorial](https://docs.arthera.net/build/tutorials/use-subscriptions). To recap, you want to:
 
-- Subscribe your app [here](https://wallet-test.arthera.net/)
 - Edit your contract (as shown on [this page](https://docs.arthera.net/build/tutorials/use-subscriptions))
 - Test it
 - Deploy it
-- Add your contract address [here](https://wallet-test.arthera.net/)
 
-### 4. End-to-end tests II
+### 4. SMP integration
 
-There are two things to add in your test scripts and interfaces:
+The SMP integration is optional.
 
-- Whitelist your users so they can forget about gas fees (using the [`whitelistAccount()`](../developing-sc/system-contracts/Subscribers#whitelistaccount)) function called from the subscription owner wallet (EOA). This will be even easier when the Subscriptions Management Platform (SMP) will be released.
-- Add a gas limit option in your calls: `{gasLimit: 42000}`. Example:
+The [Subscriptions Management Platform (SMP)](../../smp/intro) allows you to manage your end-users' subscriptions to your app. One of the key features of this service is the possibility to allow your users to subscribe to your app in fiat currencies. The only thing you'll have to do is to set up a Stripe, Adyen or Braintree account, then add Arthera fiat payment widget to your app: your users would put in place a recurring payment and then interact with your smart contracts without even noticing they're actually onchain.
 
-```js
-const call = await myContract.enjoyGasLessInteraction({ gasLimit: 42000 });
-```
+- [SMP Testnet](https://smp-test.arthera.net/)
 
-At this stage, you're **ready to deploy to Arthera Mainnet!** 🎉 (Q4 2023)
+### 5. Mainnet deployment
 
-:::tip
-
-Our Hardhat plugin will soon allow you to perform specific tests. Its alpha version can be viewed [here](https://www.npmjs.com/package/@artherachain/hardhat-fakenet).
-
-:::
-
-### 5. Fiat payment widget integration
-
-The team is currently working on a Subscriptions Management Platform (SMP) that will allow you to manage your end-users' subscriptions to your app. One of the key features of this service is the possibility to allow your users to subscribe to your app in fiat currencies. The only thing you'll have to do is to set up a Stripe account, then add Arthera fiat payment widget to your app: your users would put in place a recurring payment and then interact with your smart contracts without even noticing they're actually onchain.
-
-## Multi-chain strategy
-
-As we now live in a multi-chain world, it can be a good idea to have a long-term multi-chain strategy for your app. There are several approaches to this. We will publish a blog post to go into details, but meanwhile feel free to [contact us](https://t.me/artherachain/8) so we can advise on this.
+- Go to the [subscription faucet (mainnet)](https://faucet.arthera.net/) to get a free subscription
+- Deploy your contracts to Arthera mainnet using the address that holds a subscription
+- Configure the [SMP Mainnet](https://smp.arthera.net/)
 
 :::info
 
-_Latest update: [August 24, 2023](https://github.com/artheranet/arthera-docs)_
+_Latest update: [February 27, 2023](https://github.com/artheranet/arthera-docs)_
 
 :::

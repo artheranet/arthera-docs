@@ -13,60 +13,69 @@ There are a few steps to perform in order to get your web3 subscription business
 6. [Integrate Arthera SMP in your product](/smp/guide#7-integrate-arthera-smp)
 
 ### 1. Enter your Business Details
+
 You need to tell your customer who you are. To do this, fill as many details as possible in the Business Profile section.
 These details will be reflected on your customer's invoice and the checkout form.
 
 ### 2. Configure your product Catalog
+
 The catalog is the central configuration object of Arthera SMP. It contains what the customer buys (products), how the customer pays for a product (plans), change rules, prices, etc.
 The Catalog is a data model that captures the core configuration of the billing system. The things you can configure in the SMP Catalog include:
+
 - Trials and discount phases - plans can be configured with trial and discount phases so that they move automatically between different pricing schemes
 - Which add-ons are available with which product types, so that when the customer upgrades or downgrades, add-ons that are not available are automatically cancelled
 
 At the core of the Catalog model are the following two concepts:
+
 - Currencies - In what currencies you sell your products to your customers. Currently, only USD is available.
 - Products - The things that the customer actually buys (or rents).
 - Plans - Specifications for the terms of the Subscription contract. In particular, plans define how much a customer pays for a product, and how often they pay it.
 
 #### 3.1 Currencies
+
 The Catalog allows you to specify amounts in different currencies. Each Arthera SMP customer needs to specify a currency that is used by the system when generating invoices (by looking up the amount of the specified plan for that currency), and that is also used at the time of making a payment.
 All the credits later generated for the account will also be in that currency. The system also allows you to use a different currency at the time of making a payment by using the exchange of the respective currency against USD.
 
 _Note: the current version of Arthera SMP supports USD only. More currencies will be available shortly._
 
 #### 3.2 Products
+
 The Product is a representation of the thing the customer is actually buying. Specifying a Product is very straightforward. The product is described by the following parameters:
 
-* Name - a string that is used to refer to the Product elsewhere in the catalog. For example "Healthy Meal".
-* Category - a descriptor that determines how Arthera allows the combining of this product with others within a subscription:
-    - _Base Products_ - products that can have one or more addons.
-    - _Add-On Products_ - products that can be bundled with a base product.
-    - _Standalone Products_ - products that cannot have any addons.
+- Name - a string that is used to refer to the Product elsewhere in the catalog. For example "Healthy Meal".
+- Category - a descriptor that determines how Arthera allows the combining of this product with others within a subscription:
+  - _Base Products_ - products that can have one or more addons.
+  - _Add-On Products_ - products that can be bundled with a base product.
+  - _Standalone Products_ - products that cannot have any addons.
 
 The terms Base, Add On, and Standalone represent plans that are associated with these three types of product respectively.
 Having an explicit representation of Add-On products allows the SMP to be configured to only allow purchases of add-ons with particular base plans, and to trigger appropriate cancellations automatically when the base plan changes or is cancelled.
 The Catalog allows you to specify the inclusion and availability of Add-On Products with associated Base Products.
 
 #### 3.3 Plans
+
 Plans specify the terms of a subscription contract. Each Plan has a name and refers to the purchase of a single product. The details of a Plan are arranged by phase:
+
 - One or more Initial Phases the plan will go through
 - One Final Phase
 
 For each phase you can configure the following options:
 
 - Phase Type:
-    - Trial: a type of phase that defines a time period during which the account is not charged
-    - Discount: a type of phase that defines a lower price for a set time period (after which the regular price automatically takes effect).
-    - Fixed term: a type of phase that specifies an end date and during which you continually bill the account for the subscription.
-    - Evergreen: a type of phase in which no end date is specified and you continually bill the account for the subscription until the customer cancels it.
+  - Trial: a type of phase that defines a time period during which the account is not charged
+  - Discount: a type of phase that defines a lower price for a set time period (after which the regular price automatically takes effect).
+  - Fixed term: a type of phase that specifies an end date and during which you continually bill the account for the subscription.
+  - Evergreen: a type of phase in which no end date is specified and you continually bill the account for the subscription until the customer cancels it.
 - Duration: defines the length of time for a phase. The Evergreen phase must have an Unlimited duration.
 - Unit: the time unit the duration refers to
 - Type: how to charge the customer for the phase
-    - Fixed Price: a one-off charge applied at the beginning of the phase
-    - Recurring Price: the price charged at the end of each billing period
+  - Fixed Price: a one-off charge applied at the beginning of the phase
+  - Recurring Price: the price charged at the end of each billing period
 - Billing Period (only for Recurring Price): the frequency to charge the Recurring Price
 - Prices: prices for each currency defined
 
 ### 4. Setup the Payment Gateway
+
 A payment method represents an abstraction corresponding to a payment scheme like a Credit Card, Debit Card, or PayPal.
 An account can have multiple payment methods corresponding to different payment gateways. For example, an account can have a credit card payment method as well as a Paypal payment method.
 Each account also has a default payment method associated with it. When the account needs to be charged for recurring payments, the _default_ payment method is used.
@@ -74,33 +83,35 @@ Each account also has a default payment method associated with it. When the acco
 _Note: Arthera SMP currently supports only **Stripe** as the payment gateway, but more gateways will be added soon: Adyen, Braintree, PayPal, 2Checkout, etc._
 
 #### 4.1 Configure Stripe
+
 You need to create an account with Stripe and get the Publishable key and Secret key from the Developers / API Keys section.
 
 1. Login to stripe and click the **Developers** top menu link:
 
-<img src="/img/stripe1.png"/>
+<img src="/img/stripe1.png" />
 
 2. Click the **API Keys** link:
 
-<img src="/img/stripe2.png"/>
+<img src="/img/stripe2.png" />
 
 3. Copy the **Publishable key** and the **Secret key**
 
-<img src="/img/stripe3.png"/>
+<img src="/img/stripe3.png" />
 
 4. Paste them in SMP under Payment Gateways / Stripe:
 
-<img src="/img/smp2.png"/>
+<img src="/img/smp2.png" />
 
 ### 5. The Checkout form
+
 Whenever a customer buys a product from you, they will be presented with the Arthera hosted checkout page where the SMP captures the customer's payment and billing info.
 Because the checkout page is a hosted page (served by the Arthera SMP), it needs to know where to redirect the customer after a successful payment or if the customers decides to cancel the purchase.
 For this, you must provide a **Success URL** and a **Cancel URL** on the Checkout config page:
 
-<img src="/img/smp3.png"/>
+<img src="/img/smp3.png" />
 
 Typically the **Success URL** and **Cancel URL** will be links within your website/app where you take corresponding actions.
-For example, the **Success URL** page might take the customer to a page in your website/app that thanks him for his purchase and the  **Cancel URL** to a page in your website/app where you provide more information or discounts to convince the customer to proceed with the purchase.
+For example, the **Success URL** page might take the customer to a page in your website/app that thanks him for his purchase and the **Cancel URL** to a page in your website/app where you provide more information or discounts to convince the customer to proceed with the purchase.
 
 After you provide the two URLs, a checkout link is generated with a `<PLAN_NAME>` placeholder. You need to replace this with the actual name of the plan (not the display name) you want the customer to buy.
 You might have more than one plan, so you just need to replace the `<PLAN_NAME>` placeholder for each plan you want to create a checkout link.
@@ -108,11 +119,12 @@ You might have more than one plan, so you just need to replace the `<PLAN_NAME>`
 The checkout link is typically placed on a _Buy Now_ button for a plan on your website/app and will direct the customer to the Arthera hosted checkout page to complete the payment and become a subscriber.
 
 ### 6. Get an Arthera On-Chain subscription
+
 To achieve a frictionless experience for your customers, you need an on-chain subscription for your dApp on the Arthera blockchain. We call this a Contract subscription and you can find more about them in the [Contract subscriptions](/learn/about-arthera/pricing-models#contract-subscriptions) section.
 
-Basically, as long as you dApp has an active Contract subscription to the Arthera chain, any user that transacts with your dApp contract(s) doesn't pay anything. Instead, their gas fees for transacting with the network is deducted from the Contract's subscription.
+Basically, as long as your dApp has an active Contract subscription to the Arthera chain, any whitelisted user that transacts with your dApp contract(s) doesn't pay anything. Instead, their gas fees for transacting with the network is deducted from the Contract's subscription.
 
-To make thing even more streamlined, the Arthera chain allows users to work with your DApp without even owning AA or any other cryptocurrency.
+To make things even more streamlined, the Arthera chain allows users to work with your DApp without even owning AA or any other cryptocurrency.
 The chain allows whitelisted zero-balance wallets to transact with Contracts that have an active Arthera on-chain subscription.
 
 You can manage you Contract (dApp) subscription from the On-Chain page of the SMP. You will need a Metamask wallet to do so.
@@ -122,14 +134,14 @@ The price of the subscription is charged in AA coins, so be sure to have enough 
 
 After you are subscribed to the Arthera chain, you will see the details of the subscription:
 
-<img src="/img/smp4.png"/>
+<img src="/img/smp4.png" />
 
 Click the **Set as default** button to use the new subscription as default for your dApp. Any gas fees incurred by your customers that transact with your dApp smart contract will be deducted from the **default** subscription.
 
 ### 7. Integrate Arthera SMP
+
 Congratulations! You have now configured your dApp, and you can start to sell products and plans to your customers.
 
 Remember to **activate your account on Stripe** to enable real card payments, and you are ready to go.
 
 The only step remaining is to integrate the checkout link generated in step [5. The Checkout form](/smp/guide#5-the-checkout-form) in your website/app, if you didn't do so already.
-
