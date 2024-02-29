@@ -53,7 +53,7 @@ The API paginates results based on cursors. Each member of a collection has a un
 When you want to obtain a slice of the collection, you specify the `cursor` value of the collection member and a count of how many records following the one provided you need.
 If you do not specify the `cursor`, we assume you mean either the top or the bottom of the collection. The relative anchor is determined by the value of your neighbors `count`.
 
-For example this query provides 15 consecutive block after the one with cursor "0x134b7":
+For example this query provides 15 consecutive block after the one with cursor "0x25c3":
 
 ```graphql
 query BlocksList {
