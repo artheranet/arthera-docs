@@ -35,11 +35,11 @@ export default function HomepageFeatures(): JSX.Element {
       </div>
 
       <div className={styles.feature}>
-          <h1>Arthera Explorers</h1>
+          <h1>Arthera Explorer</h1>
           <p>Use it to explore the Arthera blockchain: blocks, transactions, tokens, addresses, smart contracts and more.</p>
           <ul>
-          <li><Link href="https://explorer-test.arthera.net">Block explorer</Link></li>
-            <li><Link href="https://explorer-test-api.arthera.net">Arthera Explorer API</Link></li>
+          <li><Link href="https://explorer.arthera.net">Block explorer</Link></li>
+            <li><Link href="https://explorer.arthera.net/api-docs">Arthera Explorer API</Link></li>
           </ul>
       </div>
 
