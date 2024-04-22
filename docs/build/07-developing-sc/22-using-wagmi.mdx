@@ -1,0 +1,76 @@
+---
+title: "Using Wagmi"
+description: Learn how to configure Wagmi for Arthera
+---
+
+[**Wagmi**](https://wagmi.sh/) is a popular React Hooks library for Ethereum.
+To work with a local Arthera node or with the Arthera TestNet, Wagmi needs to know how to connect to the respective network.
+
+## Arthera Testnet
+
+Add the following snippet in a `artheraTestnet.ts` file to import it in your Wagmi configuration of custom chains.
+
+```js
+import { Chain } from "@rainbow-me/rainbowkit";
+
+export const artheraTestnet: Chain = {
+  id: 10243,
+  name: "artheraTestnet",
+  iconUrl: "/arthera.svg",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Arthera",
+    symbol: "AA",
+  },
+  rpcUrls: {
+    public: { http: ["https://rpc-test.arthera.net"] },
+    default: { http: ["https://rpc-test.arthera.net"] },
+  },
+  blockExplorers: {
+    etherscan: { name: "Arthera Testnet Scan", url: "https://explorer-test.arthera.net" },
+    default: { name: "Arthera Testnet Scan", url: "https://explorer-test.arthera.net" },
+  },
+  testnet: true,
+};
+```
+
+## Arthera Mainnet
+
+Add the following snippet in a `arthera.ts` file to import it in your Wagmi configuration of custom chains.
+
+```js
+import { Chain } from "@rainbow-me/rainbowkit";
+
+export const arthera: Chain = {
+  id: 10242,
+  name: "arthera",
+  iconUrl: "/arthera.svg",
+  nativeCurrency: {
+    decimals: 18,
+    name: "AA",
+    symbol: "AA",
+  },
+  rpcUrls: {
+    public: { http: ["https://rpc.arthera.net"] },
+    default: { http: ["https://rpc.arthera.net"] },
+  },
+  blockExplorers: {
+    etherscan: { name: "Arthera Mainnet Scan", url: "https://explorer.arthera.net/" },
+    default: { name: "Arthera Mainnet Scan", url: "https://explorer.arthera.net/" },
+  },
+};
+```
+
+## A Wagmi configuration
+
+You can view a more complete example of Wagmi [config](https://github.com/jk-labs-inc/jokerace/blob/staging/packages/react-app-revamp/config/wagmi/index.ts).
+
+## A Wagmi tutorial
+
+You can view a more complete example of [Wagmi usage](https://wagmi.sh/react/getting-started).
+
+:::info
+
+_Latest update: [April 22, 2024](https://github.com/artheranet/arthera-docs)_
+
+:::
