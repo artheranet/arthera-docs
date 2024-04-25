@@ -136,12 +136,11 @@ Allows a third-party account to whitelist an end-user account.
 
 **Method parameters:**
 
-- `address _contract` the address of the subscribed contract
 - `address whitelister` new whitelister account address
 
 **Emits**
 
-- `event WhitelisterAdded(uint256 id, address account)`
+- `event WhitelisterAdded(uint256 id, address whitelister)`
 
 ### whitelistAccount()
 
@@ -149,8 +148,8 @@ Whitelists the provided account to consume from the contract account subscriptio
 
 **Method parameters:**
 
-- `address _contract` the address of the subscribed contract
-- `address account` whitelister address
+- `uint256 id` the id of the contract account subscription
+- `address account` the address to whitelist
 
 **Emits**
 
@@ -162,14 +161,14 @@ Blacklists the provided account to prevent consuming from the contract account s
 
 **Method parameters:**
 
-- `address _contract` the address of the subscribed contract
-- `address account` the subscription owner
+- `uint256 id` the id of the contract account subscription
+- `address account` the address to blacklist
 
 **Emits**
 
 - `event BlacklistContractAccountSubscriber(uint256 id, address account)`
 
-### isWhitelisted()
+### isWhitelistedWithSubscriber()
 
 **Returns** `bool` - if the account is whitelisted for the provided contract account
 

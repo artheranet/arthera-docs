@@ -101,10 +101,13 @@ Deploy your contract to Arthera Testnet.
 
 At this stage, you're ready to whitelist your users so they can interact with your service without paying any gas fees.
 
-In your app interface, you can whitelist users calling the `whitelistAccount` function from the subscription owner wallet:
+There are 3 different ways to do this:
+- Let your users checkout in the SMP which will whitelist them automatically after a successful checkout as explained at [Checkout](/smp/hosted-pages/checkout)
+- Whitelist your user in the SMP API as explained at [Whitelisting without checkout](/smp/manage-customers/whitelist-blacklist#whitelisting-without-checkout)
+- In your app admin interface, you can whitelist users by calling the `whitelistAccount` function from the subscription owner wallet:
 
 ```js
-await subscribers.whitelistAccount(contractAddress, userAddress);
+await subscribers.whitelistAccount(subId, userAddress);
 ```
 
 The ABI of the Subscribers contract is on [GitHub](https://github.com/bertux/arthera-abi/blob/main/abi/Subscribers.json), the address is:

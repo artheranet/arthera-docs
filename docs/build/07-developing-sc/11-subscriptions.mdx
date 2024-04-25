@@ -51,7 +51,7 @@ interface ISubscriptionOwner {
 
 After the contract gets a subscription, its users will still pay normal gas fees (Pay-as-You-Go mode) to work with the contract.
 
-The subscription owner (owner of the contract) must call the [addWhitlister()](/build/developing-sc/system-contracts/Subscribers#addwhitelister) method to allow a third party address to whitellist an end-user.
+The subscription owner (owner of the contract) must call the [addWhitlister()](/build/developing-sc/system-contracts/Subscribers#addwhitelister) method to allow a third party address to whitelist an end-user.
 
 To allow users to consume from the contract's subscription, the whitelister must whitelist the respective user accounts
 using the [whitelistAccount()](/build/developing-sc/system-contracts/Subscribers#whitelistaccount) method available in the [Subscribers](/build/developing-sc/system-contracts/Subscribers) system contract.
