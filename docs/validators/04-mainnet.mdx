@@ -1,6 +1,6 @@
 ---
 title: Register your node
-description: Network dedicated to the validator program
+description: Network node dedicated to the validator program
 ---
 
 import AddMetamaskNetwork from "../../src/components/AddMetamaskNetwork";
@@ -166,7 +166,7 @@ Replace the following variables and run the command below to start your validato
 docker pull arthera/arthera-node:1.2.1-rc.2
 docker run --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.2 \
   --port 6533 \
-  --genesis /data/mainnet.g \
+  --genesis /data/mainnet.g --genesis.allowUnknown \
   --syncmode full \
   --nodekey /data/node.key \
   --verbosity 4 \
@@ -180,7 +180,6 @@ docker run --name arthera-validator --network host -v $HOME/arthera:/data arther
 Check the output to have the following info:
 
 ```bash
-INFO [12-25|06:00:50.523] Genesis file is a known preset           name=Mainnet
 INFO [12-25|06:00:50.553] Applying genesis state
 INFO [12-25|06:00:50.553] - Reading epochs
 INFO [12-25|06:00:50.554] - Reading blocks
@@ -214,7 +213,7 @@ docker container rm arthera-validator # remove any existing containers just to b
 docker pull arthera/arthera-node:1.2.1-rc.2
 docker run -d --restart unless-stopped --name arthera-validator --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.2 \
   --port 6533 \
-  --genesis /data/mainnet.g \
+  --genesis /data/mainnet.g --genesis.allowUnknown \
   --syncmode full \
   --nodekey /data/node.key \
   --metrics \
