@@ -33,7 +33,7 @@ See the [Docker Installation Guide](https://docs.docker.com/engine/install/)
 ## 3. Pull the latest Arthera node image
 
 ```bash
-docker pull arthera/arthera-node:1.2.1-rc.2
+docker pull arthera/arthera-node:1.2.1-rc.3
 ```
 
 ## 4. Create a folder to hold your Arthera node data
@@ -47,13 +47,13 @@ mkdir $HOME/arthera
 Run the command below to generate your unique node key:
 
 ```bash
-docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.2 p2p genkey /data/node.key
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 p2p genkey /data/node.key
 ```
 
 Check to see if the key was generated successfully by running:
 
 ```bash
-docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.2 p2p enodeurl /data/node.key
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 p2p enodeurl /data/node.key
 ```
 
 You should see an output similar to the one below:
@@ -79,8 +79,8 @@ Replace the following variables and run the command below to start your node:
 - `YOUR_PUBLIC_IP` with your actual Public IP address.
 
 ```bash
-docker pull arthera/arthera-node:1.2.1-rc.2
-docker run --name arthera-rpc --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.2 \
+docker pull arthera/arthera-node:1.2.1-rc.3
+docker run --name arthera-rpc --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 \
   --port 6533 \
   --genesis /data/mainnet.g --genesis.allowUnknown \
   --syncmode full \
@@ -121,8 +121,8 @@ Replace the following variables and run the command below to start your node:
 
 ```bash
 docker container rm arthera-rpc # remove any existing containers just to be sure
-docker pull arthera/arthera-node:1.2.1-rc.2
-docker run -d --restart unless-stopped --name arthera-rpc --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.2 \
+docker pull arthera/arthera-node:1.2.1-rc.3
+docker run -d --restart unless-stopped --name arthera-rpc --network host -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 \
   --port 6533 \
   --genesis /data/mainnet.g --genesis.allowUnknown \
   --syncmode full \
@@ -137,7 +137,7 @@ Check the node was started with `docker ps`:
 
 ```
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS        PORTS     NAMES
-d6ac0f5fdf14   arthera/arthera-node:1.2.1-rc.2  "arthera-node --data…"   2 seconds ago   Up 1 second             arthera-rpc
+d6ac0f5fdf14   arthera/arthera-node:1.2.1-rc.3  "arthera-node --data…"   2 seconds ago   Up 1 second             arthera-rpc
 ```
 
 and check the logs of the container with `docker logs -f arthera-rpc`. You should see the following output:
