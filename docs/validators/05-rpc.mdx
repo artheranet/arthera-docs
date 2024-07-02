@@ -127,7 +127,7 @@ docker run -d --restart unless-stopped --name arthera-rpc --network host -v $HOM
   --genesis /data/mainnet.g --genesis.allowUnknown \
   --syncmode full \
   --nodekey /data/node.key \
-  --metrics \
+  --metrics --metrics.addr 127.0.0.1 \
   --verbosity 3 \
   --cache 4000 \
   --nat extip:YOUR_PUBLIC_IP
