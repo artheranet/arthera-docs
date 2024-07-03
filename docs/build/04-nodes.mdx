@@ -24,8 +24,8 @@ Pruning is the process of erasing older data to save disk space.
 **Pruning rules**
 
 1. Do not try to prune an archive node. Archive nodes need to maintain ALL historic data by definition.
-2. Ensure there is at least 40 GB of storage space still available on the disk that will be pruned.
-3. The node is fully synchronized in _snap sync_ mode
+2. Ensure there is at least 8 GB of storage space still available on the disk that will be pruned. The node stops when it hits this limit.
+3. The node is fully synchronized until it got out of storage.
 
 There are two types of pruning:
 
