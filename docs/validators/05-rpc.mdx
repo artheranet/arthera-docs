@@ -126,6 +126,7 @@ docker run -d --restart unless-stopped --name arthera-rpc --network host -v $HOM
   --port 6533 \
   --genesis /data/mainnet.g --genesis.allowUnknown \
   --syncmode full \
+  --gcmode full \
   --nodekey /data/node.key \
   --metrics --metrics.addr 127.0.0.1 \
   --verbosity 3 \
