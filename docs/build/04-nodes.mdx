@@ -38,3 +38,10 @@ docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 --cache 40
 2. Automatic pruning: a node can prune its data while it is running. It works in two modes:
   - `--gcmode full`: aggressive pruning (discards old VM tries). Needs extra RAM so please use in combination with the `--cache 15000` (or more) flag.
   - `--gcmode light`: less aggressive than the `full` mode and uses less RAM
+
+## Database healing
+When there is problem to open the database it's recommended to start the automatic healing with the command below:
+
+```shell
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 --cache 4000 db heal --experimental
+```
