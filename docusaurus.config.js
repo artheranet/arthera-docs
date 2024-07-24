@@ -45,6 +45,7 @@ const config = {
                     path: 'docs',
                     breadcrumbs: false,
                     sidebarPath: require.resolve('./sidebars.js'),
+                    editUrl: 'https://github.com/artheranet/arthera-docs/tree/main',
                     routeBasePath: "/",
                     showLastUpdateTime: false,
                 },
