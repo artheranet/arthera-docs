@@ -45,3 +45,10 @@ When there is problem to open the database it's recommended to start the automat
 ```shell
 docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 --cache 4000 db heal --experimental
 ```
+
+## Database export
+Before there is problem to open the database it's recommended to start from a stopped node the export with the command below where 6783 is the last epoch you want to export so adapt this number or remove the 2 last numbers:
+
+```shell
+docker run -it -v $HOME/arthera:/data arthera/arthera-node:1.2.1-rc.3 --cache 4000 export genesis /data/epoch6783.g 1 6783
+```
