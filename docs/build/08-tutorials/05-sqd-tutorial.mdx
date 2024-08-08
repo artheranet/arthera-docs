@@ -66,7 +66,7 @@ Made minor changes to the official EVM template to get real-time data about Arth
 2. Change `.setGateway` to https://v2.archive.subsquid.io/network/arthera-mainnet
 3. Provide an RPC endpoint to get real-time data and store it in `arthera-squid/.env`. E.g. `RPC_ETH_HTTP`= https://rpc.arthera.net
 4. Adjust `.setFields` to include `to: true`
-5. Add 2x `.addTransaction` - 1x specifying `to`, 1x specifying `from`. In both cases we want to use our constant `ARTHERA_MINT_ADDRESS`
+5. Adjust `.addTransaction` to use our constant `ARTHERA_MINT_ADDRESS`
 
 Optional changes:
 
