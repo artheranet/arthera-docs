@@ -4,7 +4,7 @@ This is a 5-10 minutes quickstart on how to build an indexer using Squid SDK.
 
 ### What You Will Learn:
 
-- How to fetch all transactions to and from the [burn address](https://explorer.arthera.net/address/0x0000000000000000000000000000000000000000?tab=txs)
+- How to fetch all transactions to and from the [mint address](https://explorer.arthera.net/address/0x0000000000000000000000000000000000000000?tab=txs)
 - Decode it
 - Save it to a local Postgres database
 - Start a GraphQL server with a rich API to query the transactions
@@ -47,7 +47,7 @@ src/
 ├── processor.ts
 └── model
     ├── generated
-    │   ├── burn.model.ts
+    │   ├── mint.model.ts
     │   ├── index.ts
     │   └── marshal.ts
     └── index.ts
@@ -62,11 +62,11 @@ src/
 
 Made minor changes to the official EVM template to get real-time data about Arthera transactions from the zero address:
 
-1. Declare a variable for the burner address `const ARTHERA_MINT_ADDRESS = '0x0000000000000000000000000000000000000000'`
+1. Declare a variable for the mint address `const ARTHERA_MINT_ADDRESS = '0x0000000000000000000000000000000000000000'`
 2. Change `.setGateway` to https://v2.archive.subsquid.io/network/arthera-mainnet
 3. Provide an RPC endpoint to get real-time data and store it in `arthera-squid/.env`. E.g. `RPC_ETH_HTTP`= https://rpc.arthera.net
 4. Adjust `.setFields` to include `to: true`
-5. Add 2x `.addTransaction` - 1x specifying `to`, 1x specifying `from`. In both cases we want to use our constant `ARTHERA_BURN_ADDRESS`
+5. Add 2x `.addTransaction` - 1x specifying `to`, 1x specifying `from`. In both cases we want to use our constant `ARTHERA_MINT_ADDRESS`
 
 Optional changes:
 
@@ -75,26 +75,25 @@ Optional changes:
 - `setBlockRange` (limits the range of blocks to be processed)
 
 ```ts!
-const ARTHERA_BURN_ADDRESS = '0x0000000000000000000000000000000000000000'
+const ARTHERA_MINT_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export const processor = new EvmBatchProcessor()
-    // Lookup archive by the network name in SQD registry
+    // Lookup archive by the network name in Subsquid registry
     // See https://docs.subsquid.io/evm-indexing/supported-networks/
     .setGateway('https://v2.archive.subsquid.io/network/arthera-mainnet')
     // Chain RPC endpoint is required for
     //  - indexing unfinalized blocks https://docs.subsquid.io/basics/unfinalized-blocks/
     //  - querying the contract state https://docs.subsquid.io/evm-indexing/query-state/
     .setRpcEndpoint({
-        // Set the URL via .env for local runs or via secrets when deploying to SQD Cloud
+        // Set the URL via .env for local runs or via secrets when deploying to Subsquid Cloud
         // https://docs.subsquid.io/deploy-squid/env-variables/
-        url: assertNotNull(process.env.RPC_HTTP, 'No RPC endpoint supplied'),
+        url: assertNotNull(process.env.RPC_ETH_HTTP, 'No RPC endpoint supplied'),
         // More RPC connection options at https://docs.subsquid.io/evm-indexing/configuration/initialization/#set-data-source
         rateLimit: 10
     })
-    .setFinalityConfirmation(10)
+    .setFinalityConfirmation(75)
     .setFields({
         transaction: {
-            from: true,
             to: true,
             value: true,
             hash: true,
@@ -104,26 +103,23 @@ export const processor = new EvmBatchProcessor()
         from: 0,
     })
     .addTransaction({
-        to: [ARTHERA_BURN_ADDRESS]
-      })
-    .addTransaction({
-        from: [ARTHERA_BURN_ADDRESS],
-      })
+        from: [ARTHERA_MINT_ADDRESS],
+    })
 ```
 
 The `main.ts` file is about data processing and storage (no changes needed here):
 
 ```ts!
 processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
-    const burns: Burn[] = []
+    const mints: Mint[] = []
     for (let c of ctx.blocks) {
         for (let tx of c.transactions) {
             // decode and normalize the tx data
-            burns.push(
-                new Burn({
+            mints.push(
+                new Mint({
                     id: tx.id,
                     block: c.header.height,
-                    address: tx.from,
+                    address: tx.to,
                     value: tx.value,
                     txHash: tx.hash,
                 })
@@ -131,13 +127,13 @@ processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
         }
     }
     // apply vectorized transformations and aggregations
-    const burned = burns.reduce((acc, b) => acc + b.value, 0n) / 1_000_000_000n
+    const minted = mints.length
     const startBlock = ctx.blocks.at(0)?.header.height
     const endBlock = ctx.blocks.at(-1)?.header.height
-    ctx.log.info(`Burned ${burned} Gwei from ${startBlock} to ${endBlock}`)
+    ctx.log.info(`Minted a total of ${minted} from ${startBlock} to ${endBlock}`)
 
     // upsert batches of entities with batch-optimized ctx.store.save
-    await ctx.store.upsert(burns)
+    await ctx.store.upsert(mints)
 })
 ```
 
@@ -186,7 +182,7 @@ The indexer is now running.
 
 ## Step 8 - Launch the GraphQL Playground
 
-Start the GraphQL API serving the burn transaction data from Postgres:
+Start the GraphQL API serving the mint transaction data from Postgres:
 
 ```bash
 npx squid-graphql-server
