@@ -4,7 +4,7 @@ This is a 5-10 minutes quickstart on how to build an indexer using Squid SDK.
 
 ### What You Will Learn:
 
-- How to fetch all transactions to and from the [mint address](https://explorer.arthera.net/address/0x0000000000000000000000000000000000000000?tab=txs)
+- How to fetch all transactions from the [mint address](https://explorer.arthera.net/address/0x0000000000000000000000000000000000000000?tab=txs)
 - Decode it
 - Save it to a local Postgres database
 - Start a GraphQL server with a rich API to query the transactions
@@ -131,7 +131,6 @@ processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
     const startBlock = ctx.blocks.at(0)?.header.height
     const endBlock = ctx.blocks.at(-1)?.header.height
     ctx.log.info(`Minted a total of ${minted} from ${startBlock} to ${endBlock}`)
-
     // upsert batches of entities with batch-optimized ctx.store.save
     await ctx.store.upsert(mints)
 })
@@ -182,7 +181,7 @@ The indexer is now running.
 
 ## Step 8 - Launch the GraphQL Playground
 
-Start the GraphQL API serving the mint transaction data from Postgres:
+Start the GraphQL API serving the burn transaction data from Postgres:
 
 ```bash
 npx squid-graphql-server
