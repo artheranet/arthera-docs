@@ -107,7 +107,7 @@ export const processor = new EvmBatchProcessor()
     })
 ```
 
-The `main.ts` file is about data processing and storage (no changes needed here):
+The `main.ts` file is about data processing and storage (changed `tx.from` by `tx.to`):
 
 ```ts!
 processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
