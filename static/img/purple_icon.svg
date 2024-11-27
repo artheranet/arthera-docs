@@ -1,0 +1,41 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4182_2)">
+<rect width="1000" height="1000" rx="500" fill="url(#paint0_linear_4182_2)"/>
+<g opacity="0.5" filter="url(#filter0_f_4182_2)">
+<circle cx="697.5" cy="577.5" r="477.5" fill="#E20000"/>
+</g>
+<g opacity="0.5" filter="url(#filter1_f_4182_2)">
+<circle cx="-91.5" cy="104.5" r="692.5" fill="#E20000"/>
+</g>
+<g opacity="0.5" filter="url(#filter2_f_4182_2)">
+<circle cx="10.5" cy="1099.5" r="483.5" fill="#E20000"/>
+</g>
+<path d="M760.25 406.382V697.259H662.208V406.382C662.208 362.959 626.878 327.6 583.427 327.6V229.558C680.918 229.558 760.25 308.862 760.25 406.382Z" fill="white"/>
+<path d="M417.335 428.514V526.556C373.883 526.556 338.553 561.886 338.553 605.337V697.259H240.511V605.337C240.511 507.818 319.844 428.514 417.335 428.514Z" fill="white"/>
+<path d="M549.401 327.252H451.359V697.259H549.401V327.252Z" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_f_4182_2" x="-680" y="-800" width="2755" height="2755" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="450" result="effect1_foregroundBlur_4182_2"/>
+</filter>
+<filter id="filter1_f_4182_2" x="-1684" y="-1488" width="3185" height="3185" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="450" result="effect1_foregroundBlur_4182_2"/>
+</filter>
+<filter id="filter2_f_4182_2" x="-1373" y="-284" width="2767" height="2767" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="450" result="effect1_foregroundBlur_4182_2"/>
+</filter>
+<linearGradient id="paint0_linear_4182_2" x1="0" y1="0" x2="1122.5" y2="1124.17" gradientUnits="userSpaceOnUse">
+<stop offset="0.0927464" stop-color="#8E15F8"/>
+<stop offset="0.921013"/>
+</linearGradient>
+<clipPath id="clip0_4182_2">
+<rect width="1000" height="1000" rx="500" fill="white"/>
+</clipPath>
+</defs>
+</svg>
