@@ -3,14 +3,20 @@ title: "Wrapped AA"
 description: AA tokens wrapped in ERC20 tokens
 ---
 
-Several DeFi projects need a wrapped AA to operate, this is the official Wrapped AA token info :
+This is the official Wrapped AA token info :
 
 - Token contract address on Arthera Testnet: **[0x5A1750f9cb8A7E98e1FD618922Af276493318710](https://explorer-test.arthera.net/token/0x5A1750f9cb8A7E98e1FD618922Af276493318710?tab=contract)**
 - Token contract address on Arthera Mainnet: **[0x69D349E2009Af35206EFc3937BaD6817424729F7](https://explorer.arthera.net/address/0x69D349E2009Af35206EFc3937BaD6817424729F7?tab=contract)**
 - Token symbol: **WAA**
 - Token decimal: **18**
 
-You can view the Wrapped AA token [contract source code and ABI on the explorer](https://explorer.arthera.net/address/0x69D349E2009Af35206EFc3937BaD6817424729F7?tab=contract).
+For decentralized finance (DeFi) projects that necessitate a wrapped AA token, Arthera provides an official Wrapped AA (WAA) token. The WAA contract is a standard implementation of the WETH smart contract and has undergone multiple audits to ensure its security and reliability. You can view the Wrapped AA token [contract source code and ABI on the Arthera explorer](https://explorer.arthera.net/address/0x69D349E2009Af35206EFc3937BaD6817424729F7?tab=contract).
+
+The WETH contract, which serves as the basis for WAA, has been extensively analyzed and formally verified to prove critical safety guarantees and invariants within the contract. This formal verification process enhances confidence in the contract's correctness and security. [Source](https://www.zellic.io/blog/formal-verification-weth/)
+
+Arthera, being fully compatible with the Ethereum Virtual Machine (EVM), offers a native precompiled contract that allows interaction with its native AA coin through an ERC-20 interface. This design eliminates the need for a wrapped token equivalent to Ethereum's Wrapped Ether (WETH). The precompiled contract ensures seamless integration with decentralized applications (DApps) without requiring a separate smart contract for token wrapping. This approach also prevents the proliferation of multiple wrapped representations of the same protocol token. [Source](https://docs.arthera.net/build/developing-sc/system-contracts/NativeToken/)
+
+By leveraging these robust and audited contracts, Arthera ensures that interactions with its native token are secure, efficient, and compatible with existing DeFi protocols.
 
 :::info
 
